@@ -1,0 +1,52 @@
+<HTML>
+	<HEAD>
+		<TITLE><%=sPageTitle%></TITLE>
+		<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+		<META http-equiv=Pragma content=no-cache>
+		<LINK href="./lib/common.css" type=text/css rel=stylesheet>
+	</HEAD>
+	<BODY class=bg_body_setup leftMargin=0 topMargin=0 rightMargin=0 marginwidth="0" marginheight="0">
+		<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+			<TBODY>
+				<TR class=bg_title>
+					<TD><IMG src="" width=5 border=0></TD>
+					<TD class=title1><%=sPageTitle%></TD>
+					<TD class=client_name vAlign=bottom align=right><%=sUserName%></TD>
+					<TD><IMG src="" width=5 border=0></TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+			<TBODY>
+				<TR>
+					<TD class=line1><IMG height=1 src="" width="100%" border=0></TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+			<TBODY>
+				<TR>
+					<TD class=title2 width=*><%=sSectionTitle%></TD>
+					<%
+						for (int i = 0; i < cntSection; i++)
+						{
+							if (idTask == aTasks[i].id)
+							{
+								%>
+								<TD class=menu_selected width=60><%=aTasks[i].sName%></TD>
+								<TD class=menu width=1>|</TD>
+								<%
+							}
+							else
+							{
+								%>
+								<TD class=menu width=60><A href="<%=aTasks[i].sUrl%>"><%=aTasks[i].sName%></A></TD>
+								<TD class=menu width=1>|</TD>
+								<%
+							}
+						}
+					%>
+				</TR>
+			</TBODY>
+		</TABLE>
+

@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>aspmvc</name>
+    </assembly>
+    <members>
+        <member name="T:aspmvc.ListView">
+            <summary>
+            Summary description for ListView.
+            </summary>
+        </member>
+        <member name="T:aspmvc.BasePage">
+            <summary>
+            Summary description for BasePage.
+            </summary>
+        </member>
+        <member name="F:aspmvc.BasePage.eMail">
+            <summary>
+            Summary description for eMail.
+            </summary>
+        </member>
+        <member name="F:aspmvc.BasePage.siteName">
+            <summary>
+            Summary description for siteName.
+            </summary>
+        </member>
+        <member name="F:aspmvc.BasePage.m_oDBLib">
+            <summary>
+            Summary description for m_oDBLib.
+            </summary>
+        </member>
+        <member name="F:aspmvc.BasePage.sPageTitle">
+            <summary>
+            Summary description for sPageTitle.
+            </summary>
+        </member>
+        <member name="F:aspmvc.BasePage.sView">
+            <summary>
+            Summary description for sView.
+            </summary>
+        </member>
+        <member name="M:aspmvc.BasePage.PageLoadEvent(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for PageLoadEvent.
+            </summary>
+        </member>
+        <member name="M:aspmvc.BasePage.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Page_Load.
+            </summary>
+        </member>
+        <member name="M:aspmvc.BasePage.OnInit(System.EventArgs)">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="M:aspmvc.BasePage.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:aspmvc.ListView.DataGrid1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:aspmvc.ListView.PageLoadEvent(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for PageLoadEvent.
+            </summary>
+        </member>
+        <member name="M:aspmvc.ListView.OnInit(System.EventArgs)">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="M:aspmvc.ListView.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:aspmvc.Error">
+            <summary>
+            Summary description for Error.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Error.ErrorMsg">
+            <summary>
+            Summary description for ErrorMsg.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Error.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Page_Load.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Error.OnInit(System.EventArgs)">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Error.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:aspmvc.Log">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:aspmvc.Log.m_bKeepOpen">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Log.m_bDebug">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Log.m_sLogFileName">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Log.m_FileStream">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Log.m_StreamWriter">
+            <summary>
+            Summary description for m_StreamWriter.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Log.#ctor(System.String,System.Boolean)">
+            <summary>
+            Summary description for Log.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Log.Add(System.String)">
+            <summary>
+            Summary description for Add.
+            </summary>
+        </member>
+        <member name="T:aspmvc.Global">
+            <summary>
+            Summary description for Global.
+            </summary>
+        </member>
+        <member name="F:aspmvc.Global.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.#ctor">
+            <summary>
+            Summary description for Global.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_Start(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_Start.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Session_Start(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Session_Start.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_BeginRequest(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_BeginRequest.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_EndRequest(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_EndRequest.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_AuthenticateRequest(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_AuthenticateRequest.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_Error(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_Error.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Session_End(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Session_End.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.Application_End(System.Object,System.EventArgs)">
+            <summary>
+            Summary description for Application_End.
+            </summary>
+        </member>
+        <member name="M:aspmvc.Global.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:aspmvc.CIndex">
+            <summary>
+            Summary description for CIndex.
+            </summary>
+        </member>
+        <member name="M:aspmvc.CIndex.OnInit(System.EventArgs)">
+            <summary>
+            Summary description for OnInit.
+            </summary>
+        </member>
+    </members>
+</doc>

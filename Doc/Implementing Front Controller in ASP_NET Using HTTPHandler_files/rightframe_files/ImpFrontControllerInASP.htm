@@ -1,0 +1,1251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0094)http://msdn.microsoft.com/library/en-us/dnpatterns/html/ImpFrontControllerInASP.asp?frame=true -->
+<!--TOOLBAR_EXEMPT--><HTML xmlns:tool = 
+"http://www.microsoft.com/tooltip"><HEAD><TITLE>Implementing Front Controller in ASP.NET Using HTTPHandler (Microsoft Patterns)</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META 
+content="Learn an implementation strategy for the following scenario: You are building a Web application in ASP.NET. You have evaluated the alternative designs described in Page Controller and Front Controller and have determined that there is sufficient complexity in your application to warrant implementing Front Controller." 
+name=Description>
+<META content="" name=Robots>
+<META content="" name=Keywords>
+<META content=en-us name=MS.LOCALE><LINK 
+href="ImpFrontControllerInASP_files/ie4.css" type=text/css rel=stylesheet><LINK 
+href="ImpFrontControllerInASP_files/ie5.css" type=text/css rel=stylesheet>
+<STYLE>BODY {
+	MARGIN: 0px; FONT-FAMILY: verdana,arial,helvetica
+}
+</STYLE>
+
+<SCRIPT language=javascript 
+src="ImpFrontControllerInASP_files/toolbar.js"></SCRIPT>
+
+<SCRIPT language=javascript 
+src="ImpFrontControllerInASP_files/Broker.js"></SCRIPT>
+<LINK href="ImpFrontControllerInASP_files/default.css" type=text/css 
+rel=stylesheet><LINK href="ImpFrontControllerInASP_files/ie.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=JavaScript><!--
+   function BrowserData()
+{
+		this.userAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 1.0.3705)";
+
+		this.bot = false;
+
+		this.browser = "MSIE";
+
+		this.majorVer = 6;
+
+		this.minorVer = "0";
+
+		this.betaVer = "0";
+
+		this.platform = "NT";
+
+		this.platVer = "5.1; SV1; .NET CLR 1.1.4322; .NET CLR 1.0.3705";
+
+		this.getsNavBar = true;
+
+		this.doesActiveX = true;
+
+		this.doesPersistence = true;
+
+		this.fullVer = 6;
+
+   }
+
+   var oBD = new BrowserData();
+
+   //--></SCRIPT>
+
+<SCRIPT>
+	if( self == top )
+{
+	location = "/library/en-us/dnpatterns/html/ImpFrontControllerInASP.asp";
+}
+
+</SCRIPT>
+<xml id=xmlPageContext><eyebrow findmenu="false">
+	<item label="MSDN Home" url="/default.asp"/>
+	<item label="MSDN Library" url="/library/default.asp"/>
+	<item label="Servers and Enterprise Development" url="/library/en-us/dnanchor/html/anch_ServEntDev.asp" id="msdnlib866" xmlsrc="/library/en-us/toc/msdnlib/msdnlib866_.xml"/><item label="Enterprise Architecture, Patterns, and Practices" url="/library/en-us/dnanchor/html/anch_entdev.asp" id="msdnlib867" xmlsrc="/library/en-us/toc/msdnlib/msdnlib867_.xml"/><item label="Microsoft patterns &amp; practices" url="/library/en-us/dnpatterns/html/MSpatterns.asp" id="msdnlib876"/><item label="Patterns" id="dnpatterns87" xmlsrc="/library/en-us/toc/dnpatterns/dnpatterns87_.xml"/><item label="Enterprise Solution Patterns Using Microsoft .NET" url="/library/en-us/dnpatterns/html/Esp.asp" id="dnpatterns89"/><item label="Web Presentation Patterns" url="/library/en-us/dnpatterns/html/EspWebPresentationPatterns.asp" id="dnpatterns93" xmlsrc="/library/en-us/toc/dnpatterns/dnpatterns93_.xml"/><item label="Implementing Front Controller in ASP.NET Using HTTPHandler" url="/library/en-us/dnpatterns/html/ImpFrontControllerInASP.asp" id="dnpatterns99"/></eyebrow></xml>
+<SCRIPT>
+var sContentID = "_1034702"; 
+ </SCRIPT>
+<!--VENUS_START-->
+<META content="Abstract:using Office VBA" name=MSHAttr>
+<META content=TopicType:kbArticle name=MSHAttr>
+<META content=Technology:kbNetFramewk name=MSHAttr>
+<META content=TechnologyVers:kbWeb name=MSHAttr>
+<META content=TechnologyVers:kbNetFramewk name=MSHAttr>
+<META content=TargetOS:Windows name=MSHAttr>
+<META content=TargetOSVers:kbWinOS name=MSHAttr>
+<META content=TargetCPU:kbx86 name=MSHAttr>
+<META content=Product:kbwindows name=MSHAttr>
+<META content=ProductVers:kbwindows name=MSHAttr>
+<META content="Implementing Front Controller in ASP.NET Using HTTPHandler" 
+name=MSHTOCTitle>
+<META content="Implementing Front Controller in ASP.NET Using HTTPHandler" 
+name=MSHRLTitle>
+<META content=impfrontcontrollerinasp name=MSHKeywordA><!---VENUS_END---><LINK 
+href="ImpFrontControllerInASP_files/css.css" type=text/css rel=stylesheet>
+<SCRIPT language=javascript>
+var doImage=doImage;var TType=TType;
+function mhHover(tbl,idx,cls){var t,d;if(document.getElementById)t=document.getElementById(tbl);else t=document.all(tbl);if(t==null)return;if(t.getElementsByTagName)d=t.getElementsByTagName("TD");else d=t.all.tags("TD");if(d==null)return;if(d.length<=idx)return;d[idx].className=cls;}
+function footerjs(doc){if(doImage==null){var tt=TType==null?"PV":TType;doc.write('<layer visibility="hide"><div style="display:none"><img src="http://c.microsoft.com/trans_pixel.asp?source=msdn&TYPE=' + tt + '&p=library_en-us_dnpatterns_html&URI=%2flibrary%2ftoolbar%2f3.0%2fasp.aspx%3fmode%3dhead%26c%3d%2fnonlibraryshell.config%26h%3dmsdn%252Emicrosoft%252Ecom%26u%3d%252Flibrary%252Fen%252Dus%252Fdnpatterns%252Fhtml%252FImpFrontControllerInASP%252Easp%26r%3d&GUID=1F4FC18C-F71E-47FB-8FC9-612F8EE59C61" width=0 height=0 hspace=0 vspace=0 border=0 /></div></layer>');}}
+</SCRIPT>
+
+<META content="MSHTML 6.00.2900.2722" name=GENERATOR></HEAD>
+<BODY text=#000000 bgColor=#ffffff leftMargin=0 topMargin=0 MARGINWIDTH="0" 
+MARGINHEIGHT="0">
+<TABLE height=24 cellSpacing=0 cellPadding=4 width="100%" bgColor=#ffffff 
+border=0>
+  <TBODY>
+  <TR>
+    <TD class=eyebrow vAlign=center align=left width="100%">&nbsp;&nbsp; <A 
+      class=small href="http://msdn.microsoft.com/default.asp" target=_top>MSDN 
+      Home</A>&nbsp;&gt;&nbsp; <A class=small 
+      href="http://msdn.microsoft.com/library/default.asp" target=_top>MSDN 
+      Library</A>&nbsp;&gt;&nbsp; <A class=small 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnanchor/html/anch_ServEntDev.asp" 
+      target=_top>Servers and Enterprise Development</A>&nbsp;&gt;&nbsp; <A 
+      class=small 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnanchor/html/anch_entdev.asp" 
+      target=_top>Enterprise Architecture, Patterns, and 
+      Practices</A>&nbsp;&gt;&nbsp; <A class=small 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnpatterns/html/MSpatterns.asp" 
+      target=_top>Microsoft patterns &amp; practices</A>&nbsp;&gt;&nbsp; <A 
+      class=small 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnpatterns/html/Esp.asp" 
+      target=_top>Enterprise Solution Patterns Using Microsoft 
+      .NET</A>&nbsp;&gt;&nbsp; <A class=small 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnpatterns/html/EspWebPresentationPatterns.asp" 
+      target=_top>Web Presentation Patterns</A><A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/"></A> 
+  </TD></TR></TBODY></TABLE>
+<TABLE class=clsContainer style="TABLE-LAYOUT: fixed" cellSpacing=0 
+cellPadding=15 width="100%" border=0 float="left">
+  <TBODY>
+  <TR>
+    <TD vAlign=top>
+      <TABLE class=clsPartContainer id=topTable 
+      style="FLOAT: right; MARGIN-LEFT: 8px; MARGIN-RIGHT: 6px" cellSpacing=0 
+      cellPadding=0 width=145 border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top><!-- Page Options web part Start -->
+            <TABLE class=clsPart id=BF309568-1CD4-4c9c-A46E-BB1CA97E0C97 
+            cellSpacing=0 cellPadding=0 width=145 border=0>
+              <TBODY>
+              <TR>
+                <TD class=clsPartHead vAlign=center align=left width=15 
+                height=19><IMG class=clsPartHead height=19 
+                  src="ImpFrontControllerInASP_files/gripblue.gif" width=15 
+                  align=absMiddle> </TD>
+                <TD class=clsPartHead vAlign=center align=middle width=115><B 
+                  class=clsPartHead>Page Options</B> </TD>
+                <TD class=clsPartRight vAlign=center align=right width=25 
+                height=19><IMG class=clsMinimize height=19 
+                  src="ImpFrontControllerInASP_files/downlevel.gif" width=25 
+                  align=absMiddle> </TD></TR>
+              <TR>
+                <TD colSpan=3>
+                  <TABLE id=Table1 cellSpacing=0 cellPadding=0 width="100%" 
+                  bgColor=#ffffff border=0>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign=top width=1 bgColor=#6699cc>
+                        <DIV 
+                        style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 1px; PADDING-TOP: 0px"></DIV></TD>
+                      <TD vAlign=top width=145 bgColor=#f1f1f1><IFRAME 
+                        id=frmRatingsOptions 
+                        src="ImpFrontControllerInASP_files/ratings.htm" 
+                        frameBorder=0 width="100%" scrolling=no 
+                        height=130></IFRAME></TD>
+                      <TD vAlign=top width=1 bgColor=#6699cc>
+                        <DIV 
+                        style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 1px; PADDING-TOP: 0px"></DIV></TD></TR>
+                    <TR>
+                      <TD vAlign=top bgColor=#6699cc colSpan=3 height=1>
+                        <DIV 
+                        style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 1px; PADDING-TOP: 0px"></DIV></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- Page Options web part end -->
+            <DIV class=storeUserData id=oLayout></DIV></TD></TR></TBODY></TABLE><!--TOOLBAR_START--><!--TOOLBAR_EXEMPT--><!--TOOLBAR_END--><!-- Begin Content -->
+      <H1 class=dtH1>Implementing Front Controller in ASP.NET Using 
+      HTTPHandler</H1>
+      <P>
+      <TABLE cellSpacing=0 cellPadding=0 bgColor=#eeeeee>
+        <TBODY>
+        <TR>
+          <TD><IMG height=26 alt=? 
+            src="ImpFrontControllerInASP_files/MapNav_TL.gif" width=26 
+          border=0></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 alt="Data Column: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_toptab_D1.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Application Column: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_toptab_A1-up.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Deployment Column: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_toptab_D1.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Infrastructure Column: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_toptab_I1.gif" width=45 
+            border=0></A></TD></TR>
+        <TR>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Architecture Row: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_sidetab_A.gif" width=26 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Data Architecture: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_1.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Application Architecture: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_2.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Deployment Architecture: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_3.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Infrastructure Architecture: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_4.gif" width=45 
+            border=0></A></TD></TR>
+        <TR>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/designpatoverview.aspx"><IMG 
+            height=26 alt="Design Row: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_sidetab_D.gif" width=26 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 alt="Data Design: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_5.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Application Design: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_6.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Deployment Design: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_7.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Infrastructure Design: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_8.gif" width=45 
+            border=0></A></TD></TR>
+        <TR>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/implpatoverview.aspx"><IMG 
+            height=26 alt="Implementation Row" 
+            src="ImpFrontControllerInASP_files/MapNav_sidetab_I-up.gif" width=26 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Data Implementation: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_9.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Application Implementation: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_10-up.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Deployment Implementation: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_11.gif" width=37 
+            border=0></A></TD>
+          <TD><A 
+            href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/MSpatterns.asp"><IMG 
+            height=26 
+            alt="Infrastructure Implementation: select for more on pattern organization" 
+            src="ImpFrontControllerInASP_files/MapNav_12.gif" width=45 
+            border=0></A></TD></TR>
+        <TR>
+          <TD><IMG height=27 alt=? 
+            src="ImpFrontControllerInASP_files/MapNav_BL.gif" width=26 
+          border=0></TD>
+          <TD><A href="http://msdn.microsoft.com/practices"><IMG height=27 
+            alt="Complete List of patterns &amp; practices" 
+            src="ImpFrontControllerInASP_files/MapNav_logo1.gif" width=37 
+            border=0></A></TD>
+          <TD><A href="http://msdn.microsoft.com/practices"><IMG height=27 
+            alt="Complete List of patterns &amp; practices" 
+            src="ImpFrontControllerInASP_files/MapNav_logo2.gif" width=37 
+            border=0></A></TD>
+          <TD><A href="http://msdn.microsoft.com/practices"><IMG height=27 
+            alt="Complete List of patterns &amp; practices" 
+            src="ImpFrontControllerInASP_files/MapNav_logo3.gif" width=37 
+            border=0></A></TD>
+          <TD><A href="http://msdn.microsoft.com/practices"><IMG height=27 
+            alt="Complete List of patterns &amp; practices" 
+            src="ImpFrontControllerInASP_files/MapNav_logo4.gif" width=45 
+            border=0></A></TD></TR></TBODY></TABLE></P>
+      <P>Version 1.0.1</P>
+      <P><A 
+      href="http://www.gotdotnet.com/Community/Workspaces/Workspace.aspx?id=976c4155-24c3-4973-ba39-0b972639d92d"><FONT 
+      color=gray>GotDotNet community for collaboration on this 
+      pattern</FONT></A></P>
+      <P><A href="http://msdn.microsoft.com/practices/"><FONT 
+      color=gray>Complete List of patterns &amp; practices</FONT></A></P>
+      <P></P>
+      <H2 class=dtH1>
+      <P>Context</P></H2>
+      <P>You are building a Web application in ASP.NET. You have evaluated the 
+      alternative designs described in <A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/DesPageController.asp"><I>Page 
+      Controller</I></A> and <A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/DesFrontController.asp"><I>Front 
+      Controller</I></A> and have determined that there is sufficient complexity 
+      in your application to warrant implementing <I>Front Controller</I>. </P>
+      <H2 class=dtH1>
+      <P>Background</P></H2>
+      <P>An example is helpful to explain how to implement <I>Front 
+      Controller</I> in ASP.NET and the value provided by centralizing all 
+      control through a single controller object, as long as the example is 
+      complex enough to demonstrate the issues you will encounter when 
+      implementing the pattern. </P>
+      <BLOCKQUOTE class=dtBlock>
+        <P>
+        <P><B>Note:</B> Because <I>Page Controller</I> is built into ASP.NET, 
+        the additional effort required to implement <I>Front Controller 
+        </I>rather than <I>Page Controller</I> is very large. In fact, you must 
+        build the whole framework for <I>Front Controller</I>. You should do so 
+        only if your application warrants that amount of complexity. Otherwise, 
+        review <I>Page Controller</I> to determine whether it is sufficient. 
+</P>
+        <P></P></BLOCKQUOTE>
+      <P>
+      <P>The following example builds on the solution described in <A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/ImpPageController.asp"><I>Implementing 
+      Page Controller in ASP.NET</I></A>. That solution describes two different 
+      pages. The pages inherit from a common base class, which is responsible 
+      for adding the site header to each page. The implementation is a common 
+      choice for <I>Page Controller</I> when you want to share behavior between 
+      pages. The following is the <B>BasePage</B> class from the <I>Page 
+      Controller</I> example:</P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public class BasePage : Page
+{
+   protected Label eMail;
+   protected Label siteName;
+
+   virtual protected void PageLoadEvent(object sender, System.EventArgs e)
+   {}
+   
+   protected void Page_Load(object sender, System.EventArgs e)
+   {
+      if(!IsPostBack)
+      {
+         string name = Context.User.Identity.Name;
+
+         eMail.Text = DatabaseGateway.RetrieveAddress(name);
+         siteName.Text = "Micro-site";
+
+         PageLoadEvent(sender, e);
+      }
+   }
+
+
+   #region Web Form Designer generated code
+   override protected void OnInit(EventArgs e)
+   {
+      //
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      //
+      InitializeComponent();
+      base.OnInit(e);
+   }
+      
+   /// &lt;summary&gt;
+   /// Required method for Designer support - do not modify
+   /// the contents of this method with the code editor.
+   /// &lt;/summary&gt;
+   private void InitializeComponent()
+   {    
+      this.Load += new System.EventHandler(this.Page_Load);
+
+   }
+   #endregion
+} </PRE>
+      <P></P>
+      <P>
+      <P>The <B>Page_Load</B> function is called every time the page is being 
+      loaded. It retrieves the e-mail address from the <B>DatabaseGateway</B> 
+      class (shown in <I>Implementing Page Controller in ASP.NET</I>), sets some 
+      labels with the data, and then calls <B>PageLoadEvent</B> for specialized 
+      processing of each page. </P>
+      <P>One of the criteria for choosing <I>Front Controller</I> instead of 
+      <I>Page Controller</I> is when you have excessive conditional logic in the 
+      base class. This example does not use conditional logic in the base class. 
+      Therefore, based on this criterion alone, there is no need to implement 
+      <I>Front Controller</I>. 
+      <H3 class=dtH1>
+      <P>Changing Requirements</P></H3>
+      <P></P>
+      <P>
+      <P>The previous example works very well for its intended purpose. However, 
+      it is overly simplistic and not representative of most Web applications. 
+      To better approximate the overall complexity of such applications, the 
+      requirements for this example call for different headers on the pages, 
+      depending on the URL and query parameters. </P>
+      <P></P>
+      <P>
+      <P>This example creates two sites: a Micro-site and a Macro-site. Each 
+      site consults a different database to retrieve the e-mail address 
+      contained in the header. The pages themselves remain unchanged; only the 
+      header content is different. In this example, most of the implementation 
+      is the same as the previous example. The only class that must be modified 
+      is <B>BasePage</B>. </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public class BasePage : Page
+{
+   protected Label eMail;
+   protected Label siteName;
+
+   virtual protected void PageLoadEvent(object sender, System.EventArgs e)
+   {}
+   
+   protected void Page_Load(object sender, System.EventArgs e)
+   {
+      if(!IsPostBack)
+      {
+         string site = Request["site"];
+
+         if(site != null &amp;&amp; site.Equals("macro"))
+            LoadMacroHeader();
+         else
+            LoadMicroHeader();
+
+         PageLoadEvent(sender, e);
+      }
+   }
+
+   private void LoadMicroHeader()
+   {
+      string name = Context.User.Identity.Name;
+      
+      eMail.Text = WebUsersDatabase.RetrieveAddress(name);            
+      siteName.Text = "Micro-site";
+   }
+
+
+   private void LoadMacroHeader()
+   {
+      string name = Context.User.Identity.Name;
+
+      eMail.Text = MacroUsersDatabase.RetrieveAddress(name);            
+      siteName.Text = "Macro-site";
+   }
+
+   #region Web Form Designer generated code
+   override protected void OnInit(EventArgs e)
+   {
+      //
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      //
+      InitializeComponent();
+      base.OnInit(e);
+   }
+      
+   /// &lt;summary&gt;
+   /// Required method for Designer support - do not modify
+   /// the contents of this method with the code editor.
+   /// &lt;/summary&gt;
+   private void InitializeComponent()
+   {    
+      this.Load += new System.EventHandler(this.Page_Load);
+
+   }
+   #endregion
+} </PRE>
+      <P></P>
+      <P>
+      <P>As stated previously, the Micro-site and Macro-site each use different 
+      databases to retrieve the e-mail address that is contained in the header. 
+      The two methods, <B>LoadMacroHeader</B> and <B>LoadMicroHeader</B>, use 
+      different database gateway classes, <B>WebUsersDatabase</B> and 
+      <B>MacroUsersDatabase</B>, to retrieve the address from the database. </P>
+      <P>The <B>Page_Load</B> method's responsibility has changed. In the 
+      previous example, it retrieves information from the database. In this 
+      implementation, it determines which function, <B>LoadMicroHeader</B> or 
+      <B>LoadMacroHeader</B>, to call and then calls the appropriate method. If 
+      you are going to have only two sites, this implementation is sufficient. 
+      However, the base class now contains conditional logic. It is up to you 
+      how comfortable you feel with that logic contained in this class. Clearly, 
+      most developers would flinch if they saw more than a few branches in the 
+      code, but two probably would not elicit the same response. The main reason 
+      for limiting the conditional logic is that it is more likely to change and 
+      cause you to modify the implementation. Because the entire implementation 
+      is contained in one file, the changes that you make could affect other 
+      sites. 
+      <H2 class=dtH1>
+      <P>Implementation Strategy</P></H2>
+      <P><I>Front Controller</I> is usually implemented in two parts. A 
+      <B>Handler</B> object receives the individual requests (HTTP Get and Post) 
+      from the Web server, retrieves the relevant parameters, and then selects 
+      an appropriate command, based on the parameters. The second part of the 
+      controller, <B>Command Processor</B>, performs the specific actions or 
+      commands to satisfy the request. When finished, the commands forward to 
+      the view so that the page can be displayed. </P>
+      <BLOCKQUOTE class=dtBlock>
+        <P>
+        <P><B>Note:</B> This implementation strategy resolves the issues raised 
+        in the earlier example. Although this example is probably not sufficient 
+        to justify the change to <I>Front Controller</I>, it serves to 
+        illustrate why you would use <I>Front Controller,</I> and the 
+        implementation solves problems of this type that are of a far greater 
+        complexity. Also, as with most implementations, there is more than one 
+        way to implement this pattern; this is just one choice. </P>
+        <P></P></BLOCKQUOTE>
+      <H3 class=dtH1>
+      <P>Handler</P></H3>
+      <P></P>
+      <P>
+      <P>ASP.NET provides a low-level request/response API to service incoming 
+      HTTP requests. Each incoming HTTP request that ASP.NET receives is 
+      ultimately processed by a specific instance of a class that implements the 
+      <B>IHTTPHandler</B> interface. This low-level API is ideal for 
+      implementing the handler portion of <I>Front Controller</I>. </P>
+      <P></P>
+      <BLOCKQUOTE class=dtBlock>
+        <P>
+        <P><B>Note:</B> the Microsoft .NET Framework provides multiple 
+        implementation choices for HTTP handlers. For example, in a high-volume 
+        environment, you may be able to improve response times with an 
+        asynchronous HTTP handler that implements the <B>IHttpAsyncHandler</B> 
+        interface. This solution uses a synchronous handler for sake of 
+        simplicity. For more information about the implementation of 
+        asynchronous HTTP handlers, see the Microsoft Developer Network (MSDN) 
+        Web site (http://msdn.microsoft.com).</P>
+        <P></P></BLOCKQUOTE>
+      <P>
+      <P>Figure 1 shows the structure of the handler portion of the controller. 
+      </P>
+      <P></P>
+      <P><IMG 
+      src="ImpFrontControllerInASP_files/Imp_Front%20Controller%20in%20ASP_Fig01.gif"></P>
+      <P><HEAD3>Figure 1: Handler portion of the front controller</HEAD3></P>
+      <P>
+      <P>This solution partitions responsibilities ideally. The <B>Handler</B> 
+      class handles the individual Web requests and delegates the responsibility 
+      of determining the correct <B>Command</B> object to the 
+      <B>CommandFactory</B> class. When the <B>CommandFactory</B> returns a 
+      <B>Command</B> object, the <B>Handler</B> calls the <B>Execute</B> method 
+      on the <B>Command</B> to perform the request. </P>
+      <P></P>
+      <H4 class=dtH1>
+      <P>Handler.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The following code example shows how the <B>Handler</B> class is 
+      implemented:</P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+
+public class Handler : IHttpHandler
+{
+   public void ProcessRequest(HttpContext context) 
+   {
+      Command command = 
+         CommandFactory.Make(context.Request.Params);
+      command.Execute(context);
+   }
+
+   public bool IsReusable 
+   { 
+      get { return true;} 
+   }
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>Command.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>Command</B> class is an example of the <I>Command</I> pattern 
+      [Gamma95]. The <I>Command</I> pattern is useful in this situation, because 
+      you do not want the <B>Handler</B> class to depend directly on the 
+      commands. They can be returned generically from the <B>CommandFactory</B>. 
+      </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+
+public interface Command
+{
+   void Execute(HttpContext context);
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>CommandFactory.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>CommandFactory</B> class is critical to the implementation. It 
+      determines, based on parameters from the query string, which command will 
+      be created. In this example, if the <I>site</I> query parameter is set to 
+      <I>micro</I> or is not set at all, the factory creates a <B>MicroSite</B> 
+      command object. If <B>site</B> is set to <I>macro,</I> the factory creates 
+      a <B>MacroSite</B> command object. If the value is set to anything else, 
+      the factory returns an <B>UnknownCommand</B> object for default error 
+      handling. This is an example of the <I>Special Case</I> pattern 
+      [Fowler03]. </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Collections.Specialized;
+
+
+public class CommandFactory
+{
+   public static Command Make(NameValueCollection parms)
+   {
+      string siteName = parms["site"];
+      
+      Command command = new UnknownCommand();
+
+      if(siteName == null || siteName.Equals("micro"))
+         command = new MicroSite();
+      else if(siteName.Equals("macro"))
+         command = new MacroSite();
+      return command;
+   }
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>Configuring the Handler</P></H4>
+      <P></P>
+      <P>
+      <P>HTTP handlers are declared in the ASP.NET configuration as part of a 
+      web.config file. ASP.NET defines an <B>&lt;httphandlers&gt;</B> 
+      configuration section where handlers can be added and removed. For 
+      example, ASP.NET maps all requests for Page*.aspx files to the 
+      <B>Handler</B> class in the application's web.config file: </P>
+      <P></P><PRE class=code> 
+
+&lt;httpHandlers&gt;
+   &lt;add verb="*" path="Page*.aspx" type="Handler,FrontController" /&gt;
+&lt;/httpHandlers&gt;
+ </PRE>
+      <H3 class=dtH1>
+      <P>Commands</P></H3>
+      <P></P>
+      <P>
+      <P>The commands represent the variability in the Web site. In this 
+      example, the functionality to retrieve data from the database for each 
+      site is contained in its own class that inherits from a base class named 
+      <B>RedirectingCommand</B>. The <B>RedirectingCommand</B> class implements 
+      the <B>Command</B> interface. When <B>Execute</B> is called on the 
+      <B>RedirectingCommand</B> class, it first calls an abstract method called 
+      <B>OnExecute</B> and, on return, transfers to the view. The specific view 
+      is retrieved from a class called <B>UrlMap</B>. The <B>UrlMap</B> class 
+      retrieves the map from the application's web.config file. Figure 2 shows 
+      the structure of the command portion of the solution. </P>
+      <P></P>
+      <P><IMG 
+      src="ImpFrontControllerInASP_files/Imp_Front%20Controller%20in%20ASP_Fig02.gif"></P>
+      <P><HEAD3>Figure 2: Command portion of the front controller</HEAD3></P>
+      <H4 class=dtH1>
+      <P>RedirectingCommand.cs</P></H4>
+      <P></P>
+      <P>
+      <P><B>RedirectingCommand</B> is an abstract base class that calls an 
+      abstract method named <B>OnExecute</B> to perform the specific command and 
+      then, on return, transfers to the view that is retrieved from the 
+      <B>UrlMap</B>. </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+
+public abstract class RedirectingCommand : Command
+{
+   private UrlMap map = UrlMap.SoleInstance;
+
+   protected abstract void OnExecute(HttpContext context);
+
+   public void Execute(HttpContext context)
+   {
+      OnExecute(context);
+      
+      string url = String.Format("{0}?{1}",
+         map.Map[context.Request.Url.AbsolutePath],
+         context.Request.Url.Query);
+
+      context.Server.Transfer(url);
+   }
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>UrlMap.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>UrlMap</B> class loads configuration information from the 
+      application's web.config file. The configuration information associates 
+      the absolute path of the requested URL to another URL specified by the 
+      file. This allows you to change the actual page to which a user is 
+      forwarded when an external page is requested. This provides a great deal 
+      of flexibility when changing views, because the actual page is never 
+      referenced by the user. The following is the <B>UrlMap</B> class:</P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+using System.Xml;
+using System.Configuration;
+using System.Collections.Specialized;
+
+public class UrlMap : IConfigurationSectionHandler 
+{
+   private readonly NameValueCollection _commands = new NameValueCollection();
+
+   public const string SECTION_NAME="controller.mapping";
+
+   public static UrlMap SoleInstance 
+   {
+      get {return (UrlMap) ConfigurationSettings.GetConfig(SECTION_NAME);}
+   }
+
+   object IConfigurationSectionHandler.Create(object parent,object configContext, XmlNode section) 
+   {
+      return (object) new UrlMap(parent,configContext, section);   
+   }
+
+   private UrlMap() {/*no-op*/}
+
+   public UrlMap(object parent,object configContext, XmlNode section) 
+   {
+      try 
+      {
+         XmlElement entriesElement = section["entries"];
+         foreach(XmlElement element in entriesElement) 
+         {
+            _commands.Add(element.Attributes["key"].Value,element.Attributes["url"].Value);
+         }
+      } 
+      catch (Exception ex) 
+      {
+         throw new ConfigurationException("Error while parsing configuration section.",ex,section);
+      }
+   }   
+   
+   public NameValueCollection Map
+   {
+      get { return _commands; }
+   }
+}
+ </PRE>The following is an excerpt from the web.config file, which shows 
+      the configuration: <PRE class=code> 
+
+&lt;controller.mapping&gt;
+   &lt;entries&gt;
+      &lt;entry key="/patterns/frontc/3/Page1.aspx" url="ActualPage1.aspx" /&gt;
+      &lt;entry key="/patterns/frontc/3/Page2.aspx" url="ActualPage2.aspx" /&gt;
+   &lt;/entries&gt;
+&lt;/controller.mapping&gt; 
+ </PRE>
+      <H4 class=dtH1>
+      <P>MicroSite.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>MicroSite</B> class is similar to the code in 
+      <B>LoadMicroHeader</B> earlier in this pattern. The main difference is 
+      that you no longer have any access to the labels that were contained in 
+      the page. Instead, you must add the information to the <B>HttpContext</B> 
+      object. The following example shows the <B>MicroSite</B> code:</P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+
+public class MicroSite : RedirectingCommand
+{
+   protected override void OnExecute(HttpContext context)
+   {
+      string name = context.User.Identity.Name;
+
+      context.Items["address"] = 
+         WebUsersDatabase.RetrieveAddress(name);
+      context.Items["site"] = "Micro-Site";
+   }
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>MacroSite.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>MacroSite</B> class is similar to <B>MicroSite</B> except that 
+      it uses a different database gateway class, <B>MacroUsersDatabase</B>. 
+      Both classes store information in the passed-in <B>HttpContext</B> so that 
+      the view can retrieve it. The following example shows the <B>MacroSite</B> 
+      code:</P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web;
+
+
+public class MacroSite : RedirectingCommand
+{
+   protected override void OnExecute(HttpContext context)
+   {
+      string name = context.User.Identity.Name;
+
+      context.Items["address"] = 
+         MacroUsersDatabase.RetrieveAddress(name);
+      context.Items["site"] = "Macro-Site";
+   }
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>WebUsersDatabase.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>WebUsersDatabase</B> class is responsible for retrieving the 
+      e-mail address from the "webusers" database. It is an example of the 
+      <I>Table Data Gateway</I> [Fowler03] pattern. </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+public class WebUsersDatabase
+{
+   public static string RetrieveAddress(string name)
+   {
+      string address = null;
+
+      String selectCmd = 
+         String.Format("select * from webuser where (id = '{0}')",
+         name);
+
+      SqlConnection myConnection = 
+         new SqlConnection("server=(local);database=webusers;Trusted_Connection=yes");
+      SqlDataAdapter myCommand = new SqlDataAdapter(selectCmd, myConnection);
+
+      DataSet ds = new DataSet();
+      myCommand.Fill(ds,"webuser");
+      if(ds.Tables["webuser"].Rows.Count == 1)
+      {
+         DataRow row = ds.Tables["webuser"].Rows[0];
+         address = row["address"].ToString();
+      }
+
+      return address;
+   }
+
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>MacroUsersDatabase.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>MacroUsersDatabase</B> class is responsible for retrieving the 
+      e-mail address from the "macrousers" database. It is an example of the 
+      <I>Table Data Gateway</I> pattern. </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+public class MacroUsersDatabase
+{
+   public static string RetrieveAddress(string name)
+   {
+      string address = null;
+
+      String selectCmd = 
+         String.Format("select * from customer where (id = '{0}')",
+         name);
+
+      SqlConnection myConnection = 
+         new SqlConnection("server=(local);database=macrousers;Trusted_Connection=yes");
+      SqlDataAdapter myCommand = new SqlDataAdapter(selectCmd, myConnection);
+
+      DataSet ds = new DataSet();
+      myCommand.Fill(ds,"customer");
+      if(ds.Tables["customer"].Rows.Count == 1)
+      {
+         DataRow row = ds.Tables["customer"].Rows[0];
+         address = row["email"].ToString();
+      }
+
+      return address;
+   }
+
+}
+ </PRE>
+      <H3 class=dtH1>
+      <P>Views</P></H3>
+      <P></P>
+      <P>
+      <P>The last aspect of the implementation is the views. The views from the 
+      example in "Changing Requirements" were responsible for retrieving 
+      information from the database depending on which site the user is 
+      accessing and then displaying the rendered page to the user. Because the 
+      database access code has been moved to the command, the views now retrieve 
+      the data from the <B>HttpContext</B> object. Figure 3 shows the structure 
+      of the code-behind classes. </P>
+      <P></P>
+      <P><IMG 
+      src="ImpFrontControllerInASP_files/Imp_Front%20Controller%20in%20ASP_Fig03.gif"></P>
+      <P><HEAD3>Figure 3: Structure of the code-behind classes of the 
+      view</HEAD3></P>
+      <P>
+      <P>There is still common behavior, so the <B>BasePage</B> class is still 
+      needed to avoid code duplication. </P>
+      <P></P>
+      <H4 class=dtH1>
+      <P>BasePage.cs</P></H4>
+      <P></P>
+      <P>
+      <P>The <B>BasePage</B> class has changed dramatically from the example in 
+      "Changing Requirements.". It is no longer responsible for determining 
+      which site header to load. It simply retrieves the data that the commands 
+      stored in the <B>HttpContext</B> object and assigns them to the 
+      appropriate label: </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public class BasePage : Page
+{
+   protected Label eMail;
+   protected Label siteName;
+
+   virtual protected void PageLoadEvent(object sender, System.EventArgs e)
+   {}
+   
+   protected void Page_Load(object sender, System.EventArgs e)
+   {
+      if(!IsPostBack)
+      {
+         eMail.Text = (string)Context.Items["address"];
+         siteName.Text = (string)Context.Items["site"];
+         PageLoadEvent(sender, e);
+      }
+   }
+
+   #region Web Form Designer generated code
+   #endregion
+}
+ </PRE>
+      <H4 class=dtH1>
+      <P>ActualPage1.aspx.cs and ActualPage2.aspx</P></H4>
+      <P></P>
+      <P>
+      <P><B>ActualPage1</B> and <B>ActualPage2</B> are the page-specific 
+      code-behind classes. They both inherit from <B>BasePage</B> to ensure that 
+      the header is filled in at the top of the screen: </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public class ActualPage1 : BasePage
+{
+   protected System.Web.UI.WebControls.Label pageNumber;
+
+   protected override void PageLoadEvent(object sender, System.EventArgs e)
+   {
+      pageNumber.Text = "1";
+   }
+
+   #region Web Form Designer generated code
+   #endregion
+}
+
+using System;
+using System.Web.UI.WebControls;
+
+public class ActualPage2 : BasePage
+{
+   protected Label pageNumber;
+
+   protected override void PageLoadEvent(object sender, System.EventArgs e)
+   {
+      pageNumber.Text = "2";
+   }
+  
+  #region Web Form Designer generated code
+   #endregion
+}
+ </PRE>These pages do not have to change when moving from the Page 
+      Controller implementation to the Front Controller implementation.
+      <H2 class=dtH1>
+      <P>Testing Considerations</P></H2>
+      <P>The dependence of the implementation on the ASP.NET runtime makes 
+      testing more difficult. It is not possible to instantiate classes that 
+      inherit from <B>System.Web.UI.Page</B>, <B>System.Web.UI.IHTTPHandler</B> 
+      or the other various classes contained in the ASP.NET runtime. This makes 
+      unit testing of most of the individual pieces of the application 
+      impossible. The chosen way to test this implementation automatically is to 
+      generate HTTP requests and then retrieve the HTTP response and determine 
+      if the response is correct. This approach is error-prone because you are 
+      comparing the text of the response with expected text. </P>
+      <H3 class=dtH1>
+      <P>CommandFixture.cs</P></H3>
+      <P></P>
+      <P>
+      <P>One aspect of the implementation that can be tested is the 
+      <B>CommandFactory</B>, because it is not dependent on the ASP.NET runtime. 
+      Therefore, you can write tests to verify that you get the correct 
+      <B>Command</B> object in return. The following are NUnit 
+      (http://nunit.org) tests for the <B>CommandFactory</B> class: </P>
+      <P></P><PRE class=code> 
+
+using System;
+using System.Collections.Specialized;
+using NUnit.Framework;
+
+[TestFixture]
+public class CommandFixture
+{
+   private static readonly string microKey = "micro";
+   private static readonly string macroKey = "macro";
+
+   [SetUp]
+   public void BuildCommandFactory()
+   {
+      NameValueCollection map = new NameValueCollection();
+      map.Add(microKey, "MicroSite");
+      map.Add(macroKey, "MacroSite");
+   }
+
+   [Test]
+   public void DefaultToMicro()
+   {
+      NameValueCollection map = new NameValueCollection();
+      Command command = CommandFactory.Make(map);
+      Assertion.AssertNotNull(command);
+      Assertion.Assert(command is MicroSite);
+   }
+
+   [Test]
+   public void MicroSiteCommand()
+   {
+      NameValueCollection map = new NameValueCollection();
+      map.Add("site", "micro");
+      Command command = CommandFactory.Make(map);
+      Assertion.AssertNotNull(command);
+      Assertion.Assert(command is MicroSite);
+   }
+
+   [Test]
+   public void MacroSiteCommand()
+   {
+      NameValueCollection map = new NameValueCollection();
+      map.Add("site", "macro");
+      Command command = CommandFactory.Make(map);
+      Assertion.AssertNotNull(command);
+      Assertion.Assert(command is MacroSite);
+   }
+
+
+   [Test]
+   public void Error()
+   {
+      NameValueCollection map = new NameValueCollection();
+      map.Add("site", "xyzcommand");
+      Command command = CommandFactory.Make(map);
+      Assertion.AssertNotNull(command);
+      Assertion.Assert(command is UnknownCommand);
+   }
+}
+ </PRE>
+      <P>Further work could isolate the <B>Command</B> class. The <B>Execute</B> 
+      method has a parameter that is an <B>HttpContext</B> object. You could 
+      change this parameter to make the object independent of the ASP.NET 
+      environment. This would enable you to unit-test the commands outside of 
+      the ASP.NET runtime. 
+      <H2 class=dtH1>
+      <P>Resulting Context</P></H2>
+      <P>The additional complexity of implementing <I>Front Controller</I> 
+      results in a number of benefits and liabilities:</P>
+      <H3 class=dtH1>
+      <P>Benefits</P></H3>
+      <P></P>
+      <LI>
+      <P><B>Increased flexibility</B>. This implementation demonstrates how to 
+      centralize and coordinate all requests through the <B>Handler</B> class. 
+      The <B>Handler</B> uses the <B>CommandFactory</B> to determine the 
+      specific action to perform. This allows the functionality to be modified 
+      and extended without changing the <B>Handler</B> class. For example, to 
+      add another site, a specific command would have to be created and the only 
+      class that would have to change is <B>CommandFactory</B>. </P>
+      <LI>
+      <P><B>Simplified views</B>. The views in the <I>Page Controller</I> 
+      example retrieve data from the database and then render the pages. In 
+      <I>Front Controller</I>, they no longer depend on the database, because 
+      that work is accomplished by the individual commands. </P>
+      <LI>
+      <P><B>Open for extension, but closed to modification</B>. The 
+      implementation provides many opportunities for polymorphic dispatching. 
+      For example, the <B>Handler</B> simply calls the <B>Execute</B> method on 
+      the <B>Command</B> object, independent of what the method and object are 
+      doing. Therefore, you can add additional commands without modifying the 
+      <B>Handler</B>. The implementation could be extended further by replacing 
+      the <B>CommandFactory</B> with a different factory for further extension. 
+      </P>
+      <LI>
+      <P><B>URL mapping</B>. The <B>UrlMap</B> allows the actual page names to 
+      be hidden from the user. The user enters a URL, which is mapped to the 
+      specific URL using the web.config file. This increases the flexibility for 
+      programmers because there is a level of indirection that is not present in 
+      the <I>Page Controller</I> implementation. </P>
+      <LI>
+      <P><B>Thread-safety</B>. The individual command objects, <B>MicroSite</B> 
+      and <B>MacroSite</B>, are created for each request. This means that you do 
+      not have to worry about thread safety in these objects. </P>
+      <H3 class=dtH1>
+      <P>Liabilities</P></H3>
+      <P></P>
+      <LI>
+      <P><B>Decreased performance</B>. This possibility must be examined. All 
+      requests are processed through the <B>Handler</B> object. It uses the 
+      <B>CommandFactory</B> to determine which command to create. Although in 
+      this case they do not have performance problems, both of these classes 
+      should be examined carefully for any potential performance issues. </P>
+      <LI>
+      <P><B>Cruel and unusual punishment</B>. This implementation is a lot more 
+      complicated than <I>Page Controller</I>. This implementation does provide 
+      more options, but at the cost of complexity and a lot of classes. You must 
+      weigh whether or not it is worth it. After you have taken the leap and 
+      built the framework, it is easy to add new commands and views. However, 
+      due to the implementation of <I>Page Controller</I> in ASP.NET, you would 
+      not expect to see as many implementations of <I>Front Controller</I> as 
+      you would in other platforms. </P>
+      <LI>
+      <P><B>Testing considerations</B>. Because <I>Front Controller</I> is 
+      implemented in ASP.NET, it is difficult to test in isolation. To improve 
+      testability, you should separate functionality out of the ASP.NET 
+      -specific code into classes that do not depend on ASP.NET. You can then 
+      test these classes without having to start the ASP.NET runtime. </P>
+      <LI>
+      <P><B>Invalid URLs</B>. Because <I>Front Controller</I> determines which 
+      view to transfer to, based on input parameters and often the current state 
+      of the application, the URLs may not always forward to the same page. This 
+      precludes users from saving URLs to access the page at a later time. </P>
+      <H2 class=dtH1>
+      <P>Related Patterns</P></H2>
+      <P>For more information, see the following related patterns:</P>
+      <LI>
+      <P><I>Template Method</I> [Gamma95]. The <B>PageLoadEvent</B> method of 
+      the <B>BasePage</B> class is an example implementation of <I>Template 
+      Method</I>. </P>
+      <LI>
+      <P><A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/DesInterceptingFilter.asp"><I>Intercepting 
+      Filter</I></A><I>.</I></P>
+      <LI>
+      <P><A 
+      href="http://msdn.microsoft.com/library/en-us/dnpatterns/html/DesPageController.asp"><I>Page 
+      Controller</I></A><I>.</I></P>
+      <LI>
+      <P><I>Command</I> [Gamma95].</P>
+      <LI>
+      <P><I>Factory</I>.The factories described earlier in this pattern combine 
+      elements from both <I>Factory Method</I> [Gamma95] and <I>Abstract Factory 
+      </I>[Gamma95].</P>
+      <H2 class=dtH1>
+      <P>Acknowledgments</P></H2>
+      <P>[Fowler03] Fowler, Martin. <I>Patterns of Enterprise Application 
+      Architecture</I>. Addison-Wesley, 2003.</P>
+      <P>[Gamma95] Gamma, Helm, Johnson, and Vlissides. <I>Design Patterns: 
+      Elements of Reusable Object-Oriented Software</I>. Addison-Wesley, 
+      1995.</P>
+      <P><IMG alt="Patterns Practices" 
+      src="ImpFrontControllerInASP_files/PATTPRAC.gif"></P><!-- End Content --></LI></TD></TR></TBODY></TABLE>
+<TABLE style="WIDTH: 100%" cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD style="WIDTH: 600px" noWrap></TD></TR>
+  <TR>
+    <TD><IFRAME id=frmRatings 
+      src="C:\data\tech\Zenware\Projects\DevTools\GenWeb\misc\Implementing Front Controller in ASP_NET Using HTTPHandler_files\rightframe_files\ImpFrontControllerInASP_files\ratings(1).htm" 
+      frameBorder=0 width="100%" scrolling=no 
+height=250></IFRAME></TD></TR></TBODY></TABLE><BR 
+style="OVERFLOW: hidden; LINE-HEIGHT: 1px" clear=all>
+<TABLE id=msviFooter cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR vAlign=bottom>
+    <TD id=msviFooter2 
+    style="FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#669AFF', gradientType='1')">
+      <DIV id=msviLocalFooter><NOBR><A 
+      href="http://go.microsoft.com/?linkid=317027">Manage Your Profile</A> 
+      |</NOBR><WBR><NOBR><A 
+      href="http://msdn.microsoft.com/isapi/gomscom.asp?target=/legal/" 
+      target=_parent>Legal</A> |</NOBR><WBR><NOBR><A 
+      href="http://go.microsoft.com/?linkid=2028439" target=_parent>Contact 
+      Us</A> |</NOBR><WBR><NOBR><A href="http://msdn.microsoft.com/flash/" 
+      target=_parent>MSDN Flash Newsletter</A></NOBR></DIV>
+      <DIV id=msviGlobalFooter><SPAN dir=ltr>© 2005 Microsoft Corporation. All 
+      rights reserved.&nbsp;</SPAN><NOBR><A 
+      href="http://www.microsoft.com/info/cpyright.mspx">Terms of Use</A> 
+      |</NOBR><WBR><NOBR><A 
+      href="http://msdn.microsoft.com/library/toolbar/3.0/trademarks/en-us.mspx">Trademarks</A> 
+      |</NOBR><WBR><NOBR><A 
+      href="http://www.microsoft.com/info/privacy.mspx">Privacy 
+      Statement</A></NOBR></DIV></TD>
+    <TD width=105 bgColor=#669aff><IMG title="" height=29 alt=Microsoft 
+      src="ImpFrontControllerInASP_files/text.jpg" width=105 
+  border=0></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>var msviFooter2;if (document.getElementById){msviFooter2 = document.getElementById("msviFooter2");msviFooter2.style.filter = "";}</SCRIPT>
+
+<TABLE height=58 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR vAlign=top>
+    <TD>
+      <DIV style="WIDTH: 200px"></DIV></TD>
+    <TD 
+    style="FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#669AFF', gradientType='1')" 
+    width="100%"></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>footerjs(document);</SCRIPT>
+</BODY></HTML>

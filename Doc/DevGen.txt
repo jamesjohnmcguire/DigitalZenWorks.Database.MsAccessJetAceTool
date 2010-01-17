@@ -1,0 +1,466 @@
+Overview
+status
+Today
+Pending
+Todo
+Finished
+Process
+	Å° Problem definition
+	Å° Requirements development
+		* Definitions
+		* Questions / Issues for requirements
+		* specification
+			Versions
+	Å° Alternative Solutions
+	Å° Construction planning
+	Å° Software architecture, or high-level design
+		*. use cases
+		*. Versions
+			Components
+	Å° Detailed design
+		*. Directory Structure
+	Å° Coding and debugging
+	Å° Unit testing
+	Å° Integration testing
+	Å° Integration
+	Å° System testing
+	Å° Corrective maintenance
+Resources
+Issues
+Notes
+Tasks
+
+Overview
+	Making easy, basic fixes to get to 'contacts'
+	afterwards, work on restructure of DevGen
+	Process
+		In Iterations
+			Determine milestone
+			Put in known systematic or low-level changes
+			system freeze
+			Work upwards, when in high-level, either feature implention or bug-fixing
+			no more systematic changes
+			but note for next iternation
+status
+Today
+Pending
+Todo
+	fix svn
+		review notes from other projects on updating /creating svn repos
+		backup
+		devclean
+		svnrm
+		remove others I don't want in there
+		update create script
+		go
+	copyright
+	C#	Add conditionals for UPDATE code
+	C#	Fix CreateSln to only include relative paths
+	C#	Add /// comments to table templates
+	C#	fix formatting of table templates
+	C#	apply php parsing fixes to cs
+	document generic practice of including common/external projects
+	implement generic practice of including common/external projects
+	Change inclusion of externals projects to 'svn:externals'
+	real main program file
+	clean up and out prototypes
+	update coding style
+	SQL File parsing	comments before each table, how to handle
+	Generize SQL table generation
+		create a generic but diverse table with many types and options
+		import it into the following
+			access
+			sql server
+			my sql
+			postgres
+			sql lite
+		dump it out of each
+			compare and contrast
+	C#	Finish implemenation hhiberate support
+	PHP	DbLib Error in constructor
+	PHP	check GetRow functionality
+	PHP - test on unix system
+	Update PHP code from fixes in other projects
+
+Finished
+	Clean up notes file
+Process
+	Å° Problem definition
+		In developing web sites, a lot of time is spent working on menial tasks.  These tasks take little thought and are often quite routine tasks, however they take a long time.  Furthormore, it is quite easy in doing these tasks not to adhere to the 'rules' of the project, thus causing inconsistencies, bugs and additional time fixing them.
+	Å° Requirements development
+		* Definitions
+		* Questions / Issues for requirements
+		* specification
+			Automates a lot of these little processes.
+
+			Versions
+				Ver1
+					Can be run from the command line
+
+					Input
+						For Web
+							XML file that contains the following:
+								* Project Name
+								one or more of:
+									* a table 'definition'
+										* table name
+										* columns
+											* name
+											* type
+											* length
+											* primary key
+											* reference key
+							NHibernate xml
+
+							Html List Template file - contains information on displaying lists
+							Html Item Template file - contains information on displaying items
+
+						For App
+
+					Output
+						Standard Create SQL schema file
+							drop and create DB
+							for each table
+								delete and create table
+
+						For Web
+							for each table
+								list
+									.aspx file
+									.cs file
+								view
+									.aspx file
+									.cs file
+								insert
+									.aspx file
+									.cs file
+								update
+									.aspx file
+									.cs file
+								delete
+									.aspx file
+									.cs file
+				Ver 2
+					Also GUI interface
+
+					Input
+						SQL definition file
+					Output
+						SQL schema file
+							stored procedures
+
+						Additional SQL file for each table
+							includes sample
+								select
+								insert
+								update
+								delete
+							queries
+
+						Older Visual Studio .net 2005/3 project files
+	Å° Alternative Solutions
+	Å° Construction planning
+		* Review batch files
+		Create prototype templates
+		Create Project
+		Develop Shell
+		Integrate pieces
+	Å° Software architecture, or high-level design
+		*. Overview - description of model
+			Basically, a classic MVC pattern.  However, what always confused me and made it more confusing, was it's implementation in a web context.  But by intepreting the browser as the 'controller', everything else becomes much simpler.  Like Thl, each view has it's html and absolute minimal code to support that view and then bulk of the code is in the model, which often will have typical classes
+			so:
+				<Page1>.aspx
+					<Page1>.aspx.cs
+				<Page2>.aspx
+					<Page2>.aspx.cs
+					.
+					.
+					.
+				<PageN>.aspx
+					<PageN>.aspx.cs
+				media
+					images
+				include
+					scripts
+					styles
+				Locality
+				Common
+					BasePage.cs
+					DataBaseCore.cs
+					Locality.cs
+					UnitTest.cs
+
+					<Table1>.cs
+					<Table2>.cs
+					.
+					.
+					.
+					<Table1>.cs
+				DB
+					<Project>.sql
+		*. use cases
+			Initially, just 1:
+				From the command line, I either fill in an xml file, or from a GUI, or with command line arguments with the project details, such as name and tables.
+			Later on,
+				Perhaps, customizing more to fit different 'genres' of websites.
+		*. Versions
+			Components
+				GUI	App
+					Describe Tables and / or pages
+				Generater App
+					The main thing
+				Xml file input
+					contains the project, table and page definition
+				Output
+					Full web project
+
+				GUI	App
+					version 2
+				Generater App
+					Main function
+						ValidateArguments
+						LogEvent
+						ShowStatus
+
+						new Project object
+						Project.LoadConfig
+						Project.Create;
+
+					BaseProjectClass
+						LoadConfig
+						?SetTemplate
+						ReadDefinition
+						ReadTemplate
+						?CreateFiles
+
+					ProjectClass
+						Create
+							CreateProjectFiles
+							for each Table
+								new Table object
+								Table.SetConfig
+								if no sql input
+									Table.AppendSqlFile
+								Table.CreateFiles
+							if Web
+								CreateIndexFile
+						CreateProjectFiles
+							CreateSlnFile
+							CreateCprojFile Dll
+							CreateCprojFile App / Web
+						CreateSqlFile
+						LoadConfig
+							Base.LoadConfig
+
+					WorkSpace
+						PhpProject
+						DotNetProject
+							DotNetApp
+							DotNetWeb
+
+					Table Class
+						AppendSqlFile
+						CreateFiles
+							CreateObjectFiles
+							if Web
+								CreateWebFiles
+							else
+								CreateAppFiles
+
+						CreateAppFiles
+							ReadAppTemplates
+							CreateListCsFile
+							CreateListXamlFile
+							CreateViewCsFile
+							CreateViewXamlFile
+							CreateInsertCsFile
+							CreateInsertXamlFile
+							CreateUpdateCsFile
+							CreateUpdateXamlFile
+							CreateDeleteCsFile
+							CreateDeleteXamlFile
+						CreateDataObjectFile
+						CreateFactoryObjectFile
+						CreateNHibernateFile
+						CreateObjectFiles
+							if no nhibernate
+								CreateNHibernateFile
+							CreateDataObjectFile
+							CreateFactoryObjectFile
+							CreateUnitTestFile
+							CreateSqlMainFile
+						CreateUnitTestFile
+						CreateWebFiles
+							ReadWebTemplates
+							CreateListCsFile
+							CreateListAspxFile
+							CreateViewCsFile
+							CreateViewAspxFile
+							CreateInsertCsFile
+							CreateInsertAspxFile
+							CreateUpdateCsFile
+							CreateUpdateAspxFile
+							CreateDeleteCsFile
+							CreateDeleteAspxFile
+						ReadAppTemplates
+						ReadWebTemplates
+						SetConfig
+
+	Å° Detailed design
+		*. Directory Structure
+			Ñ•ÑüGenWeb
+			Ñ†  Ñ•Ñüadmin
+			Ñ†  Ñ•ÑüDoc
+			Ñ†  Ñ†  Ñ§ÑüExternal
+			Ñ†  Ñ†  Ñ†  Ñ§ÑüImplementing Front Controller in ASP_NET Using HTTPHandler_files
+			Ñ†  Ñ†  Ñ†      Ñ•Ñüleftframe_files
+			Ñ†  Ñ†  Ñ†      Ñ†  Ñ•Ñüdeeptree_files
+			Ñ†  Ñ†  Ñ†      Ñ†  Ñ•Ñüdtbar_files
+			Ñ†  Ñ†  Ñ†      Ñ†  Ñ§Ñüsearch_files
+			Ñ†  Ñ†  Ñ†      Ñ•Ñürightframe_files
+			Ñ†  Ñ†  Ñ†      Ñ†  Ñ•Ñücontentbar_files
+			Ñ†  Ñ†  Ñ†      Ñ†  Ñ§ÑüImpFrontControllerInASP_files
+			Ñ†  Ñ†  Ñ†      Ñ†      Ñ•Ñüratings(1)_files
+			Ñ†  Ñ†  Ñ†      Ñ†      Ñ§Ñüratings_files
+			Ñ†  Ñ†  Ñ†      Ñ§Ñütoolbar_files
+			Ñ†  Ñ•Ñümisc
+			Ñ†  Ñ•ÑüPrototypes
+			Ñ†  Ñ†  Ñ•ÑüPageCtrl
+			Ñ†  Ñ†  Ñ•ÑüProtoAspMvcCorp1
+			Ñ†  Ñ†  Ñ•ÑüWebApp1
+			Ñ†  Ñ†  Ñ†  Ñ•Ñüimages
+			Ñ†  Ñ†  Ñ†  Ñ§Ñü_private
+			Ñ†  Ñ†  Ñ§ÑüWebApplication1
+			Ñ†  Ñ•Ñüsrc
+			Ñ†  Ñ†  Ñ§ÑüGenWeb
+			Ñ†  Ñ•ÑüSrcArchive
+			Ñ†  Ñ†  Ñ•ÑüBatchFiles
+			Ñ†  Ñ†  Ñ•ÑüDevGen
+			Ñ†  Ñ†  Ñ§ÑüStripStrings
+			Ñ†  Ñ†      Ñ§ÑüIMS HEALTH - Careers_files
+			Ñ†  Ñ•ÑüTemplates
+			Ñ†  Ñ§Ñütests
+			Ñ†      Ñ§Ñüaspmvc
+		Main function
+				Show start
+				Validate arguements
+				Show Message
+				Create Project class
+				ReadDefinition
+				ReadTemplate
+				Show Message
+				CreateFiles
+				Show Message
+
+			ValidateArguments
+				confirm existence of xml file
+				confirm existence of html file
+			ShowUsage
+			ProcessArguments
+
+			LogEvent
+				<use as before>
+			ShowStatus
+				console.write
+				LogEvent
+
+		PrjBaseClass
+			setDefinition
+			setTemplate
+			ReadDefinition
+			ReadTemplate
+			CreateFiles
+
+		ProjectClass
+			members
+				sProjectName
+				dsProject
+
+			ReadDefinition
+				read definition into DS
+				for each table
+					Create Table class
+					Table.CreateFiles
+					Table.ReadSQLDefinitionStream
+			ReadTemplate
+				ReadFile
+				save
+			CreateFiles
+				CreateCprojFile
+					gen guid for project
+				CreateSlnFile
+				CreateIndexFile
+			CreateSqlFile
+				create global info
+				for each table
+					Write info
+
+		Table Class
+			members
+				sProjectName
+				dtTable
+				sTemplate
+
+			setDefinition
+			setTemplate
+			CreateFiles
+				CreateListCsFile
+				CreateListAspxFile
+				CreateViewCsFile
+				CreateViewAspxFile
+				CreateInsertCsFile
+				CreateInsertAspxFile
+				CreateUpdateCsFile
+						copy template
+						add sub header
+						for each table element
+							GenerateHtml( drElement )
+					CreateInputStep
+					CreateConfirmStep
+					CreateSubmitStep
+				CreateUpdateAspxFile
+				CreateDeleteCsFile
+				CreateDeleteAspxFile
+
+				CreateSqlMainFile
+				CreateSqlSelectSample
+				CreateSqlSelectStoredProcedure
+				CreateSqlInsertSample
+				CreateSqlInsertStoredProcedure
+				CreateSqlUpdateSample
+				CreateSqlUpdateStoredProcedure
+				CreateSqlDeleteSample
+				CreateSqlDeleteStoredProcedure
+	Å° Coding and debugging
+	Å° Unit testing
+	Å° Integration testing
+	Å° Integration
+	Å° System testing
+	Å° Corrective maintenance
+Resources
+	How to use svn externals
+		http://robm.me.uk/2006/08/13/managing-plugins-with-svn-externals
+		http://wordaligned.org/articles/internal-subversion-externals
+		svn propset svn:externals -F Externals.txt .
+	TreeSurgeonUpdate.cmd
+		copy /vush ..techs\win\CodeGen\TreeSurgeon\Core
+		copy /vush ..techs\win\CodeGen\TreeSurgeon\TreeSurgeonConsole\Resources\Tools
+	Pattern implementation
+		After spending the last six months or so developing the prototype of a web application, I have moved onto refactoring and thus have begun looking at different patterns. The simplicity of the Page controller is obviously appealing, no brains - no headaches, but its usefulness is limited due to the event sequence. The event sequence is derived page - Page Load, Base Page - PageLoad, Derived page - overloaded method invocation via the callback. More useful is disabling the Page Load of the derived page giving the sequence Base Page - PageLoad and then the override callback. Using this sequence I can do high level security checks in the base page and then be assured that they have passed before the derived page is ever called, leaving only page specific security to deal with. This removes alot of repeated code in all pages deriving from the base, which is wanted. Another mod is the addition of a second callback, PostBack in addition to the PageLoad, thus giving a cleaner, more obvious sequence of events. Check the IsPostBack in the Base Page and then invoke the proper callback.
+Issues
+	To schema validate or not?
+		pros
+			Can use DataSets
+			Gives added insurance to data file correctness
+		cons
+			hassle
+			maybe overkill
+Notes
+	Debug Parameters
+		..\..\config\Contacts.xml ..\..\config\ContactsX.sql
+		..\..\config\HousingJapan.xml ..\..\config\HousingJapan.sql
+Tasks
+	Task:	Test and Fix PhpBasic Login and Registration functionality
+		Client: Me
+		Initial estimate:	1 hr
+		actual time: 26 Minutes (for testing)
