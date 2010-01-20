@@ -1,0 +1,14 @@
+*.obj
+*.cod
+*.pdb
+*.ncb
+*.user
+*.exp
+*.ilk
+*.pdb
+*.sbr
+*/Debug\*.*
+debug\*.*
+release\*.*
+Release\*.*
+obj\*.*
