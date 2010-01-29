@@ -13,3 +13,4 @@ release\*.*
 Release\*.*
 obj\*.*
 bin\debug\*.*
+./Src/Bin/Debug/*.*
