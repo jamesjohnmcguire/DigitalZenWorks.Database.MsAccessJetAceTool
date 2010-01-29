@@ -8,5 +8,6 @@ Src/Product/DevGen/Prototypes/TestProject1/Src/Product/External/DatabaseLibraryN
 Src/Product/DevGen/Prototypes/TestProject1/Src/Product/External/DiagnosticsLibraryNET file:///c:/data/sys/replicat/SrcCtrl/Svn/Common/DiagnosticsLibraryNET/trunk
 Src/Product/DevGen/Prototypes/TestProject1/Src/Product/External/UtilsNET file:///c:/data/sys/replicat/SrcCtrl/Svn/Common/UtilsNET/trunk
 Tools/Nant 							file:///c:/data/sys/replicat/SrcCtrl/Svn/Externals/NantBin/trunk
+Tools/NantContrib 							file:///c:/data/sys/replicat/SrcCtrl/Svn/Externals/NantContrib/trunk
 Tools/NCover 						file:///c:/data/sys/replicat/SrcCtrl/Svn/Externals/NCover/trunk
 Tools/NUnit 						file:///c:/data/sys/replicat/SrcCtrl/Svn/Externals/NUnitBin/trunk
