@@ -8,6 +8,8 @@
 *.suo
 *.user
 */Debug\*.*
+*/Debug/*.*
+*\Debug\*.*
 debug\*.*
 release\*.*
 Release\*.*
@@ -17,3 +19,5 @@ bin\debug\*.*
 .\Src\Bin\Debug\*.*
 ./Debug/*.* ./Src/Bin
 Debug/*.* ./Src/Bin
+.\Debug\*.* .\Src\Bin
+Debug\*.* .\Src\Bin
