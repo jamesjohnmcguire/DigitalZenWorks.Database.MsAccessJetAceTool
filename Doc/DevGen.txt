@@ -464,3 +464,22 @@ Tasks
 		Client: Me
 		Initial estimate:	1 hr
 		actual time: 26 Minutes (for testing)
+
+data comes in from
+	xml file
+		types
+	sql file
+		types
+
+output to
+	php	types don't matter
+	c#
+		string
+		int
+		float
+		bool
+		object
+
+fix missing projects in output solution
+
+fix long lines in insert / update parameters
