@@ -483,3 +483,26 @@ output to
 fix missing projects in output solution
 
 fix long lines in insert / update parameters
+
+Solution
+	<Name>Shell	Exe
+	<Name>UserInterface	Dll
+	<Name>Bll
+	<Name>Bll<Component>
+	<Name>Dal
+	<Name>Dal<Component>
+
+
+	<Name>BusinessLogicLayer
+	<Name>BllManager
+	<Name>BusinessLogicLayerManager
+
+
+Value Object class
+2	// $Id$
+18	namespace Zenware.Contacts.ContactsDal
+Collection
+2	// $Id$
+19	using Zenware.DatabaseLibrary;
+21	namespace Zenware.Contacts.ContactsDal
+Missing insert unit tests
