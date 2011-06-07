@@ -500,3 +500,7 @@ Solution
 
 			Contact.AdviceLevel	= "A";
 			Contact.FriendLevel	= "B";
+
+The tag does not exist in XML namespace 'local' The type local: was not found. Verify that you are not missing an assembly reference and that all referenced assemblies have been built.
+
+http://sachabarber.net/?p=368
