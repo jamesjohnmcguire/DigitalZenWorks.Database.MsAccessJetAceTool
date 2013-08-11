@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // JetUtil
 //
-// Console applicition to export a Jet (MDB, MS Access) database to a Sql
+// Console application to export a Jet (MDB, MS Access) database to a Sql
 // definition file, which can be used to create a new database.
 // 
 // 2008-07-26:	Created
