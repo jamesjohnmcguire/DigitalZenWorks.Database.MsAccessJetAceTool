@@ -5,26 +5,26 @@ Pending
 Todo
 Finished
 Process
-	¡ Problem definition
-	¡ Requirements development
+	ÂÂ¡ Problem definition
+	ÂÂ¡ Requirements development
 		* Definitions
 		* Questions / Issues for requirements
 		* specification
 			Versions
-	¡ Alternative Solutions
-	¡ Construction planning
-	¡ Software architecture, or high-level design
+	ÂÂ¡ Alternative Solutions
+	ÂÂ¡ Construction planning
+	ÂÂ¡ Software architecture, or high-level design
 		*. use cases
 		*. Versions
 			Components
-	¡ Detailed design
+	ÂÂ¡ Detailed design
 		*. Directory Structure
-	¡ Coding and debugging
-	¡ Unit testing
-	¡ Integration testing
-	¡ Integration
-	¡ System testing
-	¡ Corrective maintenance
+	ÂÂ¡ Coding and debugging
+	ÂÂ¡ Unit testing
+	ÂÂ¡ Integration testing
+	ÂÂ¡ Integration
+	ÂÂ¡ System testing
+	ÂÂ¡ Corrective maintenance
 Resources
 Issues
 Notes
@@ -45,15 +45,25 @@ status
 Today
 Pending
 Todo
-	fix svn
-		review notes from other projects on updating /creating svn repos
-		backup
-		devclean
-		svnrm
-		remove others I don't want in there
-		update create script
-		go
-	copyright
+Tasks
+	CI	When type is of checkbox or radio and there is a source, enumerate all source rows as checkboxesor radios
+	CI	too many $this->template->set('languages', $languages);
+	CI	use knr_case template->set
+	CI	fix select`a	test
+	CI	$this->form_validation->set_rules(
+	CI	$this->template->set('admin', TRUE);
+	CI	$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
+	CI	if ((empty($id)) || ($id == 0))
+	CI	after generate fix empties
+		add get function
+		model names Name case for 'point_packages'
+		complete model changes
+	CI	why is section not set?
+	CI	add ajax
+		change list format
+		add point package
+		merge columns
+	?	copyright
 	C#	Add conditionals for UPDATE code
 	C#	Fix CreateSln to only include relative paths
 	C#	Add /// comments to table templates
@@ -81,13 +91,33 @@ Todo
 	PHP	check GetRow functionality
 	PHP - test on unix system
 	Update PHP code from fixes in other projects
-
+	Test and Fix PhpBasic Login and Registration functionality
+		Client: Me
+		Initial estimate:	1 hr
+		actual time: 26 Minutes (for testing)
+	fix missing projects in output solution
+	fix long lines in insert / update parameters
 Finished
+	'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
 	Clean up notes file
+	fix svn
+		review notes from other projects on updating /creating svn repos
+		backup
+		devclean
+		svnrm
+		remove others I don't want in there
+		update create script
+		go
+		DevTools	Codeigniter	fix add_update call
+		DevTools	Codeigniter	add model
+		DevTools	Codeigniter	ShowMessage($message
+		DevTools	Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
+		DevTools	Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
+		DevTools	Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
 Process
-	¡ Problem definition
+	ÂÂ¡ Problem definition
 		In developing web sites, a lot of time is spent working on menial tasks.  These tasks take little thought and are often quite routine tasks, however they take a long time.  Furthormore, it is quite easy in doing these tasks not to adhere to the 'rules' of the project, thus causing inconsistencies, bugs and additional time fixing them.
-	¡ Requirements development
+	ÂÂ¡ Requirements development
 		* Definitions
 		* Questions / Issues for requirements
 		* specification
@@ -158,14 +188,14 @@ Process
 							queries
 
 						Older Visual Studio .net 2005/3 project files
-	¡ Alternative Solutions
-	¡ Construction planning
+	ÂÂ¡ Alternative Solutions
+	ÂÂ¡ Construction planning
 		* Review batch files
 		Create prototype templates
 		Create Project
 		Develop Shell
 		Integrate pieces
-	¡ Software architecture, or high-level design
+	ÂÂ¡ Software architecture, or high-level design
 		*. Overview - description of model
 			Basically, a classic MVC pattern.  However, what always confused me and made it more confusing, was it's implementation in a web context.  But by intepreting the browser as the 'controller', everything else becomes much simpler.  Like Thl, each view has it's html and absolute minimal code to support that view and then bulk of the code is in the model, which often will have typical classes
 			so:
@@ -306,41 +336,41 @@ Process
 						ReadWebTemplates
 						SetConfig
 
-	¡ Detailed design
+	ÂÂ¡ Detailed design
 		*. Directory Structure
-			„¥„ŸGenWeb
-			„   „¥„Ÿadmin
-			„   „¥„ŸDoc
-			„   „   „¤„ŸExternal
-			„   „   „   „¤„ŸImplementing Front Controller in ASP_NET Using HTTPHandler_files
-			„   „   „       „¥„Ÿleftframe_files
-			„   „   „       „   „¥„Ÿdeeptree_files
-			„   „   „       „   „¥„Ÿdtbar_files
-			„   „   „       „   „¤„Ÿsearch_files
-			„   „   „       „¥„Ÿrightframe_files
-			„   „   „       „   „¥„Ÿcontentbar_files
-			„   „   „       „   „¤„ŸImpFrontControllerInASP_files
-			„   „   „       „       „¥„Ÿratings(1)_files
-			„   „   „       „       „¤„Ÿratings_files
-			„   „   „       „¤„Ÿtoolbar_files
-			„   „¥„Ÿmisc
-			„   „¥„ŸPrototypes
-			„   „   „¥„ŸPageCtrl
-			„   „   „¥„ŸProtoAspMvcCorp1
-			„   „   „¥„ŸWebApp1
-			„   „   „   „¥„Ÿimages
-			„   „   „   „¤„Ÿ_private
-			„   „   „¤„ŸWebApplication1
-			„   „¥„Ÿsrc
-			„   „   „¤„ŸGenWeb
-			„   „¥„ŸSrcArchive
-			„   „   „¥„ŸBatchFiles
-			„   „   „¥„ŸDevGen
-			„   „   „¤„ŸStripStrings
-			„   „       „¤„ŸIMS HEALTH - Careers_files
-			„   „¥„ŸTemplates
-			„   „¤„Ÿtests
-			„       „¤„Ÿaspmvc
+			â€Â¥â€Å¸GenWeb
+			â€Â   â€Â¥â€Å¸admin
+			â€Â   â€Â¥â€Å¸Doc
+			â€Â   â€Â   â€Â¤â€Å¸External
+			â€Â   â€Â   â€Â   â€Â¤â€Å¸Implementing Front Controller in ASP_NET Using HTTPHandler_files
+			â€Â   â€Â   â€Â       â€Â¥â€Å¸leftframe_files
+			â€Â   â€Â   â€Â       â€Â   â€Â¥â€Å¸deeptree_files
+			â€Â   â€Â   â€Â       â€Â   â€Â¥â€Å¸dtbar_files
+			â€Â   â€Â   â€Â       â€Â   â€Â¤â€Å¸search_files
+			â€Â   â€Â   â€Â       â€Â¥â€Å¸rightframe_files
+			â€Â   â€Â   â€Â       â€Â   â€Â¥â€Å¸contentbar_files
+			â€Â   â€Â   â€Â       â€Â   â€Â¤â€Å¸ImpFrontControllerInASP_files
+			â€Â   â€Â   â€Â       â€Â       â€Â¥â€Å¸ratings(1)_files
+			â€Â   â€Â   â€Â       â€Â       â€Â¤â€Å¸ratings_files
+			â€Â   â€Â   â€Â       â€Â¤â€Å¸toolbar_files
+			â€Â   â€Â¥â€Å¸misc
+			â€Â   â€Â¥â€Å¸Prototypes
+			â€Â   â€Â   â€Â¥â€Å¸PageCtrl
+			â€Â   â€Â   â€Â¥â€Å¸ProtoAspMvcCorp1
+			â€Â   â€Â   â€Â¥â€Å¸WebApp1
+			â€Â   â€Â   â€Â   â€Â¥â€Å¸images
+			â€Â   â€Â   â€Â   â€Â¤â€Å¸_private
+			â€Â   â€Â   â€Â¤â€Å¸WebApplication1
+			â€Â   â€Â¥â€Å¸src
+			â€Â   â€Â   â€Â¤â€Å¸GenWeb
+			â€Â   â€Â¥â€Å¸SrcArchive
+			â€Â   â€Â   â€Â¥â€Å¸BatchFiles
+			â€Â   â€Â   â€Â¥â€Å¸DevGen
+			â€Â   â€Â   â€Â¤â€Å¸StripStrings
+			â€Â   â€Â       â€Â¤â€Å¸IMS HEALTH - Careers_files
+			â€Â   â€Â¥â€Å¸Templates
+			â€Â   â€Â¤â€Å¸tests
+			â€Â       â€Â¤â€Å¸aspmvc
 		Main function
 				Show start
 				Validate arguements
@@ -431,12 +461,12 @@ Process
 				CreateSqlUpdateStoredProcedure
 				CreateSqlDeleteSample
 				CreateSqlDeleteStoredProcedure
-	¡ Coding and debugging
-	¡ Unit testing
-	¡ Integration testing
-	¡ Integration
-	¡ System testing
-	¡ Corrective maintenance
+	ÂÂ¡ Coding and debugging
+	ÂÂ¡ Unit testing
+	ÂÂ¡ Integration testing
+	ÂÂ¡ Integration
+	ÂÂ¡ System testing
+	ÂÂ¡ Corrective maintenance
 Resources
 	How to use svn externals
 		http://robm.me.uk/2006/08/13/managing-plugins-with-svn-externals
@@ -459,12 +489,6 @@ Notes
 	Debug Parameters
 		..\..\config\Contacts.xml ..\..\config\ContactsX.sql
 		..\..\config\HousingJapan.xml ..\..\config\HousingJapan.sql
-Tasks
-	Task:	Test and Fix PhpBasic Login and Registration functionality
-		Client: Me
-		Initial estimate:	1 hr
-		actual time: 26 Minutes (for testing)
-
 data comes in from
 	xml file
 		types
@@ -479,10 +503,6 @@ output to
 		float
 		bool
 		object
-
-fix missing projects in output solution
-
-fix long lines in insert / update parameters
 
 Solution
 	<Name>Shell	Exe
@@ -504,3 +524,106 @@ Solution
 The tag does not exist in XML namespace 'local' The type local: was not found. Verify that you are not missing an assembly reference and that all referenced assemblies have been built.
 
 http://sachabarber.net/?p=368
+	Config
+		..\..\config\Contacts.xml ..\..\config\ContactsX.sql
+		..\..\config\OfJapan.xml
+	Design
+		Run
+			Create
+				CreateProjectFiles
+					CreatePhpFiles
+				for each table
+					table.CreateFiles
+						base.CreateFiles
+	language
+		CSharp
+		PHP
+	type
+		Application	CSharp
+		CodeIgniter	PHP
+		Library	either
+		Web	either
+	Config
+		..\..\config\Contacts.xml ..\..\config\ContactsX.sql
+		..\..\config\OfJapan.xml
+	Design
+		Run
+			Create
+				CreateProjectFiles
+					CreatePhpFiles
+				for each table
+					table.CreateFiles
+						base.CreateFiles
+	language
+		CSharp
+		PHP
+	type
+		Application	CSharp
+		CodeIgniter	PHP
+		Library	either
+		Web	either
+	Tasks
+		Finished
+			DevTools	Codeigniter	fix add_update call
+			DevTools	Codeigniter	add model
+			DevTools	Codeigniter	ShowMessage($message
+			DevTools	Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
+			DevTools	Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
+			DevTools	Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
+			add ajax
+			add ajax method
+			add point package
+			why is section not set?
+			complete model changes
+			fix select`a	test
+			$this->form_validation->set_rules(
+			$this->template->set('admin', TRUE);
+			$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
+						if ((empty($id)) || ($id == 0))
+			add get function
+			remove random 't' in <option> and select
+
+		'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
+		model names Name case for 'point_packages'
+		break up and _ names (ex: ManagingSystems to managing_systems)
+		Move language elements from template into code
+		update add_update from certificates
+		check DOCUMENT_ROOT
+		<img height="20px" width="20px" src="/images/Certificates/<?php echo $certificate->picture; ?>">
+		handle picture edit value
+		private $table_name	= 'managing_systems';
+		indents on if ($this->form_validation->run() == FALSE)
+		if no file upload
+		generate lang prep statements
+
+		after generate fix empties
+		change list format
+		merge columns
+		IsAdmin?
+		$types = $this->property_sub_types->get_all();
+		value="<?php echo $name[$language->id]; ?>" />
+		add_update language names
+		fix select foreach types
+		-- joins
+ 
+how much more do i improve DevGen until going to Contacts?
+	Fix some basic low-lying fruit, then move on
+
+
+Change everything over to NHibernate
+	Need to make sample
+	Need to incorporate samples into DevGen
+finish automatic generation of classes based on tables
+finish TimeTracker
+
+Template - Dll - It's essentially handles the 'model' of MVC
+	DataLogicLayer
+		FactoryObjects
+	BusinessLogicLayer
+		Class/TableObjects
+
+DevGen
+	for each table
+		generate hibernate xml file
+		generate data object class
+		generate factory class

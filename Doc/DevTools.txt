@@ -30,11 +30,6 @@ Issues
 Notes
 
 Status
-	The class design updates
-	
-		Localizer
-			??
-
 Today
 Pending
 Todo
@@ -61,10 +56,6 @@ Notes
 		Operations
 		Issues
 		Notes
-
-	In the process of svn restructure
-	need to reboot and checkin
-
 StripStings
 	Takes out all 'hard coded' strings and places them into db and resource file
 
@@ -102,14 +93,3 @@ DevTools
 		DevGen
 			Config
 			Templates
-
-DevTools
-	Src
-		GenWeb
-			DevGen
-				Config
-				Templates
-			Doc
-			Templates
-			Tools
-			
