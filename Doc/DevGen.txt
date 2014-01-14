@@ -46,7 +46,31 @@ Today
 Pending
 Todo
 Tasks
+				<option value="0">------</option>
+		remove enctype="multipart/form-data" from non-upload forms
+		radio type needs label after not before
+		radio type needs checked
+		class accounts extends CI_Model
+		if (empty($account))
+		{
+			if ($method == 'edit_account')
+			{
+				ShowMessage($CI->lang->line('invalid_user_id'),
+					"$controller");
+			}
+		}
+		improve file naming
+		add header and constructor for controller
+		work out HasTypes and source issue, that to use source, need HasTypes, but sometimes don't want HasTypes
+	CI	fix missing section segment
 	CI	When type is of checkbox or radio and there is a source, enumerate all source rows as checkboxesor radios
+		add placeholder
+		remove <option value="0">------</option>
+		for delete controller, move sets within validation false
+		for delete controller, the following is missing a section segment 						
+			ShowMessage($this->lang->line('invalid_account_id'),
+					'//list_accounts/');
+
 	CI	too many $this->template->set('languages', $languages);
 	CI	use knr_case template->set
 	CI	fix select`a	test
@@ -98,6 +122,9 @@ Tasks
 	fix missing projects in output solution
 	fix long lines in insert / update parameters
 Finished
+	CI	when field has source, add something like: $types = $this->Prefectures->get_types();
+	CI	move inside validation $this->template->set('languages', $languages);
+	CI	change add_update to use $fields
 	'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
 	Clean up notes file
 	fix svn
@@ -627,3 +654,18 @@ DevGen
 		generate hibernate xml file
 		generate data object class
 		generate factory class
+options
+	enumerate all of them
+	add transform to knr in php
+	use camelCase everywhere
+	use kn everywhere
+	
+						if (firstColumn == false)
+						{
+							postDeclarations += ",\r\n";
+						}
+						postDeclarations += "\t\t\t\t'" + Name +
+								"' => $this->input->post('" + Name +
+								"', TRUE)";
+						}
+						if (!FormType.ToLower().Equals("hidden"))
