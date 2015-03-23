@@ -76,7 +76,13 @@ namespace JetUtil
 			Position = 1;
 		}
 
-		public Column(string name, int type, int length, bool unique, bool nullable, string defaultvalue, int position)
+		/////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/////////////////////////////////////////////////////////////////////
+		public Column(string name, int type, int length, bool unique,
+			bool nullable, string defaultvalue, int position)
 		{
 			Name = name;
 			ColumnType = type;

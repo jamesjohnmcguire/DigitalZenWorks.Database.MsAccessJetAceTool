@@ -1,3 +1,9 @@
+/////////////////////////////////////////////////////////////////////////////
+// $Id$
+//
+// Copyright (c) 2006-2014 by James John McGuire
+// All rights reserved.
+/////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections;
 using System.Data;
@@ -63,6 +69,13 @@ namespace JetUtil
 
 		/////////////////////////////////////////////////////////////////////
 		/// <summary>
+		/// Represents a provider type for a connection string
+		/// </summary>
+		/////////////////////////////////////////////////////////////////////
+		private string provider = "Microsoft.Jet.OLEDB.4.0";
+
+		/////////////////////////////////////////////////////////////////////
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		/// <param name="MdbFile"></param>
@@ -70,9 +83,14 @@ namespace JetUtil
 		public JetExport(
 			string MdbFile)
 		{
+			if (Environment.Is64BitOperatingSystem)
+			{
+				provider = "Microsoft.ACE.OLEDB.12.0";
+			}
+
 			m_Connection = new OleDbConnection();
 
-			m_Connection.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Password="""";User ID=Admin;"
+			m_Connection.ConnectionString = @"Provider=" + provider + ";Password=\"\";User ID=Admin;"
 					+ "Data Source=" + MdbFile + @";Mode=Share Deny None;Extended Properties="""";Jet OLEDB:System database="""";"
 					+ @"Jet OLEDB:Registry Path="""";Jet OLEDB:Database Password="""";Jet OLEDB:Engine Type=5;"
 					+ @"Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;"

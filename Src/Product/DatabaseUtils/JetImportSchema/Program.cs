@@ -7,6 +7,13 @@ namespace JetImportSchema
 {
 	class Program
 	{
+		/////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Represents a provider type for a connection string
+		/// </summary>
+		/////////////////////////////////////////////////////////////////////
+		private string provider = "Microsoft.Jet.OLEDB.4.0";
+
 		static int Main(string[] args)
 		{
 			int ReturnCode = -1;
@@ -16,6 +23,11 @@ namespace JetImportSchema
 			}
 			else
 			{
+				if (Environment.Is64BitOperatingSystem)
+				{
+					provider = "Microsoft.ACE.OLEDB.12.0";
+				}
+
 				CreateMdbFile(args[1]);
 				ImportSchema(args[0], args[1]);
 
@@ -64,7 +76,7 @@ namespace JetImportSchema
 															32000,
 															StringSplitOptions.RemoveEmptyEntries);
 
-					string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + MdbFile;
+					string ConnectionString = "Provider=" + provider + "; Data Source=" + MdbFile;
 					OleDbConnection Connection = new OleDbConnection(ConnectionString);
 					OleDbCommand ThisCommand = new OleDbCommand();
 
