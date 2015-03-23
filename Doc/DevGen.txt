@@ -46,7 +46,32 @@ Today
 Pending
 Todo
 Tasks
-				<option value="0">------</option>
+		remove language setting before add_update if not needed (maybe always)
+		need to deal with add_update, language name fields as extended insert (see property_sub_types)
+		set twice $this->template->set('languages', $languages);
+		When needing complete language info, such as editing, add the TRUE	$social_restriction = $this->social_restrictions->get($id, TRUE);
+		In field setting, may need to change: 	$fields[$index] = $social_restriction->$index;
+<?php
+if (!empty($id))
+{
+	?>
+	<br />
+	<a href="/admin/delete_certificate/<?php echo $id; ?>">
+		<?php echo $this->lang->line('delete_certificate'); ?>
+	</a>
+	<br />
+	<?php
+}
+?>
+<br />
+
+		checkbox value as 1
+		if ($columns['preferredContactId'] == 0)
+		{
+			unset($columns['preferredContactId']);
+		}
+		password type for password
+		<option value="0">------</option>
 		remove enctype="multipart/form-data" from non-upload forms
 		radio type needs label after not before
 		radio type needs checked
