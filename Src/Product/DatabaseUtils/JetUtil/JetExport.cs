@@ -11,7 +11,7 @@ using System.Data.OleDb;
 
 namespace JetUtil
 {
-	enum ColumnTypes
+	internal enum ColumnTypes
 	{
 		Autonumber,
 		Currency,
@@ -22,9 +22,9 @@ namespace JetUtil
 		String,
 		YesNo
 	}
-	
+
 	// A struct to hold foreign key constraints temporarily
-	struct Relationship
+	internal struct Relationship
 	{
 		public string m_Name;
 		public string m_ParentTable;
@@ -33,7 +33,7 @@ namespace JetUtil
 		public string m_ChildTableCol;
 		public bool m_OnUpdateCascade;
 		public bool m_OnDeleteCascade;
-			
+
 		public Relationship(
 			string Name,
 			string ParentTable,
@@ -65,14 +65,7 @@ namespace JetUtil
 		/// Represents an OleDb open connection to a data source.
 		/// </summary>
 		/////////////////////////////////////////////////////////////////////
-		OleDbConnection m_Connection;
-
-		/////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// Represents a provider type for a connection string
-		/// </summary>
-		/////////////////////////////////////////////////////////////////////
-		private string provider = "Microsoft.Jet.OLEDB.4.0";
+		private Connection connection;
 
 		/////////////////////////////////////////////////////////////////////
 		/// <summary>
@@ -83,19 +76,7 @@ namespace JetUtil
 		public JetExport(
 			string MdbFile)
 		{
-			if (Environment.Is64BitOperatingSystem)
-			{
-				provider = "Microsoft.ACE.OLEDB.12.0";
-			}
-
-			m_Connection = new OleDbConnection();
-
-			m_Connection.ConnectionString = @"Provider=" + provider + ";Password=\"\";User ID=Admin;"
-					+ "Data Source=" + MdbFile + @";Mode=Share Deny None;Extended Properties="""";Jet OLEDB:System database="""";"
-					+ @"Jet OLEDB:Registry Path="""";Jet OLEDB:Database Password="""";Jet OLEDB:Engine Type=5;"
-					+ @"Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;"
-					+ @"Jet OLEDB:New Database Password="""";Jet OLEDB:Create System Database=False;Jet OLEDB:Encrypt Database=False;"
-					+ @"Jet OLEDB:Don't Copy Locale on Compact=False;Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:SFP=False";
+			connection = new Connection(MdbFile);
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -121,71 +102,7 @@ namespace JetUtil
 
 			return sqlString;
 		}
-		private DataTable GetTableNames()
-		{
-			m_Connection.Open();
 
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, new Object[] { null, null, null, "TABLE" });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
-
-		private DataTable GetPrimaryKeys(string tablename)
-		{
-			m_Connection.Open();
-
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Primary_Keys, new Object[] { null, null, tablename });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
-
-		private DataTable GetForeignKeys(string tablename)
-		{
-			m_Connection.Open();
-
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Foreign_Keys, new Object[] { null, null, tablename });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
-
-		private DataTable GetConstraints(string tablename)
-		{
-			m_Connection.Open();
-
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Constraint_Column_Usage, new Object[] { null, null, tablename, null, null, null });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
-
-		private DataTable GetTableConstraints(string tablename)
-		{
-			m_Connection.Open();
-
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Table_Constraints, new Object[] { null, null, null, null, null, tablename });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
-
-		private DataTable GetTableColumns(string tablename)
-		{
-			m_Connection.Open();
-
-			DataTable schemaTable = m_Connection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Columns, new Object[] { null, null, tablename });
-
-			m_Connection.Close();
-
-			return schemaTable;
-		}
 		// Parse a jet database, returning a hashtable of Table structures
 		// Key is name of table.
 		private System.Collections.Hashtable ParseJET()
@@ -194,7 +111,7 @@ namespace JetUtil
 
 			System.Collections.ArrayList relationships = new System.Collections.ArrayList();
 
-			DataTable t = GetTableNames();
+			DataTable t = connection.GetTableNames();
 
 			foreach (DataRow row in t.Rows)
 			{
@@ -203,7 +120,7 @@ namespace JetUtil
 				Table table = new Table(table_name);
 
 				Console.WriteLine("Getting Columns for " + table_name);
-				DataTable cols = GetTableColumns(table_name);
+				DataTable cols = connection.GetTableColumns(table_name);
 
 				foreach (DataRow r in cols.Rows)
 				{
@@ -213,30 +130,35 @@ namespace JetUtil
 					switch ((int)r["DATA_TYPE"])
 					{
 						case 3:	// Number
-							col.ColumnType = (int)ColumnTypes.Number;
-							break;
+						col.ColumnType = (int)ColumnTypes.Number;
+						break;
+
 						case 130:  // String
-							if (Int32.Parse(r["COLUMN_FLAGS"].ToString()) > 127)
-							{
-								col.ColumnType = (int)ColumnTypes.Memo;
-							}
-							else
-							{
-								col.ColumnType = (int)ColumnTypes.String;
-							}
-							break;
+						if (Int32.Parse(r["COLUMN_FLAGS"].ToString()) > 127)
+						{
+							col.ColumnType = (int)ColumnTypes.Memo;
+						}
+						else
+						{
+							col.ColumnType = (int)ColumnTypes.String;
+						}
+						break;
+
 						case 7:  // Date
-							col.ColumnType = (int)ColumnTypes.DateTime;
-							break;
+						col.ColumnType = (int)ColumnTypes.DateTime;
+						break;
+
 						case 6:  // Currency
-							col.ColumnType = (int)ColumnTypes.Currency;
-							break;
+						col.ColumnType = (int)ColumnTypes.Currency;
+						break;
+
 						case 11:  // Yes/No
-							col.ColumnType = (int)ColumnTypes.YesNo;
-							break;
+						col.ColumnType = (int)ColumnTypes.YesNo;
+						break;
+
 						case 128:  // OLE
-							col.ColumnType = (int)ColumnTypes.Ole;
-							break;
+						col.ColumnType = (int)ColumnTypes.Ole;
+						break;
 					}
 
 					if (!r.IsNull("CHARACTER_MAXIMUM_LENGTH"))
@@ -253,7 +175,7 @@ namespace JetUtil
 				}
 
 				// Get primary key
-				DataTable primary_key_table = GetPrimaryKeys(table_name);
+				DataTable primary_key_table = connection.GetPrimaryKeys(table_name);
 
 				foreach (DataRow pkrow in primary_key_table.Rows)
 				{
@@ -269,7 +191,7 @@ namespace JetUtil
 					}
 				}
 
-				DataTable foreign_key_table = GetForeignKeys(table_name);
+				DataTable foreign_key_table = connection.GetForeignKeys(table_name);
 
 				foreach (DataRow fkrow in foreign_key_table.Rows)
 				{
@@ -378,26 +300,32 @@ namespace JetUtil
 			{
 				case (int)ColumnTypes.Number:
 				case (int)ColumnTypes.Autonumber:
-					colSQL += " INTEGER";
-					break;
+				colSQL += " INTEGER";
+				break;
+
 				case (int)ColumnTypes.String:
-					colSQL += String.Format(" CHAR({0})", c.Length);
-					break;
+				colSQL += String.Format(" CHAR({0})", c.Length);
+				break;
+
 				case (int)ColumnTypes.Memo:
-					colSQL += " MEMO";
-					break;
+				colSQL += " MEMO";
+				break;
+
 				case (int)ColumnTypes.DateTime:
-					colSQL += " DATETIME";
-					break;
+				colSQL += " DATETIME";
+				break;
+
 				case (int)ColumnTypes.Currency:
-					colSQL += " CURRENCY";
-					break;
+				colSQL += " CURRENCY";
+				break;
+
 				case (int)ColumnTypes.Ole:
-					colSQL += " OLEOBJECT";
-					break;
+				colSQL += " OLEOBJECT";
+				break;
+
 				case (int)ColumnTypes.YesNo:
-					colSQL += " YESNO";
-					break;
+				colSQL += " YESNO";
+				break;
 			}
 
 			if (c.Unique)
@@ -449,36 +377,39 @@ namespace JetUtil
 		/////////////////////////////////////////////////////////////////////
 		public void OutputSchema()
 		{
-			DataTable tables = GetTableNames();
+			DataTable tables = connection.GetTableNames();
 			DumpTable(tables);
-			
-			foreach (DataRow row in tables.Rows) {
+
+			foreach (DataRow row in tables.Rows)
+			{
 				string table_name = row["TABLE_NAME"].ToString();
-				
+
 				Console.WriteLine("For table - " + table_name);
-				
+
 				Console.WriteLine("Columns:");
-				DataTable cols = GetTableColumns(table_name);
+				DataTable cols = connection.GetTableColumns(table_name);
 				DumpTable(cols);
-				
+
 				Console.WriteLine("TableConstraints:");
-				DataTable refcons = GetTableConstraints(table_name);
+				DataTable refcons = connection.GetTableConstraints(table_name);
 				DumpTable(refcons);
-				
+
 				Console.WriteLine("Primary Key:");
-				DataTable pk = GetPrimaryKeys(table_name);
+				DataTable pk = connection.GetPrimaryKeys(table_name);
 				DumpTable(pk);
-			
+
 				Console.WriteLine("Foreign Key:");
-				DataTable fk = GetForeignKeys(table_name);
+				DataTable fk = connection.GetForeignKeys(table_name);
 				DumpTable(fk);
 			}
 		}
-		
-		private void DumpTable(DataTable table) {
-			
-			foreach (DataRow row in table.Rows) {
-				foreach (DataColumn col in table.Columns) {
+
+		private void DumpTable(DataTable table)
+		{
+			foreach (DataRow row in table.Rows)
+			{
+				foreach (DataColumn col in table.Columns)
+				{
 					Console.WriteLine(col.ColumnName + " = " + row[col].ToString());
 				}
 				Console.WriteLine();
@@ -491,7 +422,7 @@ namespace JetUtil
 		/// <param name="table">A table to be sorted with the structure
 		/// Object name, ArrayList dependencies.</param>
 		/// <returns>A sorted arraylist.</returns>
-		ArrayList TopologicalSort(Hashtable table)
+		private ArrayList TopologicalSort(Hashtable table)
 		{
 			ArrayList sortedList = new ArrayList();
 			object key;

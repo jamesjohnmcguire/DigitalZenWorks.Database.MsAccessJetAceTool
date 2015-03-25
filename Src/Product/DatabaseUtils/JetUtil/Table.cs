@@ -85,6 +85,12 @@ namespace JetUtil
 			m_ForeignKeys.Add(fk);
 		}
 
+		/////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Writes out the table information
+		/// </summary>
+		/// <returns>DataTable</returns>
+		/////////////////////////////////////////////////////////////////////
 		public void DumpTable()
 		{
 			Console.WriteLine("Table: " + m_Name);
