@@ -16,7 +16,15 @@ namespace JetImportSchema
 
 		static int Main(string[] args)
 		{
+			Program This = new Program();
+
+			return This.Run(args);
+		}
+
+		int Run(string[] args)
+		{
 			int ReturnCode = -1;
+	
 			if (args.Length < 2)
 			{
 				Console.WriteLine("usage: JetImportSchema <schema file> <new .mdb file>");
@@ -61,7 +69,7 @@ namespace JetImportSchema
 			}
 		}
 
-		static void ImportSchema(
+		void ImportSchema(
 			string SchemaFile,
 			string MdbFile)
 		{
