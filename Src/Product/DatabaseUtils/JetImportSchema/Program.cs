@@ -2,17 +2,18 @@ using System;
 using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
+using Zenware.DatabaseLibrary;
 
 namespace JetImportSchema
 {
 	class Program
 	{
-		/////////////////////////////////////////////////////////////////////
-		/// <summary>
-		/// Represents a provider type for a connection string
-		/// </summary>
-		/////////////////////////////////////////////////////////////////////
-		private string provider = "Microsoft.Jet.OLEDB.4.0";
+		///////////////////////////////////////////////////////////////////////
+		///// <summary>
+		///// Represents a provider type for a connection string
+		///// </summary>
+		///////////////////////////////////////////////////////////////////////
+		//private string provider = "Microsoft.Jet.OLEDB.4.0";
 
 		static int Main(string[] args)
 		{
@@ -31,13 +32,13 @@ namespace JetImportSchema
 			}
 			else
 			{
-				if (Environment.Is64BitOperatingSystem)
-				{
-					provider = "Microsoft.ACE.OLEDB.12.0";
-				}
+				//if (Environment.Is64BitOperatingSystem)
+				//{
+				//	provider = "Microsoft.ACE.OLEDB.12.0";
+				//}
 
 				CreateMdbFile(args[1]);
-				ImportSchema(args[0], args[1]);
+				StorageContainers.ImportSchema(args[0], args[1]);
 
 				ReturnCode = 0;
 			}
@@ -69,42 +70,6 @@ namespace JetImportSchema
 			}
 		}
 
-		void ImportSchema(
-			string SchemaFile,
-			string MdbFile)
-		{
-			try
-			{
-				if (File.Exists(SchemaFile))
-				{
-					string FileContents = GetFileContents(SchemaFile);
-
-					string[] StringSeparators = new string[] { "\r\n\r\n" };
-					string[] Queries = FileContents.Split(StringSeparators,
-															32000,
-															StringSplitOptions.RemoveEmptyEntries);
-
-					string ConnectionString = "Provider=" + provider + "; Data Source=" + MdbFile;
-					OleDbConnection Connection = new OleDbConnection(ConnectionString);
-					OleDbCommand ThisCommand = new OleDbCommand();
-
-					Connection.Open();
-
-					ThisCommand.Connection = Connection;
-					ThisCommand.CommandTimeout = 30;
-
-					foreach (string SqlQuery in Queries)
-					{
-						ThisCommand.CommandText = SqlQuery;
-						ThisCommand.ExecuteNonQuery();
-					}
-				}
-			}
-			catch (Exception Ex)
-			{
-				Console.WriteLine("Exception: " + Ex.ToString());
-			}
-		}
 
 		static string GetFileContents(
 			string FilePath)
