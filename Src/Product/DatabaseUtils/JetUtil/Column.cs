@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DigitalZenWorks.Common.DatabaseLibrary;
 
 namespace JetUtil
 {
@@ -23,7 +24,7 @@ namespace JetUtil
 		/// The type of the column
 		/// </summary>
 		/////////////////////////////////////////////////////////////////////
-		public int ColumnType;
+		public int Type;
 
 		/////////////////////////////////////////////////////////////////////
 		/// <summary>
@@ -48,7 +49,7 @@ namespace JetUtil
 
 		/////////////////////////////////////////////////////////////////////
 		/// <summary>
-		/// Represents the defaul value of the column
+		/// Represents the default value of the column
 		/// </summary>
 		/////////////////////////////////////////////////////////////////////
 		public string DefaultValue;
@@ -68,7 +69,7 @@ namespace JetUtil
 		public Column()
 		{
 			Name = "Untitled Column";
-			ColumnType = (int)ColumnTypes.Number;
+			Type = (int)ColumnType.Number;
 			Length = 255;
 			Unique = false;
 			Nullable = false;
@@ -85,7 +86,7 @@ namespace JetUtil
 			bool nullable, string defaultvalue, int position)
 		{
 			Name = name;
-			ColumnType = type;
+			Type = type;
 			Unique = unique;
 			Nullable = nullable;
 			DefaultValue = defaultvalue;

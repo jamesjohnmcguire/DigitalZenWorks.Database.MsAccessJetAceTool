@@ -8,21 +8,10 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Data.OleDb;
+using DigitalZenWorks.Common.DatabaseLibrary;
 
 namespace JetUtil
 {
-	internal enum ColumnTypes
-	{
-		Autonumber,
-		Currency,
-		DateTime,
-		Memo,
-		Number,
-		Ole,
-		String,
-		YesNo
-	}
-
 	// A struct to hold foreign key constraints temporarily
 	internal struct Relationship
 	{
@@ -130,34 +119,34 @@ namespace JetUtil
 					switch ((int)r["DATA_TYPE"])
 					{
 						case 3:	// Number
-						col.ColumnType = (int)ColumnTypes.Number;
+						col.Type = (int)ColumnType.Number;
 						break;
 
 						case 130:  // String
 						if (Int32.Parse(r["COLUMN_FLAGS"].ToString()) > 127)
 						{
-							col.ColumnType = (int)ColumnTypes.Memo;
+							col.Type = (int)ColumnType.Memo;
 						}
 						else
 						{
-							col.ColumnType = (int)ColumnTypes.String;
+							col.Type = (int)ColumnType.String;
 						}
 						break;
 
 						case 7:  // Date
-						col.ColumnType = (int)ColumnTypes.DateTime;
+						col.Type = (int)ColumnType.DateTime;
 						break;
 
 						case 6:  // Currency
-						col.ColumnType = (int)ColumnTypes.Currency;
+						col.Type = (int)ColumnType.Currency;
 						break;
 
 						case 11:  // Yes/No
-						col.ColumnType = (int)ColumnTypes.YesNo;
+						col.Type = (int)ColumnType.YesNo;
 						break;
 
 						case 128:  // OLE
-						col.ColumnType = (int)ColumnTypes.Ole;
+						col.Type = (int)ColumnType.Ole;
 						break;
 					}
 
@@ -182,12 +171,12 @@ namespace JetUtil
 					table.m_PrimaryKey = pkrow["COLUMN_NAME"].ToString();
 				}
 
-				// If PK is an integer change type to Autonumber
+				// If PK is an integer change type to AutoNumber
 				if (table.m_PrimaryKey != "")
 				{
-					if (((Column)table.m_Columns[table.m_PrimaryKey]).ColumnType == (int)ColumnTypes.Number)
+					if (((Column)table.m_Columns[table.m_PrimaryKey]).Type == (int)ColumnType.Number)
 					{
-						((Column)table.m_Columns[table.m_PrimaryKey]).ColumnType = (int)ColumnTypes.Autonumber;
+						((Column)table.m_Columns[table.m_PrimaryKey]).Type = (int)ColumnType.AutoNumber;
 					}
 				}
 
@@ -296,34 +285,34 @@ namespace JetUtil
 
 			colSQL += "[" + c.Name + "]";
 
-			switch (c.ColumnType)
+			switch (c.Type)
 			{
-				case (int)ColumnTypes.Number:
-				case (int)ColumnTypes.Autonumber:
+				case (int)ColumnType.Number:
+				case (int)ColumnType.AutoNumber:
 				colSQL += " INTEGER";
 				break;
 
-				case (int)ColumnTypes.String:
+				case (int)ColumnType.String:
 				colSQL += String.Format(" CHAR({0})", c.Length);
 				break;
 
-				case (int)ColumnTypes.Memo:
+				case (int)ColumnType.Memo:
 				colSQL += " MEMO";
 				break;
 
-				case (int)ColumnTypes.DateTime:
+				case (int)ColumnType.DateTime:
 				colSQL += " DATETIME";
 				break;
 
-				case (int)ColumnTypes.Currency:
+				case (int)ColumnType.Currency:
 				colSQL += " CURRENCY";
 				break;
 
-				case (int)ColumnTypes.Ole:
+				case (int)ColumnType.Ole:
 				colSQL += " OLEOBJECT";
 				break;
 
-				case (int)ColumnTypes.YesNo:
+				case (int)ColumnType.YesNo:
 				colSQL += " YESNO";
 				break;
 			}
@@ -334,7 +323,7 @@ namespace JetUtil
 			if (!c.Nullable)
 				colSQL += " NOT NULL";
 
-			if (c.ColumnType == (int)ColumnTypes.Autonumber)
+			if (c.Type == (int)ColumnType.AutoNumber)
 				colSQL += " IDENTITY";
 
 			if (!(c.DefaultValue == ""))

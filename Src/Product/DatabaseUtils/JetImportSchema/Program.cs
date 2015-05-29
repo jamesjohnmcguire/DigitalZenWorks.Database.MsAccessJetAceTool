@@ -2,7 +2,7 @@ using System;
 using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
-using Zenware.DatabaseLibrary;
+using DigitalZenWorks.Common.DatabaseLibrary;
 
 namespace JetImportSchema
 {
@@ -38,7 +38,7 @@ namespace JetImportSchema
 				//}
 
 				CreateMdbFile(args[1]);
-				StorageContainers.ImportSchema(args[0], args[1]);
+				DataDefinition.ImportSchema(args[0], args[1]);
 
 				ReturnCode = 0;
 			}
