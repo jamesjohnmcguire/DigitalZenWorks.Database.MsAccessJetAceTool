@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("JetImportSchema")]
+[assembly: AssemblyTitle("MsAccessTool")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("JetImportSchema")]
-[assembly: AssemblyCopyright("Copyright ©  2008")]
+[assembly: AssemblyProduct("MsAccessTool")]
+[assembly: AssemblyCopyright("Copyright ©  2008 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b16c3528-7556-4f66-8cb4-bf2a8139ef42")]
+[assembly: Guid("b9473458-e248-4e1b-9c74-c3e1e40f2be8")]
 
 // Version information for an assembly consists of the following four values:
 //
