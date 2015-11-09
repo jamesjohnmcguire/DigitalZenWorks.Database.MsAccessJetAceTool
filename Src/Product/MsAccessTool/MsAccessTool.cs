@@ -8,30 +8,35 @@ using System;
 using System.IO;
 using System.Text;
 using DigitalZenWorks.Common.DatabaseLibrary;
+using Common.Logging;
+using System.Globalization;
 
 namespace MsAccessTool
 {
 	class MsAccessTool
 	{
+		private static readonly ILog log = LogManager.GetLogger
+			(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		static int Main(string[] args)
 		{
 			int returnCode = -1;
 
 			if (3 > args.Length)
 			{
-				Console.WriteLine(
-					"usage: MsAccessTool import <Sql File> <MDB File>");
-				Console.WriteLine(
-					"usage: MsAccessTool export <MDB File> <Sql File>");
+				Usage();
 			}
 			else
 			{
 				if (args[0].ToLower().Equals("import"))
 				{
+					log.Info(CultureInfo.InvariantCulture,
+						m => m("importing"));
+
 					string sqlFile = args[1];
 					string databaseFile = args[2];
 
-					DatabaseUtils.CreateMdbFile(databaseFile);
+					DatabaseUtilities.CreateAccessDatabaseFile(databaseFile);
 					bool successCode = DataDefinition.ImportSchema(sqlFile,
 						databaseFile);
 
@@ -49,16 +54,22 @@ namespace MsAccessTool
 				}
 				else
 				{
-					Console.WriteLine("unknown command");
-					Console.WriteLine(
-						"usage: MsAccessTool import <Sql File> <MDB File>");
-					Console.WriteLine(
-						"usage: MsAccessTool export <MDB File> <Sql File>");
+					log.Warn(CultureInfo.InvariantCulture,
+						m => m("unknown command"));
+					Usage();
 				}
 
 			}
 
 			return returnCode;
+		}
+
+		private static void Usage()
+		{
+			Console.WriteLine(
+				"usage: MsAccessTool import <Sql File> <MDB File>");
+			Console.WriteLine(
+				"usage: MsAccessTool export <MDB File> <Sql File>");
 		}
 	}
 }
