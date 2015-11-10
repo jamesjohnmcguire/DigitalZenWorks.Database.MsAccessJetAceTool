@@ -694,39 +694,67 @@ options
 								"', TRUE)";
 						}
 						if (!FormType.ToLower().Equals("hidden"))
-		DevGen
-			Add updateResources to build
-			Rename refs to Zenware
-			change database constructor
-			Error loading directive.properties! Something is very wrong if these properties aren't being located. Either your Velocity distribution is incomplete or your Velocity jar file is corrupted!
-			Cannot get NVelocity Runtime default properties!
-			Could not load file or assembly 'log4net, Version=1.2.0.33710, Culture=neutral,PublicKeyToken=null' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
-			Change back assuming primary key is 'id'
-			Before processing sql contents, regex all multiple whitespaces into 1 whitespace
-			Finished
-				find out why sln file isn't being saved	ex.Message = "Could not find a part of the path 'c:\\Users\\JamesMc\\AppData\\Local\\temp\\Contacts\\Contacts\\Src\\Contacts.sln'."
-			Notes
-				C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\External\TreeSurgeon\Core\Resources\Templates\2008
-				C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\External\TreeSurgeon\lib
-			Run
-				[DevGenAppliction]ValidateArguments
-				[DevGenAppliction]ConfigFile config = Project.LoadConfig(confileFilePath);
-				[DevGenAppliction]ProjectLanguages language = config.GetProjectLanguageType();
-				[DevGenAppliction]ProjectTypes type = config.GetProjectType();
-				[DevGenAppliction]project = new ProjectCSharpLibrary(config);
-				[DevGenAppliction]project.LoadSqlFile(confileFilePath);
-				project.Create();
-					[ProjectCSharp]
-					tableNames = base.Create();
-						[Project]
-						CreateProjectFiles
-							[ProjectCSharp]
-							base.CreateProjectFiles();
-								[Project]
-								new TreeSurgeonPlus
-					treeSurgeon.GeneratePlus
 
-				string sql = "INSERT INTO ConflictGroups " +
-					"(`id`) VALUES " +
-					"('" + conflictGroup.Id + "')";
-			/// Represents a Countrie object.
+Add updateResources to build
+Rename refs to Zenware
+change database constructor
+Error loading directive.properties! Something is very wrong if these properties aren't being located. Either your Velocity distribution is incomplete or your Velocity jar file is corrupted!
+Cannot get NVelocity Runtime default properties!
+Could not load file or assembly 'log4net, Version=1.2.0.33710, Culture=neutral,PublicKeyToken=null' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+Change back assuming primary key is 'id'
+Before processing sql contents, regex all multiple whitespaces into 1 whitespace
+Finished
+	find out why sln file isn't being saved	ex.Message = "Could not find a part of the path 'c:\\Users\\JamesMc\\AppData\\Local\\temp\\Contacts\\Contacts\\Src\\Contacts.sln'."
+Notes
+	C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\External\TreeSurgeon\Core\Resources\Templates\2008
+	C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\External\TreeSurgeon\lib
+Run
+	[DevGenAppliction]ValidateArguments
+	[DevGenAppliction]ConfigFile config = Project.LoadConfig(confileFilePath);
+	[DevGenAppliction]ProjectLanguages language = config.GetProjectLanguageType();
+	[DevGenAppliction]ProjectTypes type = config.GetProjectType();
+	[DevGenAppliction]project = new ProjectCSharpLibrary(config);
+	[DevGenAppliction]project.LoadSqlFile(confileFilePath);
+	project.Create();
+		[ProjectCSharp]
+		tableNames = base.Create();
+			[Project]
+			CreateProjectFiles
+				[ProjectCSharp]
+				base.CreateProjectFiles();
+					[Project]
+					new TreeSurgeonPlus
+		treeSurgeon.GeneratePlus
+
+	string sql = "INSERT INTO ConflictGroups " +
+		"(`id`) VALUES " +
+		"('" + conflictGroup.Id + "')";
+/// Represents a Countrie object.
+
+config with validation should only be called once
+why does type come to be web?
+Config\Contacts.xml Config\ContactsX.sql
+private int CommandCreateUpdateStatements(
+	string[] args)
+{
+	int ReturnCode = -1;
+
+	if (3 < args.Length)
+	{
+		string SqlFile = args[1];
+		string UpdateCsFile = args[2];
+		string TestCsFile = args[3];
+
+		if ((File.Exists(SqlFile)) && (File.Exists(UpdateCsFile)) && (File.Exists(TestCsFile)))
+		{
+			StorageContainers DatabaseHelper = new StorageContainers();
+
+			//DatabaseHelper.CreateUpdateStatments(@"c:\data\admin\contacts\ContactsX.sql", @"c:\out.cs", @"c:\OutTest.cs");
+			DatabaseHelper.CreateUpdateStatments(SqlFile, UpdateCsFile, TestCsFile);
+
+			ReturnCode = 0;
+		}
+	}
+
+	return ReturnCode;
+}
