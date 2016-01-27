@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MsAccessTool")]
-[assembly: AssemblyCopyright("Copyright ©  2008 - 2015")]
+[assembly: AssemblyCopyright("Copyright © 2006 - 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
