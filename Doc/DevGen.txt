@@ -758,3 +758,5 @@ private int CommandCreateUpdateStatements(
 
 	return ReturnCode;
 }
+
+Config\Contacts.xml Config\Contacts.sql
