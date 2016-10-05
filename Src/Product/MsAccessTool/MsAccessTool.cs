@@ -22,43 +22,52 @@ namespace MsAccessTool
 		{
 			int returnCode = -1;
 
-			if (3 > args.Length)
+			try
 			{
-				Usage();
-			}
-			else
-			{
-				if (args[0].ToLower().Equals("import"))
+				if (3 > args.Length)
 				{
-					log.Info(CultureInfo.InvariantCulture,
-						m => m("importing"));
-
-					string sqlFile = args[1];
-					string databaseFile = args[2];
-
-					DatabaseUtilities.CreateAccessDatabaseFile(databaseFile);
-					bool successCode = DataDefinition.ImportSchema(sqlFile,
-						databaseFile);
-
-					returnCode = Convert.ToInt32(successCode);
-				}
-				else if (args[0].ToLower().Equals("export"))
-				{
-					string databaseFile = args[1];
-					string sqlFile = args[2];
-
-					bool successCode = DataDefinition.ExportSchema(
-						databaseFile, sqlFile);
-
-					returnCode = Convert.ToInt32(successCode);
+					Usage();
 				}
 				else
 				{
-					log.Warn(CultureInfo.InvariantCulture,
-						m => m("unknown command"));
-					Usage();
-				}
+					if (args[0].ToLower().Equals("import"))
+					{
+						log.Info(CultureInfo.InvariantCulture,
+							m => m("importing"));
 
+						string sqlFile = args[1];
+						string databaseFile = args[2];
+
+						bool successCode = DatabaseUtilities.
+							CreateAccessDatabaseFile(databaseFile);
+						if (true == successCode)
+						{
+							successCode = DataDefinition.ImportSchema(sqlFile,
+								databaseFile);
+							returnCode = Convert.ToInt32(successCode);
+						}
+					}
+					else if (args[0].ToLower().Equals("export"))
+					{
+						string databaseFile = args[1];
+						string sqlFile = args[2];
+
+						bool successCode = DataDefinition.ExportSchema(
+							databaseFile, sqlFile);
+
+						returnCode = Convert.ToInt32(successCode);
+					}
+					else
+					{
+						log.Warn(CultureInfo.InvariantCulture,
+							m => m("unknown command"));
+						Usage();
+					}
+
+				}
+			}
+			catch
+			{
 			}
 
 			return returnCode;
