@@ -762,22 +762,42 @@ private int CommandCreateUpdateStatements(
 Config\Contacts.xml Config\Contacts.sql
 
 Spelling Plural Nouns
+	Here are some general rules for spelling plural nouns.
+	Nouns	Plural	Examples
+	Most nouns	add s	book, books; cup, cups; sprout, sprouts
+	Most nouns that end in ch, sh, s, x, or z		add es	box, boxes; bus, buses; prize, prizes
+	Most nouns that end in a vowel and y	add s	boy, boys; day, days; key, keys
+	Most nouns that end in a consonant and y	y becomes ies	baby, babies; country, countries; spy, spies
+	Most nouns that end in f or fe	f or fe becomes ves	elf, elves; loaf, loaves; thief, thieves
+	Most nouns that end in o	add s	kangaroo, kangaroos; piano, pianos; video, videos
+	Certain nouns that end in a consonant and o		add es	hero, heroes; potato, potatoes; volcano, volcanoes
+	Some Exceptions
 
-Here are some general rules for spelling plural nouns.
-Nouns	Plural	Examples
-Most nouns	add s	book, books; cup, cups; sprout, sprouts
-Most nouns that end in ch, sh, s, x, or z		add es	box, boxes; bus, buses; prize, prizes
-Most nouns that end in a vowel and y	add s	boy, boys; day, days; key, keys
-Most nouns that end in a consonant and y	y becomes ies	baby, babies; country, countries; spy, spies
-Most nouns that end in f or fe	f or fe becomes ves	elf, elves; loaf, loaves; thief, thieves
-Most nouns that end in o	add s	kangaroo, kangaroos; piano, pianos; video, videos
-Certain nouns that end in a consonant and o		add es	hero, heroes; potato, potatoes; volcano, volcanoes
-Some Exceptions
+	Geese
 
-Geese
+	Certain English nouns change a vowel sound when they become plural. These include goose, geese; man, men; mouse, mice; and tooth, teeth.
 
-Certain English nouns change a vowel sound when they become plural. These include goose, geese; man, men; mouse, mice; and tooth, teeth.
+	Some nouns don't change at all when they become plural. These include deer, fish, sheep, and species.
 
-Some nouns don't change at all when they become plural. These include deer, fish, sheep, and species.
+	A few nouns have plural forms that are left from Old English. These include child, children and ox, oxen.
+Tasks
+	DevTools	Add option to remove the following	does not need a CLSCompliant attribute because the assembly does not have a CLSCompliant attribute
+	DevTools	Move the functionality to a dll
+	DevTools	rename namespace
+	DevTools	refactor string format and write file
+	DevTools	move sql related to database dll
+	DevTools	interface
+	DevTools	code analysis
+	DevTools	soft clean
+	DevTools	remove nuget folder
+	DevTools	Resolve ProjectPHPLibarary and ProjectPHPCodeigniter
+	DevTools	clean up column.FormType.ToLower()
+	DevTools	split AccountGroups into account_groups for codeigniter
+	DevTools	make pascal cased names lower case for codeigniter
+	DevTools	{2} is empty?
+	DevTools	deploy codeigniter site
 
-A few nouns have plural forms that are left from Old English. These include child, children and ox, oxen.
+	https://github.com/bcit-ci/CodeIgniter.git
+	https://github.com/bcit-ci/CodeIgniter/tree/3.1-stable
+
++		Ex	{"Unexpected HTTP status 504 'Gateway Timeout' on '/bcit-ci/CodeIgniter/!svn/vcc/default'"}	System.Exception {SharpSvn.SvnRepositoryIOException}
