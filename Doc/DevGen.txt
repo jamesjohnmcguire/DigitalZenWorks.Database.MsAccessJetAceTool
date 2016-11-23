@@ -796,6 +796,7 @@ Tasks
 	DevTools	make pascal cased names lower case for codeigniter
 	DevTools	{2} is empty?
 	DevTools	deploy codeigniter site
+	Devtools	Special case all default values	INSERT INTO `ConflictGroups` DEFAULT VALUES;
 
 	https://github.com/bcit-ci/CodeIgniter.git
 	https://github.com/bcit-ci/CodeIgniter/tree/3.1-stable
