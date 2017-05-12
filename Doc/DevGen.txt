@@ -613,6 +613,7 @@ Notes
 	Debug Parameters
 		..\..\config\Contacts.xml ..\..\config\ContactsX.sql
 		..\..\config\HousingJapan.xml ..\..\config\HousingJapan.sql
+		PelhamSmithers.xml DatabaseSchema.sql
 data comes in from
 	xml file
 		types
