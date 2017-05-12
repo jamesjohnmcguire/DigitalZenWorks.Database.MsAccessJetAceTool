@@ -46,11 +46,171 @@ Today
 Pending
 Todo
 Tasks
-		remove language setting before add_update if not needed (maybe always)
-		need to deal with add_update, language name fields as extended insert (see property_sub_types)
-		set twice $this->template->set('languages', $languages);
-		When needing complete language info, such as editing, add the TRUE	$social_restriction = $this->social_restrictions->get($id, TRUE);
-		In field setting, may need to change: 	$fields[$index] = $social_restriction->$index;
+	GetBy	need to return multiple
+	Need to omit or set to NULL when foreign key fields when value is 0
+	ContactsGicsSubIndustriesCollection
+	Data type mismatch in criteria expression.	System.Data.OleDb.OleDbException remove quotes for Ids
+	plural names	Industrie	Industrys	ContactsGicsSubIndustrie
+	" Gender='" + contact.Gender + "'" +
+	Add virtuals
+	copyright 2017
+	Collection	InsertFirms should just be insert
+	svn properties
+	Need to deal with 0 as Id
+	database errors	throw?
+	when tablename is null, abort
+	Add option to remove the following	does not need a CLSCompliant attribute because the assembly does not have a CLSCompliant attribute
+	remove language setting before add_update if not needed (maybe always)
+	need to deal with add_update, language name fields as extended insert (see property_sub_types)
+	set twice $this->template->set('languages', $languages);
+	When needing complete language info, such as editing, add the TRUE	$social_restriction = $this->social_restrictions->get($id, TRUE);
+	In field setting, may need to change: 	$fields[$index] = $social_restriction->$index;
+	'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
+	model names Name case for 'point_packages'
+	break up and _ names (ex: ManagingSystems to managing_systems)
+	Move language elements from template into code
+	update add_update from certificates
+	check DOCUMENT_ROOT
+	<img height="20px" width="20px" src="/images/Certificates/<?php echo $certificate->picture; ?>">
+	handle picture edit value
+	private $table_name	= 'managing_systems';
+	indents on if ($this->form_validation->run() == FALSE)
+	if no file upload
+	generate lang prep statements
+	after generate fix empties
+	change list format
+	merge columns
+	IsAdmin?
+	$types = $this->property_sub_types->get_all();
+	value="<?php echo $name[$language->id]; ?>" />
+	add_update language names
+	fix select foreach types
+	-- joins
+	Move the functionality to a dll
+	rename namespace
+	refactor string format and write file
+	move sql related to database dll
+	interface
+	code analysis
+	soft clean
+	remove nuget folder
+	Resolve ProjectPHPLibarary and ProjectPHPCodeigniter
+	clean up column.FormType.ToLower()
+	split AccountGroups into account_groups for codeigniter
+	make pascal cased names lower case for codeigniter
+	{2} is empty?
+	deploy codeigniter site
+	Special case all default values	INSERT INTO `ConflictGroups` DEFAULT VALUES;
+	password type for password
+	<option value="0">------</option>
+	remove enctype="multipart/form-data" from non-upload forms
+	radio type needs label after not before
+	radio type needs checked
+	class accounts extends CI_Model
+	improve file naming
+	add header and constructor for controller
+	work out HasTypes and source issue, that to use source, need HasTypes, but sometimes don't want HasTypes
+	CI	fix missing section segment
+	CI	When type is of checkbox or radio and there is a source, enumerate all source rows as checkboxesor radios
+	add placeholder
+	remove <option value="0">------</option>
+	for delete controller, move sets within validation false
+	for delete controller, the following is missing a section segment 						
+		ShowMessage($this->lang->line('invalid_account_id'),
+				'//list_accounts/');
+	CI	too many $this->template->set('languages', $languages);
+	CI	use knr_case template->set
+	CI	fix select`a	test
+	CI	$this->form_validation->set_rules(
+	CI	$this->template->set('admin', TRUE);
+	CI	$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
+	CI	if ((empty($id)) || ($id == 0))
+	CI	after generate fix empties
+	add get function
+	model names Name case for 'point_packages'
+	complete model changes
+	CI	why is section not set?
+	CI	add ajax
+	change list format
+	add point package
+	merge columns
+	?	copyright
+	C#	Add conditionals for UPDATE code
+	C#	Fix CreateSln to only include relative paths
+	C#	Add /// comments to table templates
+	C#	fix formatting of table templates
+	C#	apply php parsing fixes to cs
+	document generic practice of including common/external projects
+	implement generic practice of including common/external projects
+	Change inclusion of externals projects to 'svn:externals'
+	real main program file
+	clean up and out prototypes
+	update coding style
+	SQL File parsing	comments before each table, how to handle
+	Generize SQL table generation
+	C#	Finish implemenation hhiberate support
+	PHP	DbLib Error in constructor
+	PHP	check GetRow functionality
+	PHP - test on unix system
+	Update PHP code from fixes in other projects
+	Test and Fix PhpBasic Login and Registration functionality
+	fix missing projects in output solution
+	fix long lines in insert / update parameters
+	Finished
+		UNIQUE KEY `accountId` (`accountId`,`groupId`),
+		take out keys, constraints
+		CI	when field has source, add something like: $types = $this->Prefectures->get_types();
+		CI	move inside validation $this->template->set('languages', $languages);
+		CI	change add_update to use $fields
+		'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
+		Clean up notes file
+		fix svn
+		review notes from other projects on updating /creating svn repos
+		backup
+		devclean
+		svnrm
+		remove others I don't want in there
+		update create script
+		go
+		Codeigniter	fix add_update call
+		Codeigniter	add model
+		Codeigniter	ShowMessage($message
+		Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
+		Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
+		Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
+		Codeigniter	fix add_update call
+		Codeigniter	add model
+		Codeigniter	ShowMessage($message
+		Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
+		Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
+		Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
+		add ajax
+		add ajax method
+		add point package
+		why is section not set?
+		complete model changes
+		fix select`a	test
+		$this->form_validation->set_rules(
+		$this->template->set('admin', TRUE);
+		$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
+					if ((empty($id)) || ($id == 0))
+		add get function
+		remove random 't' in <option> and select
+Generize SQL table generation
+	create a generic but diverse table with many types and options
+	import it into the following
+		access
+		sql server
+		my sql
+		postgres
+		sql lite
+	dump it out of each
+		compare and contrast
+Test and Fix PhpBasic Login and Registration functionality
+	Client: Me
+	Initial estimate:	1 hr
+	actual time: 26 Minutes (for testing)
+
 <?php
 if (!empty($id))
 {
@@ -70,12 +230,6 @@ if (!empty($id))
 		{
 			unset($columns['preferredContactId']);
 		}
-		password type for password
-		<option value="0">------</option>
-		remove enctype="multipart/form-data" from non-upload forms
-		radio type needs label after not before
-		radio type needs checked
-		class accounts extends CI_Model
 		if (empty($account))
 		{
 			if ($method == 'edit_account')
@@ -84,88 +238,6 @@ if (!empty($id))
 					"$controller");
 			}
 		}
-		improve file naming
-		add header and constructor for controller
-		work out HasTypes and source issue, that to use source, need HasTypes, but sometimes don't want HasTypes
-	CI	fix missing section segment
-	CI	When type is of checkbox or radio and there is a source, enumerate all source rows as checkboxesor radios
-		add placeholder
-		remove <option value="0">------</option>
-		for delete controller, move sets within validation false
-		for delete controller, the following is missing a section segment 						
-			ShowMessage($this->lang->line('invalid_account_id'),
-					'//list_accounts/');
-
-	CI	too many $this->template->set('languages', $languages);
-	CI	use knr_case template->set
-	CI	fix select`a	test
-	CI	$this->form_validation->set_rules(
-	CI	$this->template->set('admin', TRUE);
-	CI	$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
-	CI	if ((empty($id)) || ($id == 0))
-	CI	after generate fix empties
-		add get function
-		model names Name case for 'point_packages'
-		complete model changes
-	CI	why is section not set?
-	CI	add ajax
-		change list format
-		add point package
-		merge columns
-	?	copyright
-	C#	Add conditionals for UPDATE code
-	C#	Fix CreateSln to only include relative paths
-	C#	Add /// comments to table templates
-	C#	fix formatting of table templates
-	C#	apply php parsing fixes to cs
-	document generic practice of including common/external projects
-	implement generic practice of including common/external projects
-	Change inclusion of externals projects to 'svn:externals'
-	real main program file
-	clean up and out prototypes
-	update coding style
-	SQL File parsing	comments before each table, how to handle
-	Generize SQL table generation
-		create a generic but diverse table with many types and options
-		import it into the following
-			access
-			sql server
-			my sql
-			postgres
-			sql lite
-		dump it out of each
-			compare and contrast
-	C#	Finish implemenation hhiberate support
-	PHP	DbLib Error in constructor
-	PHP	check GetRow functionality
-	PHP - test on unix system
-	Update PHP code from fixes in other projects
-	Test and Fix PhpBasic Login and Registration functionality
-		Client: Me
-		Initial estimate:	1 hr
-		actual time: 26 Minutes (for testing)
-	fix missing projects in output solution
-	fix long lines in insert / update parameters
-Finished
-	CI	when field has source, add something like: $types = $this->Prefectures->get_types();
-	CI	move inside validation $this->template->set('languages', $languages);
-	CI	change add_update to use $fields
-	'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
-	Clean up notes file
-	fix svn
-		review notes from other projects on updating /creating svn repos
-		backup
-		devclean
-		svnrm
-		remove others I don't want in there
-		update create script
-		go
-		DevTools	Codeigniter	fix add_update call
-		DevTools	Codeigniter	add model
-		DevTools	Codeigniter	ShowMessage($message
-		DevTools	Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
-		DevTools	Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
-		DevTools	Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
 Process
 	¡ Problem definition
 		In developing web sites, a lot of time is spent working on menial tasks.  These tasks take little thought and are often quite routine tasks, however they take a long time.  Furthormore, it is quite easy in doing these tasks not to adhere to the 'rules' of the project, thus causing inconsistencies, bugs and additional time fixing them.
@@ -614,49 +686,6 @@ http://sachabarber.net/?p=368
 		CodeIgniter	PHP
 		Library	either
 		Web	either
-	Tasks
-		Finished
-			DevTools	Codeigniter	fix add_update call
-			DevTools	Codeigniter	add model
-			DevTools	Codeigniter	ShowMessage($message
-			DevTools	Ex = {"Could not load file or assembly 'Zenware.Common.Utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4d499e85b92e4818' or one of its dependencies. An attempt was made to load a program with an incorrect format."}
-			DevTools	Warning	2	There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference "C:\Users\JamesMc\Data\Projects\Zenware\Dev\DevTools\Src\bin\Debug\Zenware.Common.DatabaseLibrary.dll", "x86". This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project through the Configuration Manager so as to align the processor architectures between your project and references, or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DatabaseUtilitiesNet
-			DevTools	Warning	4	Found conflicts between different versions of the same dependent assembly.	c:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets	1605	DevGen
-			add ajax
-			add ajax method
-			add point package
-			why is section not set?
-			complete model changes
-			fix select`a	test
-			$this->form_validation->set_rules(
-			$this->template->set('admin', TRUE);
-			$directory = $_SERVER['DOCUMENT_ROOT'] . '/PropertyImages/';
-						if ((empty($id)) || ($id == 0))
-			add get function
-			remove random 't' in <option> and select
-
-		'string' does not contain a definition for and no extension method 'ToProperCase' accepting a first argument of type 'string' could be found 
-		model names Name case for 'point_packages'
-		break up and _ names (ex: ManagingSystems to managing_systems)
-		Move language elements from template into code
-		update add_update from certificates
-		check DOCUMENT_ROOT
-		<img height="20px" width="20px" src="/images/Certificates/<?php echo $certificate->picture; ?>">
-		handle picture edit value
-		private $table_name	= 'managing_systems';
-		indents on if ($this->form_validation->run() == FALSE)
-		if no file upload
-		generate lang prep statements
-
-		after generate fix empties
-		change list format
-		merge columns
-		IsAdmin?
-		$types = $this->property_sub_types->get_all();
-		value="<?php echo $name[$language->id]; ?>" />
-		add_update language names
-		fix select foreach types
-		-- joins
  
 how much more do i improve DevGen until going to Contacts?
 	Fix some basic low-lying fruit, then move on
@@ -780,25 +809,10 @@ Spelling Plural Nouns
 	Some nouns don't change at all when they become plural. These include deer, fish, sheep, and species.
 
 	A few nouns have plural forms that are left from Old English. These include child, children and ox, oxen.
-Tasks
-	DevTools	Add option to remove the following	does not need a CLSCompliant attribute because the assembly does not have a CLSCompliant attribute
-	DevTools	Move the functionality to a dll
-	DevTools	rename namespace
-	DevTools	refactor string format and write file
-	DevTools	move sql related to database dll
-	DevTools	interface
-	DevTools	code analysis
-	DevTools	soft clean
-	DevTools	remove nuget folder
-	DevTools	Resolve ProjectPHPLibarary and ProjectPHPCodeigniter
-	DevTools	clean up column.FormType.ToLower()
-	DevTools	split AccountGroups into account_groups for codeigniter
-	DevTools	make pascal cased names lower case for codeigniter
-	DevTools	{2} is empty?
-	DevTools	deploy codeigniter site
-	Devtools	Special case all default values	INSERT INTO `ConflictGroups` DEFAULT VALUES;
 
 	https://github.com/bcit-ci/CodeIgniter.git
 	https://github.com/bcit-ci/CodeIgniter/tree/3.1-stable
 
 +		Ex	{"Unexpected HTTP status 504 'Gateway Timeout' on '/bcit-ci/CodeIgniter/!svn/vcc/default'"}	System.Exception {SharpSvn.SvnRepositoryIOException}
+		DevTools
+			Exception: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine.
