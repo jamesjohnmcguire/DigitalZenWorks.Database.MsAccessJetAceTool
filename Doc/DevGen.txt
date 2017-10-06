@@ -817,3 +817,12 @@ Spelling Plural Nouns
 +		Ex	{"Unexpected HTTP status 504 'Gateway Timeout' on '/bcit-ci/CodeIgniter/!svn/vcc/default'"}	System.Exception {SharpSvn.SvnRepositoryIOException}
 		DevTools
 			Exception: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine.
+
+httptool
+	testall -log logfile.log -config <config.xml> <URI>
+	standard (default)
+	validate
+	agilitypack
+	redirects
+	empty
+	images
