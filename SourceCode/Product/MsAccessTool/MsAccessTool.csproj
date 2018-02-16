@@ -15,7 +15,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -145,7 +145,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\External\DatabaseLibraryNET\DatabaseLibraryNet.csproj">
+    <ProjectReference Include="..\DatabaseLibraryNET\DatabaseLibraryNet.csproj">
       <Project>{10be1c1f-b18c-496b-9112-26b9bee800b1}</Project>
       <Name>DatabaseLibraryNet</Name>
     </ProjectReference>
