@@ -1,89 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-	<ProductVersion>8.0.50727</ProductVersion>
-	<ProjectGuid>{B850F2F5-3DCC-4D5C-9214-7EF5A57D96C7}</ProjectGuid>
-	<OutputType>Exe</OutputType>
-	<FileUpgradeFlags />
-	<UpgradeBackupLocation />
-	  <TargetFramework>net5.0-windows</TargetFramework>
-	  <PublishUrl>publish\</PublishUrl>
-	<Install>true</Install>
-	<InstallFrom>Disk</InstallFrom>
-	<UpdateEnabled>false</UpdateEnabled>
-	<UpdateMode>Foreground</UpdateMode>
-	<UpdateInterval>7</UpdateInterval>
-	<UpdateIntervalUnits>Days</UpdateIntervalUnits>
-	<UpdatePeriodically>false</UpdatePeriodically>
-	<UpdateRequired>false</UpdateRequired>
-	<MapFileExtensions>true</MapFileExtensions>
-	<ApplicationRevision>0</ApplicationRevision>
-	<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-	<IsWebBootstrapper>false</IsWebBootstrapper>
-	<UseApplicationTrust>false</UseApplicationTrust>
-	<BootstrapperEnabled>true</BootstrapperEnabled>
-	<SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\Contacts\SourceCode\</SolutionDir>
-	<AssemblyTitle>MsAccessTool</AssemblyTitle>
-	<Product>MsAccessTool</Product>
-	<Copyright>Copyright © 2006 - 2021</Copyright>
-	<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
-	<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-	<Platforms>AnyCPU;x64</Platforms>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<DebugType>full</DebugType>
-	<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
-	<PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>full</DebugType>
-    <DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-	<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
-	<DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-	<DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-	<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
-	<DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-	<DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <ItemGroup>
-	<PackageReference Include="Common.Logging" Version="3.4.1" />
-	<PackageReference Include="Common.Logging.Core" Version="3.4.1" />
-	<PackageReference Include="Common.Logging.Log4Net208" Version="3.4.1" />
-	<PackageReference Include="log4net" Version="2.0.8" />
-	<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-  </ItemGroup>
-  <ItemGroup>
-	<Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-	  <HintPath>..\..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
-	</Reference>
-	<Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-	  <HintPath>..\..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
-	</Reference>
-	<Reference Include="Common.Logging.Log4Net208, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-	  <HintPath>..\..\packages\Common.Logging.Log4Net208.3.4.1\lib\net40\Common.Logging.Log4Net208.dll</HintPath>
-	</Reference>
-	<Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-	  <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-	</Reference>
-  </ItemGroup>
-  <ItemGroup>
-	<ProjectReference Include="..\DatabaseLibraryNET\DatabaseLibraryNet.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-	<Compile Remove="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
-  </ItemGroup>
+	<PropertyGroup>
+		<ApplicationRevision>0</ApplicationRevision>
+		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+		<AssemblyTitle>MsAccessTool</AssemblyTitle>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<Copyright>Copyright © 2006 - 2021</Copyright>
+		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
+		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
+		<OutputType>Exe</OutputType>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<Product>MsAccessTool</Product>
+		<ProductVersion>8.0.50727</ProductVersion>
+		<ProjectGuid>{B850F2F5-3DCC-4D5C-9214-7EF5A57D96C7}</ProjectGuid>
+		<TargetFramework>net5.0-windows</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Common.Logging" Version="3.4.1" />
+		<PackageReference Include="Common.Logging.Core" Version="3.4.1" />
+		<PackageReference Include="Common.Logging.Log4Net208" Version="3.4.1" />
+		<PackageReference Include="log4net" Version="2.0.8" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DatabaseLibraryNET\DatabaseLibraryNet.csproj" />
+	</ItemGroup>
 </Project>
