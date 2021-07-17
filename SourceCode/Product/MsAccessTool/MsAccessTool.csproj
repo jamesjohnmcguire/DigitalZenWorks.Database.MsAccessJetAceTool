@@ -8,7 +8,7 @@
 		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
-		<Platforms>AnyCPU;x86;x64</Platforms>
+		<Platforms>x86;x64</Platforms>
 		<Product>MsAccessTool</Product>
 		<ProductVersion>8.0.50727</ProductVersion>
 		<ProjectGuid>{B850F2F5-3DCC-4D5C-9214-7EF5A57D96C7}</ProjectGuid>
