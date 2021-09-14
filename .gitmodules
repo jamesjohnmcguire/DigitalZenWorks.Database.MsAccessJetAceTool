@@ -3,10 +3,10 @@
 	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/databaseLibraryNet.git
 [submodule "SourceCode/Product/UtilitiesNet"]
 	path = SourceCode/Product/UtilitiesNet
-	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/utilitiesnet.git
-[submodule "SourceCode\\Product\\VersionUtilities"]
-	path = SourceCode\\Product\\VersionUtilities
+	url = https://github.com/jamesjohnmcguire/UtilitiesNet.git
+[submodule "SourceCode/Product/VersionUtilities"]
+	path = SourceCode/Product/VersionUtilities
 	url = https://github.com/jamesjohnmcguire/VersionUtilities.git
-[submodule "SourceCode\\Product\\HttpTool"]
-	path = SourceCode\\Product\\HttpTool
+[submodule "SourceCode/Product/HttpTool"]
+	path = SourceCode/Product/HttpTool
 	url = https://github.com/jamesjohnmcguire/HttpTool.git
