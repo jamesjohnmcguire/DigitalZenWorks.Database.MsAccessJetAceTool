@@ -2,11 +2,14 @@
 // Copyright © 2008 - 2021 by James John McGuire
 // All rights reserved.
 /////////////////////////////////////////////////////////////////////////////
+using Common.Logging;
+using DigitalZenWorks.Common.DatabaseLibrary;
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Events;
 using System;
 using System.IO;
 using System.Text;
-using DigitalZenWorks.Common.DatabaseLibrary;
-using Common.Logging;
 using System.Globalization;
 
 namespace MsAccessTool
@@ -22,6 +25,8 @@ namespace MsAccessTool
 
 			try
 			{
+				LogInitialization();
+
 				if (3 > args.Length)
 				{
 					Usage();
@@ -69,6 +74,30 @@ namespace MsAccessTool
 			}
 
 			return returnCode;
+		}
+
+		private static void LogInitialization()
+		{
+			string applicationDataDirectory = @"DigitalZenWorks\BackUpManager";
+			string baseDataDirectory = Environment.GetFolderPath(
+				Environment.SpecialFolder.ApplicationData,
+				Environment.SpecialFolderOption.Create) + @"\" +
+				applicationDataDirectory;
+
+			string logFilePath = baseDataDirectory + "\\Backup.log";
+			string outputTemplate =
+				"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
+				"{Message:lj}{NewLine}{Exception}";
+
+			LoggerConfiguration configuration = new ();
+			LoggerSinkConfiguration sinkConfiguration = configuration.WriteTo;
+			sinkConfiguration.Console(LogEventLevel.Verbose, outputTemplate);
+			sinkConfiguration.File(
+				logFilePath, LogEventLevel.Verbose, outputTemplate);
+			Serilog.Log.Logger = configuration.CreateLogger();
+
+			LogManager.Adapter =
+				new Common.Logging.Serilog.SerilogFactoryAdapter();
 		}
 
 		private static void Usage()
