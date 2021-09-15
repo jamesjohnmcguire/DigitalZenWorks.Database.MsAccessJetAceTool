@@ -1,25 +1,31 @@
-﻿/////////////////////////////////////////////////////////////////////////////
-// Copyright © 2008 - 2021 by James John McGuire
-// All rights reserved.
-/////////////////////////////////////////////////////////////////////////////
+﻿// <copyright file="MsAccessTool.cs" company="James John McGuire">
+// Copyright © 2006 - 2021 James John McGuire. All Rights Reserved.
+// </copyright>
+
 using Common.Logging;
 using DigitalZenWorks.Common.DatabaseLibrary;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Events;
 using System;
-using System.IO;
-using System.Text;
 using System.Globalization;
 
 namespace MsAccessTool
 {
-	class MsAccessTool
+	/// <summary>
+	/// Microsoft Access tool.
+	/// </summary>
+	public class MsAccessTool
 	{
-		private static readonly ILog log = LogManager.GetLogger
-			(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		private static readonly ILog Log = LogManager.GetLogger(
+			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		static int Main(string[] args)
+		/// <summary>
+		/// The programs main entry point.
+		/// </summary>
+		/// <param name="args">The array of arguments.</param>
+		/// <returns>A status code.</returns>
+		public static int Main(string[] args)
 		{
 			int returnCode = -1;
 
@@ -35,7 +41,8 @@ namespace MsAccessTool
 				{
 					if (args[0].ToLower().Equals("import"))
 					{
-						log.Info(CultureInfo.InvariantCulture,
+						Log.Info(
+							CultureInfo.InvariantCulture,
 							m => m("importing"));
 
 						string sqlFile = args[1];
@@ -45,8 +52,8 @@ namespace MsAccessTool
 							CreateAccessDatabaseFile(databaseFile);
 						if (true == successCode)
 						{
-							successCode = DataDefinition.ImportSchema(sqlFile,
-								databaseFile);
+							successCode = DataDefinition.ImportSchema(
+								sqlFile, databaseFile);
 							returnCode = Convert.ToInt32(successCode);
 						}
 					}
@@ -62,11 +69,11 @@ namespace MsAccessTool
 					}
 					else
 					{
-						log.Warn(CultureInfo.InvariantCulture,
+						Log.Warn(
+							CultureInfo.InvariantCulture,
 							m => m("unknown command"));
 						Usage();
 					}
-
 				}
 			}
 			catch
