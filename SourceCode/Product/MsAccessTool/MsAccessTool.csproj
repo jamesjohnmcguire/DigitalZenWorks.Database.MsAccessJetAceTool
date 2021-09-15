@@ -3,7 +3,7 @@
 		<ApplicationRevision>0</ApplicationRevision>
 		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
 		<AssemblyTitle>MsAccessTool</AssemblyTitle>
-		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
 		<Copyright>Copyright © 2006 - 2021</Copyright>
 		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
