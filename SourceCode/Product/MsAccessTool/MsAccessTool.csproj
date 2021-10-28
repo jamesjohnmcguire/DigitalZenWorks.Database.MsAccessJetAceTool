@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DatabaseLibraryNET\DatabaseLibraryNet.csproj" />
+		<ProjectReference Include="..\DatabaseLibraryNet\DatabaseLibraryNet\DatabaseLibraryNet.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
