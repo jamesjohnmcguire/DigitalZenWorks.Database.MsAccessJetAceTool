@@ -4,7 +4,7 @@
 		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
 		<AssemblyTitle>MsAccessTool</AssemblyTitle>
 		<CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-		<Copyright>Copyright © 2006 - 2021</Copyright>
+		<Copyright>Copyright © 2006 - 2022</Copyright>
 		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
