@@ -1,12 +1,12 @@
 [submodule "SourceCode/Product/DatabaseLibraryNet"]
 	path = SourceCode/Product/DatabaseLibraryNet
 	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/databaseLibraryNet.git
-[submodule "SourceCode/Product/UtilitiesNet"]
-	path = SourceCode/Product/UtilitiesNet
-	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/utilitiesnet.git
-[submodule "SourceCode/Product/NativeWindowsUtilities"]
-	path = SourceCode/Product/NativeWindowsUtilities
-	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/nativewindowsutilities.git
-[submodule "SourceCode/Product/Include"]
-	path = SourceCode/Product/Include
-	url = https://jamesjohnmcguire@bitbucket.org/jamesjohnmcguire/nativewindowsincludes.git
+[submodule "SourceCode/Product/VersionUtilities"]
+	path = SourceCode/Product/VersionUtilities
+	url = https://github.com/jamesjohnmcguire/VersionUtilities.git
+[submodule "SourceCode/Product/HttpTool"]
+	path = SourceCode/Product/HttpTool
+	url = https://github.com/jamesjohnmcguire/HttpTool.git
+[submodule "SourceCode\\Product\\UtilitiesNet"]
+	path = SourceCode\\Product\\UtilitiesNet
+	url = https://github.com/jamesjohnmcguire/UtilitiesNet.git
