@@ -1,27 +1,38 @@
-﻿/////////////////////////////////////////////////////////////////////////////
-// Copyright © 2008 - 2019 by James John McGuire
-// All rights reserved.
-/////////////////////////////////////////////////////////////////////////////
-using System;
-using System.IO;
-using System.Text;
-using DigitalZenWorks.Common.DatabaseLibrary;
+﻿// <copyright file="MsAccessTool.cs" company="James John McGuire">
+// Copyright © 2006 - 2022 James John McGuire. All Rights Reserved.
+// </copyright>
+
 using Common.Logging;
+using DigitalZenWorks.Common.DatabaseLibrary;
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Events;
+using System;
 using System.Globalization;
 
 namespace MsAccessTool
 {
-	class MsAccessTool
+	/// <summary>
+	/// Microsoft Access tool.
+	/// </summary>
+	public class MsAccessTool
 	{
-		private static readonly ILog log = LogManager.GetLogger
-			(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		private static readonly ILog Log = LogManager.GetLogger(
+			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		static int Main(string[] args)
+		/// <summary>
+		/// The programs main entry point.
+		/// </summary>
+		/// <param name="args">The array of arguments.</param>
+		/// <returns>A status code.</returns>
+		public static int Main(string[] args)
 		{
 			int returnCode = -1;
 
 			try
 			{
+				LogInitialization();
+
 				if (3 > args.Length)
 				{
 					Usage();
@@ -30,7 +41,8 @@ namespace MsAccessTool
 				{
 					if (args[0].ToLower().Equals("import"))
 					{
-						log.Info(CultureInfo.InvariantCulture,
+						Log.Info(
+							CultureInfo.InvariantCulture,
 							m => m("importing"));
 
 						string sqlFile = args[1];
@@ -40,8 +52,8 @@ namespace MsAccessTool
 							CreateAccessDatabaseFile(databaseFile);
 						if (true == successCode)
 						{
-							successCode = DataDefinition.ImportSchema(sqlFile,
-								databaseFile);
+							successCode = DataDefinition.ImportSchema(
+								sqlFile, databaseFile);
 							returnCode = Convert.ToInt32(successCode);
 						}
 					}
@@ -57,11 +69,11 @@ namespace MsAccessTool
 					}
 					else
 					{
-						log.Warn(CultureInfo.InvariantCulture,
+						Log.Warn(
+							CultureInfo.InvariantCulture,
 							m => m("unknown command"));
 						Usage();
 					}
-
 				}
 			}
 			catch
@@ -69,6 +81,30 @@ namespace MsAccessTool
 			}
 
 			return returnCode;
+		}
+
+		private static void LogInitialization()
+		{
+			string applicationDataDirectory = @"DigitalZenWorks\BackUpManager";
+			string baseDataDirectory = Environment.GetFolderPath(
+				Environment.SpecialFolder.ApplicationData,
+				Environment.SpecialFolderOption.Create) + @"\" +
+				applicationDataDirectory;
+
+			string logFilePath = baseDataDirectory + "\\Backup.log";
+			string outputTemplate =
+				"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
+				"{Message:lj}{NewLine}{Exception}";
+
+			LoggerConfiguration configuration = new ();
+			LoggerSinkConfiguration sinkConfiguration = configuration.WriteTo;
+			sinkConfiguration.Console(LogEventLevel.Verbose, outputTemplate);
+			sinkConfiguration.File(
+				logFilePath, LogEventLevel.Verbose, outputTemplate);
+			Serilog.Log.Logger = configuration.CreateLogger();
+
+			LogManager.Adapter =
+				new Common.Logging.Serilog.SerilogFactoryAdapter();
 		}
 
 		private static void Usage()
