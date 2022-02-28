@@ -3,14 +3,14 @@
 		<ApplicationRevision>0</ApplicationRevision>
 		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
 		<AssemblyTitle>MsAccessTool</AssemblyTitle>
-		<CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
 		<Copyright>Copyright © 2006 - 2022</Copyright>
 		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
 		<Product>MsAccessTool</Product>
 		<ProductVersion>8.0.50727</ProductVersion>
-		<ProjectGuid>{B850F2F5-3DCC-4D5C-9214-7EF5A57D96C7}</ProjectGuid>
+		<ProjectGuid>{774D5C5E-83A1-48CA-A51B-2A303528C7AB}</ProjectGuid>
 		<TargetFramework>net5.0-windows</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DatabaseLibraryNet\DatabaseLibraryNet\DatabaseLibraryNet.csproj" />
+		<ProjectReference Include="..\DigitalZenWorks.Database.ToolKit\DatabaseLibraryNet\DatabaseLibraryNet.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
