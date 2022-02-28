@@ -10,3 +10,6 @@
 [submodule "SourceCode\\Product\\UtilitiesNet"]
 	path = SourceCode\\Product\\UtilitiesNet
 	url = https://github.com/jamesjohnmcguire/UtilitiesNet.git
+[submodule "SourceCode/DigitalZenWorks.Database.ToolKit"]
+	path = SourceCode/DigitalZenWorks.Database.ToolKit
+	url = https://github.com/jamesjohnmcguire/DigitalZenWorks.Database.ToolKit
