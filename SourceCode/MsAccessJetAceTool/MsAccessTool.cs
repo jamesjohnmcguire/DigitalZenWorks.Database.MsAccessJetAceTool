@@ -10,12 +10,14 @@ using Serilog.Events;
 using System;
 using System.Globalization;
 
-namespace MsAccessTool
+[assembly: CLSCompliant(true)]
+
+namespace MsAccessJetAceTool
 {
 	/// <summary>
 	/// Microsoft Access tool.
 	/// </summary>
-	public class MsAccessTool
+	public static class MsAccessTool
 	{
 		private static readonly ILog Log = LogManager.GetLogger(
 			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -33,13 +35,16 @@ namespace MsAccessTool
 			{
 				LogInitialization();
 
-				if (3 > args.Length)
+				if (args == null || 3 > args.Length)
 				{
 					Usage();
 				}
 				else
 				{
-					if (args[0].ToLower().Equals("import"))
+					string command = args[0];
+
+					if (command.Equals(
+						"import", StringComparison.OrdinalIgnoreCase))
 					{
 						Log.Info(
 							CultureInfo.InvariantCulture,
@@ -57,7 +62,8 @@ namespace MsAccessTool
 							returnCode = Convert.ToInt32(successCode);
 						}
 					}
-					else if (args[0].ToLower().Equals("export"))
+					else if (command.Equals(
+						"export", StringComparison.OrdinalIgnoreCase))
 					{
 						string databaseFile = args[1];
 						string sqlFile = args[2];
