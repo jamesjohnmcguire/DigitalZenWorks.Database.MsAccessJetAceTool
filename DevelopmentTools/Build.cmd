@@ -8,7 +8,7 @@ GOTO end
 
 :release
 
-CD ..\Release
+CD Release
 7z u MsAccessJetAceTool.zip .
 MOVE MsAccessJetAceTool.zip ..
 
