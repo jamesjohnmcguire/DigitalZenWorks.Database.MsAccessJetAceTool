@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DigitalZenWorks.Database.ToolKit\DatabaseLibraryNet\DatabaseLibraryNet.csproj" />
+		<ProjectReference Include="..\DigitalZenWorks.Database.ToolKit\DatabaseLibraryNet\DigitalZenWorks.Database.ToolKit.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
