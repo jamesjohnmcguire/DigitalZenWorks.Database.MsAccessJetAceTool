@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<ApplicationRevision>0</ApplicationRevision>
-		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
 		<AssemblyTitle>MsAccessJetAceTool</AssemblyTitle>
 		<CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
 		<Copyright>Copyright © 2006 - 2022</Copyright>
-		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
+		<DocumentationFile>bin\$(Configuration)\MsAccessJetAceTool.XML</DocumentationFile>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
-		<Product>MsAccessTool</Product>
 		<ProductVersion>8.0.50727</ProductVersion>
 		<ProjectGuid>{774D5C5E-83A1-48CA-A51B-2A303528C7AB}</ProjectGuid>
 		<TargetFramework>net5.0-windows</TargetFramework>
