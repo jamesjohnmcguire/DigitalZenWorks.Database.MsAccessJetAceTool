@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<ApplicationRevision>0</ApplicationRevision>
 		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-		<AssemblyTitle>MsAccessTool</AssemblyTitle>
+		<AssemblyTitle>MsAccessJetAceTool</AssemblyTitle>
 		<CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
 		<Copyright>Copyright © 2006 - 2022</Copyright>
 		<DocumentationFile>bin\$(Configuration)\JetUtil.XML</DocumentationFile>
