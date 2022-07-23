@@ -12,7 +12,7 @@
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
 		<ProjectGuid>{774D5C5E-83A1-48CA-A51B-2A303528C7AB}</ProjectGuid>
-		<TargetFramework>net5.0-windows</TargetFramework>
+		<TargetFramework>net6.0-windows</TargetFramework>
 		<Version>1.0.0.12</Version>
 	</PropertyGroup>
 	<ItemGroup>
