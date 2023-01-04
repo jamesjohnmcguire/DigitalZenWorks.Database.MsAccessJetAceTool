@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssemblyInfo.cs" company="James John McGuire">
-// Copyright © 2006 - 2022 James John McGuire. All Rights Reserved.
+// Copyright © 2006 - 2023 James John McGuire. All Rights Reserved.
 // </copyright>
 
 using System.Reflection;
