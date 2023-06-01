@@ -31,59 +31,53 @@ namespace MsAccessJetAceTool
 		{
 			int returnCode = -1;
 
-			try
-			{
-				LogInitialization();
+			LogInitialization();
 
-				if (args == null || 3 > args.Length)
+			if (args == null || 3 > args.Length)
+			{
+				Usage();
+			}
+			else
+			{
+				string command = args[0];
+
+				if (command.Equals(
+					"import", StringComparison.OrdinalIgnoreCase))
 				{
-					Usage();
+					Log.Info(
+						CultureInfo.InvariantCulture,
+						m => m("importing"));
+
+					string sqlFile = args[1];
+					string databaseFile = args[2];
+
+					bool successCode = DatabaseUtilities.
+						CreateAccessDatabaseFile(databaseFile);
+					if (true == successCode)
+					{
+						successCode = DataDefinition.ImportSchema(
+							sqlFile, databaseFile);
+						returnCode = Convert.ToInt32(successCode);
+					}
+				}
+				else if (command.Equals(
+					"export", StringComparison.OrdinalIgnoreCase))
+				{
+					string databaseFile = args[1];
+					string sqlFile = args[2];
+
+					bool successCode = DataDefinition.ExportSchema(
+						databaseFile, sqlFile);
+
+					returnCode = Convert.ToInt32(successCode);
 				}
 				else
 				{
-					string command = args[0];
-
-					if (command.Equals(
-						"import", StringComparison.OrdinalIgnoreCase))
-					{
-						Log.Info(
-							CultureInfo.InvariantCulture,
-							m => m("importing"));
-
-						string sqlFile = args[1];
-						string databaseFile = args[2];
-
-						bool successCode = DatabaseUtilities.
-							CreateAccessDatabaseFile(databaseFile);
-						if (true == successCode)
-						{
-							successCode = DataDefinition.ImportSchema(
-								sqlFile, databaseFile);
-							returnCode = Convert.ToInt32(successCode);
-						}
-					}
-					else if (command.Equals(
-						"export", StringComparison.OrdinalIgnoreCase))
-					{
-						string databaseFile = args[1];
-						string sqlFile = args[2];
-
-						bool successCode = DataDefinition.ExportSchema(
-							databaseFile, sqlFile);
-
-						returnCode = Convert.ToInt32(successCode);
-					}
-					else
-					{
-						Log.Warn(
-							CultureInfo.InvariantCulture,
-							m => m("unknown command"));
-						Usage();
-					}
+					Log.Warn(
+						CultureInfo.InvariantCulture,
+						m => m("unknown command"));
+					Usage();
 				}
-			}
-			catch
-			{
 			}
 
 			return returnCode;
