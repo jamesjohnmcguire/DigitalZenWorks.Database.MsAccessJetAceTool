@@ -9,6 +9,7 @@
 		<FileVersion>1.0.0.12</FileVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NeutralLanguage>en</NeutralLanguage>
+		<NoWarn>NU1701</NoWarn>
 		<OutputPath>$(SolutionDir)\Bin\$(Configuration)\$(Platform)</OutputPath>
 		<OutputType>Exe</OutputType>
 		<ProjectGuid>{774D5C5E-83A1-48CA-A51B-2A303528C7AB}</ProjectGuid>
