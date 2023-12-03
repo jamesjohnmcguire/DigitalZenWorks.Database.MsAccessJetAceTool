@@ -103,7 +103,10 @@ namespace MsAccessJetAceTool
 				outputTemplate,
 				CultureInfo.InvariantCulture);
 			sinkConfiguration.File(
-				logFilePath, LogEventLevel.Verbose, outputTemplate);
+				logFilePath,
+				LogEventLevel.Verbose,
+				outputTemplate,
+				CultureInfo.InvariantCulture);
 			Serilog.Log.Logger = configuration.CreateLogger();
 
 			LogManager.Adapter =
