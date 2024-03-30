@@ -9,6 +9,8 @@ using Serilog.Configuration;
 using Serilog.Events;
 using System;
 using System.Globalization;
+using System.Reflection;
+using System.Resources;
 
 [assembly: CLSCompliant(true)]
 
@@ -21,6 +23,11 @@ namespace MsAccessJetAceTool
 	{
 		private static readonly ILog Log = LogManager.GetLogger(
 			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		private static readonly ResourceManager StringTable = new
+			ResourceManager(
+			"MsAccessJetAceTool.Resources",
+			Assembly.GetExecutingAssembly());
 
 		/// <summary>
 		/// The programs main entry point.
@@ -115,10 +122,13 @@ namespace MsAccessJetAceTool
 
 		private static void Usage()
 		{
-			Console.WriteLine(
-				"usage: MsAccessTool import <Sql File> <MDB File>");
-			Console.WriteLine(
-				"usage: MsAccessTool export <MDB File> <Sql File>");
+			string usage1 = StringTable.GetString(
+				"USAGE1", CultureInfo.InvariantCulture);
+			string usage2 = StringTable.GetString(
+				"USAGE2", CultureInfo.InvariantCulture);
+
+			Console.WriteLine(usage1);
+			Console.WriteLine(usage2);
 		}
 	}
 }
