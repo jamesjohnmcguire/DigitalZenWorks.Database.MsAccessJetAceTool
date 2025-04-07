@@ -9,6 +9,7 @@ using Serilog.Configuration;
 using Serilog.Events;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Resources;
 
@@ -58,8 +59,20 @@ namespace MsAccessJetAceTool
 					string sqlFile = args[1];
 					string databaseFile = args[2];
 
+					string databaseFilePath =
+						Path.GetDirectoryName(databaseFile);
+
+					if (string.IsNullOrWhiteSpace(databaseFilePath))
+					{
+						string currentDirectory =
+							Directory.GetCurrentDirectory();
+
+						databaseFilePath =
+							Path.Combine(currentDirectory, databaseFile);
+					}
+
 					bool successCode = DatabaseUtilities.
-						CreateAccessDatabaseFile(databaseFile);
+						CreateAccessDatabaseFile(databaseFilePath);
 					if (true == successCode)
 					{
 						successCode = DataDefinition.ImportSchema(
