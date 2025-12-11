@@ -20,13 +20,12 @@ namespace MsAccessJetAceTool
 	/// <summary>
 	/// Microsoft Access tool.
 	/// </summary>
-	public static class MsAccessTool
+	internal static class MsAccessTool
 	{
 		private static readonly ILog Log = LogManager.GetLogger(
 			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		private static readonly ResourceManager StringTable = new
-			ResourceManager(
+		private static readonly ResourceManager StringTable = new(
 			"MsAccessJetAceTool.Resources",
 			Assembly.GetExecutingAssembly());
 
