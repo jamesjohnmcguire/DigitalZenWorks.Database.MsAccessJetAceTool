@@ -70,8 +70,9 @@ namespace MsAccessJetAceTool
 							Path.Combine(currentDirectory, databaseFile);
 					}
 
-					bool successCode = DatabaseUtilities.
-						CreateAccessDatabaseFile(databaseFilePath);
+					bool successCode =
+						OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
+
 					if (true == successCode)
 					{
 						successCode = DataDefinition.ImportSchema(
