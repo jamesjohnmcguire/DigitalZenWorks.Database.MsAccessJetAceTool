@@ -5,7 +5,7 @@
 		<AssemblyTitle>MsAccessJetAceTool</AssemblyTitle>
 		<AssemblyVersion>1.0.0.12</AssemblyVersion>
 		<CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-		<Copyright>Copyright © 2006 - 2025 James John McGuire</Copyright>
+		<Copyright>Copyright © 2006 - 2026 James John McGuire</Copyright>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<FileVersion>1.0.0.12</FileVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
