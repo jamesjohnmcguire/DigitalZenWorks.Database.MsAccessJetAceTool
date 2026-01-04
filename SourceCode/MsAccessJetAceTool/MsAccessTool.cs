@@ -15,133 +15,132 @@ using System.Resources;
 
 [assembly: CLSCompliant(true)]
 
-namespace MsAccessJetAceTool
+namespace MsAccessJetAceTool;
+
+/// <summary>
+/// Microsoft Access tool.
+/// </summary>
+internal static class MsAccessTool
 {
+	private static readonly ILog Log = LogManager.GetLogger(
+		System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+	private static readonly ResourceManager StringTable = new(
+		"MsAccessJetAceTool.Resources",
+		Assembly.GetExecutingAssembly());
+
 	/// <summary>
-	/// Microsoft Access tool.
+	/// The programs main entry point.
 	/// </summary>
-	internal static class MsAccessTool
+	/// <param name="args">The array of arguments.</param>
+	/// <returns>A status code.</returns>
+	public static int Main(string[] args)
 	{
-		private static readonly ILog Log = LogManager.GetLogger(
-			System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		int returnCode = -1;
 
-		private static readonly ResourceManager StringTable = new(
-			"MsAccessJetAceTool.Resources",
-			Assembly.GetExecutingAssembly());
+		LogInitialization();
 
-		/// <summary>
-		/// The programs main entry point.
-		/// </summary>
-		/// <param name="args">The array of arguments.</param>
-		/// <returns>A status code.</returns>
-		public static int Main(string[] args)
+		if (args == null || 3 > args.Length)
 		{
-			int returnCode = -1;
+			Usage();
+		}
+		else
+		{
+			string command = args[0];
 
-			LogInitialization();
-
-			if (args == null || 3 > args.Length)
+			if (command.Equals(
+				"import", StringComparison.OrdinalIgnoreCase))
 			{
-				Usage();
+				Log.Info(
+					CultureInfo.InvariantCulture,
+					m => m("importing"));
+
+				string sqlFile = args[1];
+				string databaseFile = args[2];
+
+				string databaseFilePath =
+					Path.GetDirectoryName(databaseFile);
+
+				if (string.IsNullOrWhiteSpace(databaseFilePath))
+				{
+					string currentDirectory =
+						Directory.GetCurrentDirectory();
+
+					databaseFilePath =
+						Path.Combine(currentDirectory, databaseFile);
+				}
+
+				bool successCode =
+					OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
+
+				if (true == successCode)
+				{
+					successCode = DataDefinition.ImportSchema(
+						sqlFile, databaseFile);
+					returnCode = Convert.ToInt32(successCode);
+				}
+			}
+			else if (command.Equals(
+				"export", StringComparison.OrdinalIgnoreCase))
+			{
+				string databaseFile = args[1];
+				string sqlFile = args[2];
+
+				bool successCode = DataDefinition.ExportSchema(
+					databaseFile, sqlFile);
+
+				returnCode = Convert.ToInt32(successCode);
 			}
 			else
 			{
-				string command = args[0];
-
-				if (command.Equals(
-					"import", StringComparison.OrdinalIgnoreCase))
-				{
-					Log.Info(
-						CultureInfo.InvariantCulture,
-						m => m("importing"));
-
-					string sqlFile = args[1];
-					string databaseFile = args[2];
-
-					string databaseFilePath =
-						Path.GetDirectoryName(databaseFile);
-
-					if (string.IsNullOrWhiteSpace(databaseFilePath))
-					{
-						string currentDirectory =
-							Directory.GetCurrentDirectory();
-
-						databaseFilePath =
-							Path.Combine(currentDirectory, databaseFile);
-					}
-
-					bool successCode =
-						OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
-
-					if (true == successCode)
-					{
-						successCode = DataDefinition.ImportSchema(
-							sqlFile, databaseFile);
-						returnCode = Convert.ToInt32(successCode);
-					}
-				}
-				else if (command.Equals(
-					"export", StringComparison.OrdinalIgnoreCase))
-				{
-					string databaseFile = args[1];
-					string sqlFile = args[2];
-
-					bool successCode = DataDefinition.ExportSchema(
-						databaseFile, sqlFile);
-
-					returnCode = Convert.ToInt32(successCode);
-				}
-				else
-				{
-					Log.Warn(
-						CultureInfo.InvariantCulture,
-						m => m("unknown command"));
-					Usage();
-				}
+				Log.Warn(
+					CultureInfo.InvariantCulture,
+					m => m("unknown command"));
+				Usage();
 			}
-
-			return returnCode;
 		}
 
-		private static void LogInitialization()
-		{
-			string applicationDataDirectory = @"DigitalZenWorks\BackUpManager";
-			string baseDataDirectory = Environment.GetFolderPath(
-				Environment.SpecialFolder.ApplicationData,
-				Environment.SpecialFolderOption.Create) + @"\" +
-				applicationDataDirectory;
+		return returnCode;
+	}
 
-			string logFilePath = baseDataDirectory + "\\Backup.log";
-			string outputTemplate =
-				"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
-				"{Message:lj}{NewLine}{Exception}";
+	private static void LogInitialization()
+	{
+		string applicationDataDirectory = @"DigitalZenWorks\BackUpManager";
+		string baseDataDirectory = Environment.GetFolderPath(
+			Environment.SpecialFolder.ApplicationData,
+			Environment.SpecialFolderOption.Create) + @"\" +
+			applicationDataDirectory;
 
-			LoggerConfiguration configuration = new ();
-			LoggerSinkConfiguration sinkConfiguration = configuration.WriteTo;
-			sinkConfiguration.Console(
-				LogEventLevel.Verbose,
-				outputTemplate,
-				CultureInfo.InvariantCulture);
-			sinkConfiguration.File(
-				logFilePath,
-				LogEventLevel.Verbose,
-				outputTemplate,
-				CultureInfo.InvariantCulture);
-			Serilog.Log.Logger = configuration.CreateLogger();
+		string logFilePath = baseDataDirectory + "\\Backup.log";
+		string outputTemplate =
+			"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
+			"{Message:lj}{NewLine}{Exception}";
 
-			LogManager.Adapter =
-				new Common.Logging.Serilog.SerilogFactoryAdapter();
-		}
+		LoggerConfiguration configuration = new ();
+		LoggerSinkConfiguration sinkConfiguration = configuration.WriteTo;
+		sinkConfiguration.Console(
+			LogEventLevel.Verbose,
+			outputTemplate,
+			CultureInfo.InvariantCulture);
+		sinkConfiguration.File(
+			logFilePath,
+			LogEventLevel.Verbose,
+			outputTemplate,
+			CultureInfo.InvariantCulture);
+		Serilog.Log.Logger = configuration.CreateLogger();
 
-		private static void Usage()
-		{
-			string usage1 = StringTable.GetString(
-				"USAGE1", CultureInfo.InvariantCulture);
-			string usage2 = StringTable.GetString(
-				"USAGE2", CultureInfo.InvariantCulture);
+		LogManager.Adapter =
+			new Common.Logging.Serilog.SerilogFactoryAdapter();
+	}
 
-			Console.WriteLine(usage1);
-			Console.WriteLine(usage2);
-		}
+	private static void Usage()
+	{
+		string usage1 = StringTable.GetString(
+			"USAGE1", CultureInfo.InvariantCulture);
+		string usage2 = StringTable.GetString(
+			"USAGE2", CultureInfo.InvariantCulture);
+
+		Console.WriteLine(usage1);
+		Console.WriteLine(usage2);
 	}
 }
