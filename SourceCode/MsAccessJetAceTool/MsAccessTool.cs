@@ -2,20 +2,20 @@
 // Copyright © 2006 - 2026 James John McGuire. All Rights Reserved.
 // </copyright>
 
-using Common.Logging;
-using DigitalZenWorks.Database.ToolKit;
-using Serilog;
-using Serilog.Configuration;
-using Serilog.Events;
+[assembly: System.CLSCompliant(true)]
+
+namespace MsAccessJetAceTool;
+
 using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-
-[assembly: CLSCompliant(true)]
-
-namespace MsAccessJetAceTool;
+using Common.Logging;
+using DigitalZenWorks.Database.ToolKit;
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Events;
 
 /// <summary>
 /// Microsoft Access tool.
