@@ -1,8 +1,12 @@
-﻿[*.{cs,vb}]
+﻿[*]
+indent_size = 4
+indent_style = tab
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{cs,csproj,props,vb}]
+charset = utf-8
+end_of_line = lf
 
 # IDE0017: Simplify object initialization
-dotnet_style_collection_initializer = false
 dotnet_style_object_initializer = false
-
-# IDE0066: Convert switch statement to expression
-csharp_style_prefer_switch_expression = false
