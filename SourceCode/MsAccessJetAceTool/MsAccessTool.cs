@@ -1,4 +1,4 @@
-﻿// <copyright file="MsAccessTool.cs" company="James John McGuire">
+// <copyright file="MsAccessTool.cs" company="James John McGuire">
 // Copyright © 2006 - 2026 James John McGuire. All Rights Reserved.
 // </copyright>
 
