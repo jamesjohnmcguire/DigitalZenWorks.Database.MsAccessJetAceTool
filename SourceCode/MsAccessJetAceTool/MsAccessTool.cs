@@ -116,7 +116,7 @@ internal static class MsAccessTool
 			"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
 			"{Message:lj}{NewLine}{Exception}";
 
-		LoggerConfiguration configuration = new ();
+		LoggerConfiguration configuration = new();
 		LoggerSinkConfiguration sinkConfiguration = configuration.WriteTo;
 		sinkConfiguration.Console(
 			LogEventLevel.Verbose,
