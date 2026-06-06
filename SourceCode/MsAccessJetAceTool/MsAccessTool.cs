@@ -40,7 +40,7 @@ internal static class MsAccessTool
 
 		LogInitialization();
 
-		if (args == null || 3 > args.Length)
+		if (args == null || args.Length < 3)
 		{
 			Usage();
 		}
@@ -73,7 +73,7 @@ internal static class MsAccessTool
 				bool successCode =
 					OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
 
-				if (true == successCode)
+				if (successCode == true)
 				{
 					successCode = DataDefinition.ImportSchema(
 						sqlFile, databaseFile);
