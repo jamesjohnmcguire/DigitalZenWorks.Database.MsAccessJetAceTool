@@ -1,0 +1,9 @@
+Add DatabaseLibrary Updates
+Update Copyright Years
+Improve README	add note about accdb
+Specify accdb instead of or and mdb
+Fix Logging Location
+Should Infer command
+Create Bash Build Script
+Replace '7z u' to something more standard in Build Script
+Add and Use ReleaseNotes.txt in Build Script
