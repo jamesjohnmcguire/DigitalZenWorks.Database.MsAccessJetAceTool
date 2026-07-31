@@ -37,6 +37,7 @@ internal static class MsAccessTool
 	public static int Main(string[] args)
 	{
 		int returnCode = -1;
+		bool successCode = false;
 
 		LogInitialization();
 
@@ -70,14 +71,15 @@ internal static class MsAccessTool
 						Path.Combine(currentDirectory, databaseFile);
 				}
 
-				bool successCode =
+				successCode =
 					OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
 
 				if (successCode == true)
 				{
 					successCode = DataDefinitionOleDb.ImportSchema(
 						sqlFile, databaseFile);
-					returnCode = Convert.ToInt32(successCode);
+
+					returnCode = CommandComplete("import", successCode);
 				}
 			}
 			else if (command.Equals(
@@ -86,10 +88,10 @@ internal static class MsAccessTool
 				string databaseFile = args[1];
 				string sqlFile = args[2];
 
-				bool successCode = DataDefinitionOleDb.ExportSchema(
+				successCode = DataDefinitionOleDb.ExportSchema(
 					databaseFile, sqlFile);
 
-				returnCode = Convert.ToInt32(successCode);
+				returnCode = CommandComplete("export", successCode);
 			}
 			else
 			{
@@ -98,6 +100,20 @@ internal static class MsAccessTool
 					m => m("unknown command"));
 				Usage();
 			}
+		}
+
+		return returnCode;
+	}
+
+	private static int CommandComplete(string command, bool successCode)
+	{
+		int returnCode = -1;
+
+		if (successCode == true)
+		{
+			Log.Info($"{command} complete.");
+
+			returnCode = Convert.ToInt32(successCode);
 		}
 
 		return returnCode;
