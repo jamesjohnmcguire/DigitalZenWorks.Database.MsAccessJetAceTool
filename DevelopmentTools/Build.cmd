@@ -1,7 +1,7 @@
 CD %~dp0
 CD ..\SourceCode
 
-CALL dotnet publish --configuration Release -p:PublishReadyToRun=true;PublishSingleFile=true --runtime win-x64 --self-contained true --output Release MsAccessJetAceTool
+CALL dotnet publish --configuration Release --output Release  -p:DebugType=none;EnableCompressionInSingleFile=true;IncludeNativeLibrariesForSelfExtract=true;PublishReadyToRun=true;PublishSingleFile=true --runtime win-x64 --self-contained true  MsAccessJetAceTool
 
 IF "%1"=="release" GOTO release
 GOTO end
