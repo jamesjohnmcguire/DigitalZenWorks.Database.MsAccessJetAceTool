@@ -75,7 +75,7 @@ internal static class MsAccessTool
 
 				if (successCode == true)
 				{
-					successCode = DataDefinition.ImportSchema(
+					successCode = DataDefinitionOleDb.ImportSchema(
 						sqlFile, databaseFile);
 					returnCode = Convert.ToInt32(successCode);
 				}
@@ -86,7 +86,7 @@ internal static class MsAccessTool
 				string databaseFile = args[1];
 				string sqlFile = args[2];
 
-				bool successCode = DataDefinition.ExportSchema(
+				bool successCode = DataDefinitionOleDb.ExportSchema(
 					databaseFile, sqlFile);
 
 				returnCode = Convert.ToInt32(successCode);
