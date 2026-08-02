@@ -15,6 +15,7 @@ using System.IO;
 [TestFixture]
 internal class ProgramTests
 {
+	private string originalCurrentDirectory;
 	private string testDirectory;
 	private string sourceDatabaseFile;
 	private string sourceSqlFile;
@@ -22,6 +23,8 @@ internal class ProgramTests
 	[SetUp]
 	public void Setup()
 	{
+		originalCurrentDirectory = Directory.GetCurrentDirectory();
+
 		string uniqueDirectory = "MsAccessJetAceToolTests" + Guid.NewGuid();
 		testDirectory = Path.Combine(Path.GetTempPath(), uniqueDirectory);
 		Directory.CreateDirectory(testDirectory);
@@ -33,6 +36,8 @@ internal class ProgramTests
 	[TearDown]
 	public void TearDown()
 	{
+		Directory.SetCurrentDirectory(originalCurrentDirectory);
+
 		try
 		{
 			if (Directory.Exists(testDirectory))
@@ -99,6 +104,48 @@ internal class ProgramTests
 	}
 
 	[Test]
+	public void ExportThenImportRoundTripWithBareFileNames()
+	{
+		Directory.SetCurrentDirectory(testDirectory);
+
+		const string exportedSqlFile = "roundtripExport.sql";
+		const string reimportedDatabaseFile = "roundtripImport.accdb";
+
+		string[] exportArgs = { "export", "test.accdb", exportedSqlFile };
+		int exportReturnCode = MsAccessTool.Main(exportArgs);
+
+		string[] importArgs =
+			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		int importReturnCode = MsAccessTool.Main(importArgs);
+
+		Assert.That(exportReturnCode, Is.EqualTo(0));
+		Assert.That(importReturnCode, Is.EqualTo(0));
+
+		string expectedFile =
+			Path.Combine(testDirectory, reimportedDatabaseFile);
+		bool exists = File.Exists(expectedFile);
+		Assert.That(exists, Is.True);
+	}
+
+	[Test]
+	public void ExportWithBareFileNamesUsesCurrentDirectory()
+	{
+		Directory.SetCurrentDirectory(testDirectory);
+
+		const string outputSqlFile = "exportOutput.sql";
+
+		string[] args = { "export", "test.accdb", outputSqlFile };
+
+		int returnCode = MsAccessTool.Main(args);
+
+		Assert.That(returnCode, Is.EqualTo(0));
+
+		string expectedFile = Path.Combine(testDirectory, outputSqlFile);
+		bool exists = File.Exists(expectedFile);
+		Assert.That(exists, Is.True);
+	}
+
+	[Test]
 	public void ImportCreatesDatabaseFile()
 	{
 		string outputDatabaseFile =
@@ -112,6 +159,23 @@ internal class ProgramTests
 		Assert.That(returnCode, Is.EqualTo(0));
 
 		bool exists = File.Exists(outputDatabaseFile);
+		Assert.That(exists, Is.True);
+	}
+
+	[Test]
+	public void ImportWithBareFileNamesUsesCurrentDirectory()
+	{
+		Directory.SetCurrentDirectory(testDirectory);
+
+		const string outputDatabaseFile = "importOutput.accdb";
+
+		string[] args = { "import", "test.sql", outputDatabaseFile };
+
+		int returnCode = MsAccessTool.Main(args);
+		Assert.That(returnCode, Is.EqualTo(0));
+
+		string expectedFile = Path.Combine(testDirectory, outputDatabaseFile);
+		bool exists = File.Exists(expectedFile);
 		Assert.That(exists, Is.True);
 	}
 
