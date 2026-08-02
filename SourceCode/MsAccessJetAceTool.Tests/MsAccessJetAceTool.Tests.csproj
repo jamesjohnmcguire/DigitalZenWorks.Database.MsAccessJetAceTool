@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Coverlet.Collector" Version="6.0.4" />
+		<PackageReference Include="DigitalZenWorks.Common.Utilities" Version="1.5.78" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
 		<PackageReference Include="NUnit" Version="4.3.2" />
 		<PackageReference Include="NUnit.Analyzers" Version="4.7.0" />
