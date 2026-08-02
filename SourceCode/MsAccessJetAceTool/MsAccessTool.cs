@@ -72,7 +72,7 @@ internal static class MsAccessTool
 				}
 
 				successCode =
-					OleDbHelper.CreateAccessDatabaseFile(databaseFilePath);
+					OleDbHelper.CreateAccessDatabaseFile(databaseFile);
 
 				if (successCode == true)
 				{
