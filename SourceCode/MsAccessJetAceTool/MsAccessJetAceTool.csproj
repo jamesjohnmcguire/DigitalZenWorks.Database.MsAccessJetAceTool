@@ -43,6 +43,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="MsAccessJetAceTool.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<AdditionalFiles Include="stylecop.json" />
 	</ItemGroup>
 
