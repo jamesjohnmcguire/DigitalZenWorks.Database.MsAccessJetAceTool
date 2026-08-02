@@ -54,6 +54,68 @@ internal class ProgramTests
 	}
 
 	[Test]
+	public void ExportCreatesNonEmptySqlFile()
+	{
+		string outputSqlFile =
+			Path.Combine(testDirectory, "exportOutput.sql");
+		File.Delete(outputSqlFile);
+
+		string[] args = { "export", sourceDatabaseFile, outputSqlFile };
+
+		int returnCode = MsAccessTool.Main(args);
+
+		Assert.That(returnCode, Is.EqualTo(0));
+
+		bool exists = File.Exists(outputSqlFile);
+		Assert.That(exists, Is.True);
+
+		string contents = File.ReadAllText(outputSqlFile);
+		Assert.That(contents, Is.Not.Empty);
+	}
+
+	[Test]
+	public void ExportThenImportRoundTripProducesDatabase()
+	{
+		string exportedSqlFile =
+			Path.Combine(testDirectory, "roundtripExport.sql");
+		string reimportedDatabaseFile =
+			Path.Combine(testDirectory, "roundtripImport.accdb");
+
+		File.Delete(exportedSqlFile);
+		File.Delete(reimportedDatabaseFile);
+
+		string[] exportArgs = { "export", sourceDatabaseFile, exportedSqlFile };
+		int exportReturnCode = MsAccessTool.Main(exportArgs);
+
+		string[] importArgs =
+			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		int importReturnCode = MsAccessTool.Main(importArgs);
+
+		Assert.That(exportReturnCode, Is.EqualTo(0));
+		Assert.That(importReturnCode, Is.EqualTo(0));
+
+		bool exists = File.Exists(reimportedDatabaseFile);
+		Assert.That(exists, Is.True);
+	}
+
+	[Test]
+	public void ImportCreatesDatabaseFile()
+	{
+		string outputDatabaseFile =
+			Path.Combine(testDirectory, "importOutput.accdb");
+		File.Delete(outputDatabaseFile);
+
+		string[] args = { "import", sourceSqlFile, outputDatabaseFile };
+
+		int returnCode = MsAccessTool.Main(args);
+
+		Assert.That(returnCode, Is.EqualTo(0));
+
+		bool exists = File.Exists(outputDatabaseFile);
+		Assert.That(exists, Is.True);
+	}
+
+	[Test]
 	public void NoArgumentsReturnsUsageErrorCode()
 	{
 		string[] args = Array.Empty<string>();
@@ -81,68 +143,6 @@ internal class ProgramTests
 		int returnCode = MsAccessTool.Main(args);
 
 		Assert.That(returnCode, Is.EqualTo(-1));
-	}
-
-	[Test]
-	public void ExportCreatesNonEmptySqlFile()
-	{
-		string outputSqlFile =
-			Path.Combine(testDirectory, "exportOutput.sql");
-		File.Delete(outputSqlFile);
-
-		string[] args = { "export", sourceDatabaseFile, outputSqlFile };
-
-		int returnCode = MsAccessTool.Main(args);
-
-		Assert.That(returnCode, Is.EqualTo(0));
-
-		bool exists = File.Exists(outputSqlFile);
-		Assert.That(exists, Is.True);
-
-		string contents = File.ReadAllText(outputSqlFile);
-		Assert.That(contents, Is.Not.Empty);
-	}
-
-	[Test]
-	public void ImportCreatesDatabaseFile()
-	{
-		string outputDatabaseFile =
-			Path.Combine(testDirectory, "importOutput.accdb");
-		File.Delete(outputDatabaseFile);
-
-		string[] args = { "import", sourceSqlFile, outputDatabaseFile };
-
-		int returnCode = MsAccessTool.Main(args);
-
-		Assert.That(returnCode, Is.EqualTo(0));
-
-		bool exists = File.Exists(outputDatabaseFile);
-		Assert.That(exists, Is.True);
-	}
-
-	[Test]
-	public void ExportThenImportRoundTripProducesDatabase()
-	{
-		string exportedSqlFile =
-			Path.Combine(testDirectory, "roundtripExport.sql");
-		string reimportedDatabaseFile =
-			Path.Combine(testDirectory, "roundtripImport.accdb");
-
-		File.Delete(exportedSqlFile);
-		File.Delete(reimportedDatabaseFile);
-
-		string[] exportArgs = { "export", sourceDatabaseFile, exportedSqlFile };
-		int exportReturnCode = MsAccessTool.Main(exportArgs);
-
-		string[] importArgs =
-			{ "import", exportedSqlFile, reimportedDatabaseFile };
-		int importReturnCode = MsAccessTool.Main(importArgs);
-
-		Assert.That(exportReturnCode, Is.EqualTo(0));
-		Assert.That(importReturnCode, Is.EqualTo(0));
-
-		bool exists = File.Exists(reimportedDatabaseFile);
-		Assert.That(exists, Is.True);
 	}
 
 	private static string GetEmbeddedResourceFile(
