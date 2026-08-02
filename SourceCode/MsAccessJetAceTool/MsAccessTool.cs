@@ -79,7 +79,7 @@ internal static class MsAccessTool
 					successCode = DataDefinitionOleDb.ImportSchema(
 						sqlFile, databaseFile);
 
-					returnCode = CommandComplete("import", successCode);
+					returnCode = CommandComplete(command, successCode);
 				}
 			}
 			else if (command.Equals(
@@ -91,7 +91,7 @@ internal static class MsAccessTool
 				successCode = DataDefinitionOleDb.ExportSchema(
 					databaseFile, sqlFile);
 
-				returnCode = CommandComplete("export", successCode);
+				returnCode = CommandComplete(command, successCode);
 			}
 			else
 			{
@@ -113,7 +113,7 @@ internal static class MsAccessTool
 		{
 			Log.Info($"{command} complete.");
 
-			returnCode = Convert.ToInt32(successCode);
+			returnCode = 0;
 		}
 
 		return returnCode;
