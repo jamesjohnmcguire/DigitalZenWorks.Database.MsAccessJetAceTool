@@ -64,10 +64,9 @@ internal static class MsAccessTool
 
 				if (string.IsNullOrWhiteSpace(databaseFilePath))
 				{
-					string currentDirectory =
-						Directory.GetCurrentDirectory();
+					string currentDirectory = Directory.GetCurrentDirectory();
 
-					databaseFilePath =
+					databaseFile =
 						Path.Combine(currentDirectory, databaseFile);
 				}
 
