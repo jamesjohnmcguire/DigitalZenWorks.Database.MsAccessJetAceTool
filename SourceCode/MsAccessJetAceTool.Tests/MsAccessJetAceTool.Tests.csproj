@@ -18,6 +18,12 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="..\stylecop.json" />
+		<EmbeddedResource Include="test.accdb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="test.sql">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>
