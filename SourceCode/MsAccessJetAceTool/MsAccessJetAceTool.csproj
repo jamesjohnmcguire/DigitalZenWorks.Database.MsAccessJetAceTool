@@ -34,12 +34,8 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<ProjectReference Include="../../../Database.ToolKit/DatabaseLibraryNet/DigitalZenWorks.Database.ToolKit.csproj" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<!--PackageReference Include="DigitalZenWorks.Database.ToolKit" Version="1.2.55" /-->
-		<ProjectReference Include="../../../Database.ToolKit/DatabaseLibraryNet/DigitalZenWorks.Database.ToolKit.csproj" />
+	<ItemGroup>
+		<ProjectReference Include="../Database.ToolKit/DatabaseLibraryNet/DigitalZenWorks.Database.ToolKit.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
