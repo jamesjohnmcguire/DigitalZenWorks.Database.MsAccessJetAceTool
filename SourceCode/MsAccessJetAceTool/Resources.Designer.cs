@@ -10,8 +10,8 @@
 
 namespace MsAccessJetAceTool {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace MsAccessJetAceTool {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace MsAccessJetAceTool {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,18 +59,18 @@ namespace MsAccessJetAceTool {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Usage: MsAccessTool import &lt;Sql File&gt; &lt;MDB File&gt;.
+        ///   Looks up a localized string similar to Usage: MsAccessTool import &lt;Sql File&gt; &lt;ACCDB File&gt;.
         /// </summary>
         internal static string USAGE1 {
             get {
                 return ResourceManager.GetString("USAGE1", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Usage: MsAccessTool export &lt;MDB File&gt; &lt;Sql File&gt;.
+        ///   Looks up a localized string similar to Usage: MsAccessTool export &lt;ACCDB File&gt; &lt;Sql File&gt;.
         /// </summary>
         internal static string USAGE2 {
             get {
