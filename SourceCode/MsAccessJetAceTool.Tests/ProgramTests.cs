@@ -67,7 +67,7 @@ internal class ProgramTests
 
 		string[] args = { "export", sourceDatabaseFile, outputSqlFile };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(0));
 
@@ -90,11 +90,11 @@ internal class ProgramTests
 		File.Delete(reimportedDatabaseFile);
 
 		string[] exportArgs = { "export", sourceDatabaseFile, exportedSqlFile };
-		int exportReturnCode = MsAccessTool.Main(exportArgs);
+		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
 			{ "import", exportedSqlFile, reimportedDatabaseFile };
-		int importReturnCode = MsAccessTool.Main(importArgs);
+		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
 		Assert.That(importReturnCode, Is.EqualTo(0));
@@ -112,11 +112,11 @@ internal class ProgramTests
 		const string reimportedDatabaseFile = "roundtripImport.accdb";
 
 		string[] exportArgs = { "export", "test.accdb", exportedSqlFile };
-		int exportReturnCode = MsAccessTool.Main(exportArgs);
+		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
 			{ "import", exportedSqlFile, reimportedDatabaseFile };
-		int importReturnCode = MsAccessTool.Main(importArgs);
+		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
 		Assert.That(importReturnCode, Is.EqualTo(0));
@@ -136,7 +136,7 @@ internal class ProgramTests
 
 		string[] args = { "export", "test.accdb", outputSqlFile };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(0));
 
@@ -154,7 +154,7 @@ internal class ProgramTests
 
 		string[] args = { "import", sourceSqlFile, outputDatabaseFile };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(0));
 
@@ -171,7 +171,7 @@ internal class ProgramTests
 
 		string[] args = { "import", "test.sql", outputDatabaseFile };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 		Assert.That(returnCode, Is.EqualTo(0));
 
 		string expectedFile = Path.Combine(testDirectory, outputDatabaseFile);
@@ -184,7 +184,7 @@ internal class ProgramTests
 	{
 		string[] args = Array.Empty<string>();
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
@@ -194,7 +194,7 @@ internal class ProgramTests
 	{
 		string[] args = { "export", sourceDatabaseFile };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
@@ -204,7 +204,7 @@ internal class ProgramTests
 	{
 		string[] args = { "frobnicate", "a", "b" };
 
-		int returnCode = MsAccessTool.Main(args);
+		int returnCode = MsAccessTool.ProcessCommand(args);
 
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}

@@ -36,10 +36,17 @@ internal static class MsAccessTool
 	/// <returns>A status code.</returns>
 	public static int Main(string[] args)
 	{
+		LogInitialization();
+
+		int returnCode = ProcessCommand(args);
+
+		return returnCode;
+	}
+
+	internal static int ProcessCommand(string[] args)
+	{
 		int returnCode = -1;
 		bool successCode = false;
-
-		LogInitialization();
 
 		if (args == null || args.Length < 3)
 		{
@@ -52,51 +59,16 @@ internal static class MsAccessTool
 			if (command.Equals(
 				"import", StringComparison.OrdinalIgnoreCase))
 			{
-				Log.Info(
-					CultureInfo.InvariantCulture,
-					m => m("importing"));
-
-				string sqlFile = args[1];
-				string databaseFile = args[2];
-
-				string databaseFilePath =
-					Path.GetDirectoryName(databaseFile);
-
-				if (string.IsNullOrWhiteSpace(databaseFilePath))
-				{
-					string currentDirectory = Directory.GetCurrentDirectory();
-
-					databaseFile =
-						Path.Combine(currentDirectory, databaseFile);
-				}
-
-				successCode =
-					OleDbHelper.CreateAccessDatabaseFile(databaseFile);
-
-				if (successCode == true)
-				{
-					successCode = DataDefinitionOleDb.ImportSchema(
-						sqlFile, databaseFile);
-
-					returnCode = CommandComplete(command, successCode);
-				}
+				returnCode = Import(args);
 			}
 			else if (command.Equals(
 				"export", StringComparison.OrdinalIgnoreCase))
 			{
-				string databaseFile = args[1];
-				string sqlFile = args[2];
-
-				successCode = DataDefinitionOleDb.ExportSchema(
-					databaseFile, sqlFile);
-
-				returnCode = CommandComplete(command, successCode);
+				returnCode = Export(args);
 			}
 			else
 			{
-				Log.Warn(
-					CultureInfo.InvariantCulture,
-					m => m("unknown command"));
+				Log.Warn("unknown command");
 				Usage();
 			}
 		}
@@ -113,6 +85,52 @@ internal static class MsAccessTool
 			Log.Info($"{command} complete.");
 
 			returnCode = 0;
+		}
+
+		return returnCode;
+	}
+
+	private static int Export(string[] args)
+	{
+		int returnCode = -1;
+		string databaseFile = args[1];
+		string sqlFile = args[2];
+
+		Log.Info("exporting");
+
+		bool successCode =
+			DataDefinitionOleDb.ExportSchema(databaseFile, sqlFile);
+
+		returnCode = CommandComplete(args[0], successCode);
+
+		return returnCode;
+	}
+
+	private static int Import(string[] args)
+	{
+		int returnCode = -1;
+		string sqlFile = args[1];
+		string databaseFile = args[2];
+
+		Log.Info("importing");
+
+		string databaseFilePath = Path.GetDirectoryName(databaseFile);
+
+		if (string.IsNullOrWhiteSpace(databaseFilePath))
+		{
+			string currentDirectory = Directory.GetCurrentDirectory();
+
+			databaseFile = Path.Combine(currentDirectory, databaseFile);
+		}
+
+		bool successCode = OleDbHelper.CreateAccessDatabaseFile(databaseFile);
+
+		if (successCode == true)
+		{
+			successCode = DataDefinitionOleDb.ImportSchema(
+				sqlFile, databaseFile);
+
+			returnCode = CommandComplete(args[0], successCode);
 		}
 
 		return returnCode;
