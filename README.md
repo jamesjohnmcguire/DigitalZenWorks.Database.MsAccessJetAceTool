@@ -1,5 +1,12 @@
 # MsAccessJetAceTool
 
+[![License](https://img.shields.io/github/license/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)](LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)](../../releases)
+[![Last Commit](https://img.shields.io/github/last-commit/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)](../../commits)
+[![Open Issues](https://img.shields.io/github/issues/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)](../../issues)
+[![.NET](https://img.shields.io/badge/.NET-blueviolet)](https://dotnet.microsoft.com/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](#contributing)
+
 A command line tool for exporting an MS Access database to a SQL file, and importing a SQL file back into an MS Access database.
 
 ## Why
