@@ -1,45 +1,53 @@
 # MsAccessJetAceTool
 
-A command line tool to export to an SQL file from an MS Access database and vica-versa.
+A command line tool for exporting an MS Access database to a SQL file, and importing a SQL file back into an MS Access database.
 
-This tools exists for the purpose of making importing and exporting from MS Access databases from the command line easy and scriptable.
+## Why
 
-MS Access has been traditionally very GUI oriented with little command line support.  This has made a bit of an outsider compared to other databases, which have almost no GUI support.  Both have their advantages.  But for continual development and maintenance of databases, command line tools are much more helpful as they can be automated and included in build scripts.
+MS Access has always been GUI-first, with little command line support — the opposite of most other databases. That's fine for one-off use, but it makes Access databases hard to work with the way modern development expects: no easy way to diff a schema change, review it in a pull request, or apply it as part of an automated build.
 
-## Possible Uses
+MsAccessJetAceTool exports an Access database's schema to a plain SQL text file, and imports it back — so an Access schema can be treated like any other piece of source code: versioned, diffed, reviewed, and scripted.
 
-no way to export schema
-no way to import from schema file
+## Use Cases
 
-## Possible Uses
-Migration Support - First step of converting to another database format.
-Version-control - Keep your schema in version control
-Use in Automated or CI environments - Use this in build or automation scripts.
+- **Version control** — commit your schema as a `.sql` file and get real diffs on schema changes instead of an opaque binary `.accdb`.
+- **Migration** — a scriptable first step when moving a legacy Access database to another format.
+- **CI / automation** — build or provision an Access database from a checked-in schema file as part of a scripted pipeline, with no GUI interaction required.
 
 ## Installation
 
 ### Prerequisites
 
-MS Access (Part of Office) needs to be installed on the same computer as this program.  You will also need to install a driver matching your version of Office Links change often but searching for the latest should be easy.
+You'll need the Microsoft Access Database Engine (ACE OLEDB provider) installed, matching your system architecture (x86/x64). This is available as a free redistributable from Microsoft and does not require a full Access/Office installation.
 
 ### Download
 
-You can download the latest release from the Releases page.  The zip file, while containing a few support files, mainly contains a stand-alone exe, published as a ReadyToRun/single-file app for easy drop-in in your working directory or in your PATH.
+Download the latest release from the [Releases](../../releases) page. The zip contains a stand-alone executable, published as a ReadyToRun single-file app — drop it into your working directory or somewhere on your `PATH`.
 
-### Usage:
+### Usage
 
-MsAccessJetAceTool \<command\> \<input\> \<output\>
+```
+MsAccessJetAceTool <command> <input> <output>
+```
 
-| Commands:                          |                                     |
-| ---------------------------------- | ----------------------------------- |
-| export \<ACCDB file\> \<SQL file\> | Export a ACCDB file to a SQL file   |
-| import \<SQL file\> \<ACCDB file\> | Import a ACCDB file from a SQL file |
+| Command | Usage | Description |
+| --- | --- | --- |
+| `export` | `export <ACCDB file> <SQL file>` | Export an ACCDB file's schema to a SQL file |
+| `import` | `import <SQL file> <ACCDB file>` | Create/populate an ACCDB file from a SQL file |
+
+### Example
+
+```
+MsAccessJetAceTool export Northwind.accdb Northwind.sql
+git diff Northwind.sql
+MsAccessJetAceTool import Northwind.sql Northwind-rebuilt.accdb
+```
 
 ## Contributing
 
 If you have found a bug or have a suggestion that would make this better, please fork this repository and create a pull request. You can also simply open an issue with the tag "bug" or "enhancement".
 
-### Process:
+### Process
 
 1. Fork the Project
 2. Create your Bug / Feature Branch (`git checkout -b feature/amazing-feature`)
@@ -48,12 +56,13 @@ If you have found a bug or have a suggestion that would make this better, please
 5. Open a Pull Request
 
 ### Coding style
-Please match the current coding style.  Most notably:
+
+Please match the existing coding style. Most notably:
+
 1. One operation per line
 2. Use complete English words in variable and method names
-3. Attempt to declare variable and method names in a self-documenting manner
-4. Add unit tests
-
+3. Declare variable and method names in a self-documenting manner
+4. Add unit tests for new functionality
 
 ## License
 
@@ -61,6 +70,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-James John McGuire - jamesjohnmcguire@gmail.com [LinkedIn](https://twitter.com/https://www.linkedin.com/in/jamesjohnmcguire) -  [GitHub](https://github.com/jamesjohnmcguire)
+James John McGuire - jamesjohnmcguire@gmail.com
 
-Project Link: [Email.ToolKit](https://github.com/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)
+[LinkedIn](https://www.linkedin.com/in/jamesjohnmcguire) - [GitHub](https://github.com/jamesjohnmcguire)
+
+Project Link: [MsAccessJetAceTool](https://github.com/jamesjohnmcguire/DigitalZenWorks.Database.MsAccessJetAceTool)
