@@ -54,7 +54,7 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="../stylecop.json" />
-		<EmbeddedResource Include="template.accdb">
+		<EmbeddedResource Include="Template.accdb">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
