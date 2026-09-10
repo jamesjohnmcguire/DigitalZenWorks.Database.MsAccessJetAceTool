@@ -11,6 +11,7 @@ using global::MsAccessJetAceTool;
 using NUnit.Framework;
 using System;
 using System.IO;
+using System.Runtime.Versioning;
 
 [TestFixture]
 internal class ProgramTests
@@ -58,6 +59,7 @@ internal class ProgramTests
 		Assert.Pass();
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportCreatesNonEmptySqlFile()
 	{
@@ -78,6 +80,7 @@ internal class ProgramTests
 		Assert.That(contents, Is.Not.Empty);
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportThenImportRoundTripProducesDatabase()
 	{
@@ -103,6 +106,7 @@ internal class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportThenImportRoundTripWithBareFileNames()
 	{
@@ -127,6 +131,7 @@ internal class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportWithBareFileNamesUsesCurrentDirectory()
 	{
@@ -145,6 +150,7 @@ internal class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ImportCreatesDatabaseFile()
 	{
@@ -162,6 +168,7 @@ internal class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ImportWithBareFileNamesUsesCurrentDirectory()
 	{
