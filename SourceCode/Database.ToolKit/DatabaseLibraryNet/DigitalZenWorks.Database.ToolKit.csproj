@@ -42,6 +42,7 @@
 		<PackageReference Include="Dapper" Version="2.1.79" />
 		<PackageReference Include="DigitalZenWorks.Common.Utilities" Version="1.5.78" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.12" />
 		<PackageReference Include="MySql.Data" Version="26.7.0" />
 		<PackageReference Include="Roslynator.Analyzers" Version="4.15.0">
 			<PrivateAssets>all</PrivateAssets>
