@@ -155,4 +155,19 @@ public class SqlWriterSqlite : SqlWriter
 
 		return columnType;
 	}
+
+	/// <summary>
+	/// Returns the SQLite-specific identity keyword text for the specified.
+	/// </summary>
+	/// <param name="column">The column for which to generate the identity
+	/// keyword. Cannot be null.</param>
+	/// <returns>A string representing the SQLite identity keyword for the
+	/// column.</returns>
+	/// <remarks>SQLite has no IDENTITY keyword; auto-increment is expressed
+	/// entirely through "INTEGER PRIMARY KEY AUTOINCREMENT" which GetColumnSql
+	/// already appends separately.</remarks>
+	protected override string GetIdentityKeywordText(Column column)
+	{
+		return string.Empty;
+	}
 }
