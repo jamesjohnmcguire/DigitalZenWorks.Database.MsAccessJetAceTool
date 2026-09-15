@@ -14,7 +14,7 @@ using System.IO;
 using System.Runtime.Versioning;
 
 [TestFixture]
-internal class ProgramTests
+internal sealed class ProgramTests
 {
 	private string originalCurrentDirectory;
 	private string testDirectory;
