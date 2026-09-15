@@ -6,8 +6,8 @@
 
 namespace DigitalZenWorks.Database.ToolKit.Tests;
 
-using DigitalZenWorks.Database.ToolKit;
 using System.Collections.ObjectModel;
+using DigitalZenWorks.Database.ToolKit;
 
 /// <summary>
 /// Hand-built Table/Column/ForeignKey fixtures used by SqlWriterSqlite
