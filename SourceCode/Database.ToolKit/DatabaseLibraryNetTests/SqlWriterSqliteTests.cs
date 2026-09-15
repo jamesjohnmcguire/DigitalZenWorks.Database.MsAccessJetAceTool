@@ -26,6 +26,9 @@ internal sealed class SqlWriterSqliteTests
 {
 	private SqlWriterSqlite writer;
 
+	/// <summary>
+	/// Sets up the test fixture by initializing the SqlWriterSqlite instance.
+	/// </summary>
 	[SetUp]
 	public void Setup()
 	{

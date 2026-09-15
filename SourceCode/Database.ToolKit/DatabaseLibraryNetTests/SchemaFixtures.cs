@@ -30,6 +30,7 @@ public static class SchemaFixtures
 	/// Builds the "Addresses" table: id (AutoNumber PK), stateId (Number,
 	/// nullable, DefaultValue "0"), label (Text, not nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetAddressesTable()
 	{
 		Table table = new("Addresses");
@@ -52,6 +53,7 @@ public static class SchemaFixtures
 	/// Builds the "Categories" table: id (AutoNumber PK), name (Text, not
 	/// nullable), parentId (Number, nullable, self-referencing FK).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetCategoriesTable()
 	{
 		Table table = new("Categories");
@@ -82,6 +84,7 @@ public static class SchemaFixtures
 	/// Builds the "Contacts" table: id (AutoNumber PK), addressId (Number,
 	/// nullable, FK to Addresses), label (Text, not nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetContactsTable()
 	{
 		Table table = new("Contacts");
@@ -112,6 +115,7 @@ public static class SchemaFixtures
 	/// Builds the "Makers" table: id (AutoNumber PK), name (Text, not
 	/// nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetMakersTable()
 	{
 		Table table = new("Makers");
@@ -132,6 +136,7 @@ public static class SchemaFixtures
 	/// (Number, nullable, FK to Categories), makerId (Number, nullable,
 	/// FK to Makers), label (Text, nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetSectionsTable()
 	{
 		Table table = new("Sections");
@@ -176,6 +181,7 @@ public static class SchemaFixtures
 	/// Builds the "Series" table: id (AutoNumber PK), makerId (Number,
 	/// nullable, FK to Makers), label (Text, not nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetSeriesTable()
 	{
 		Table table = new("Series");
@@ -208,6 +214,7 @@ public static class SchemaFixtures
 	/// Builds the "Products" table: id (AutoNumber PK), makerId, sectionId,
 	/// seriesId (all Number, nullable, FKs), label (Text, nullable).
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetProductsTable()
 	{
 		Table table = new("Products");
@@ -266,6 +273,7 @@ public static class SchemaFixtures
 	/// YesNo/Boolean, and Ole/Blob column types, which the original
 	/// six-table schema never touches.
 	/// </summary>
+	/// <returns>The table.</returns>
 	public static Table GetOrdersTable()
 	{
 		Table table = new("Orders");
@@ -310,6 +318,7 @@ public static class SchemaFixtures
 	/// Returns the full schema (all tables) in FK-dependency-safe order,
 	/// matching the reference .sql file's table ordering.
 	/// </summary>
+	/// <returns>The collection of tables.</returns>
 	public static Collection<Table> GetFullSchema()
 	{
 		Collection<Table> tables = [];

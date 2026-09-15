@@ -43,6 +43,12 @@ internal static class MsAccessTool
 		return returnCode;
 	}
 
+	/// <summary>
+	/// Processes the command line arguments and executes the appropriate
+	/// command.
+	/// </summary>
+	/// <param name="args">The array of arguments.</param>
+	/// <returns>A status code.</returns>
 	internal static int ProcessCommand(string[] args)
 	{
 		int returnCode = -1;
