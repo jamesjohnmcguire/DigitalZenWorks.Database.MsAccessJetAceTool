@@ -53,6 +53,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="DigitalZenWorks.Database.ToolKit.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<AdditionalFiles Include="../stylecop.json" />
 		<EmbeddedResource Include="Template.accdb">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
