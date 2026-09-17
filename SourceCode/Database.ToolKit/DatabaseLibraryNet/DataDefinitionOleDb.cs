@@ -124,4 +124,27 @@ public static class DataDefinitionOleDb
 
 		return successCode;
 	}
+
+	/// <summary>
+	/// Gets the appropriate SQL writer based on the target database type.
+	/// </summary>
+	/// <param name="toSqlite">Indicates whether the target database is SQLite.
+	/// </param>
+	/// <returns>An instance of <see cref="SqlWriter"/> appropriate for the
+	/// target database type.</returns>
+	internal static SqlWriter GetWriter(bool toSqlite)
+	{
+		SqlWriter writer = null;
+
+		if (toSqlite == true)
+		{
+			writer = new SqlWriterSqlite();
+		}
+		else
+		{
+			writer = new SqlWriterOleDb();
+		}
+
+		return writer;
+	}
 }
