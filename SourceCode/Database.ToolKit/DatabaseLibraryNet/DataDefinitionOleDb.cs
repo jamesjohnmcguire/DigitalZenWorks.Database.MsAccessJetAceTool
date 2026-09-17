@@ -33,8 +33,10 @@ public static class DataDefinitionOleDb
 	/// <returns>A values indicating success or not.</returns>
 	/// <param name="databaseFile">The database file to use.</param>
 	/// <param name="schemaFile">The schema file to export to.</param>
+	/// <param name="toSqlite">If set to <c>true</c> export to SQLite format.
+	/// </param>
 	public static bool ExportSchema(
-		string databaseFile, string schemaFile)
+		string databaseFile, string schemaFile, bool toSqlite = false)
 	{
 		bool successCode = false;
 
@@ -45,7 +47,7 @@ public static class DataDefinitionOleDb
 
 			tables = DataStoreStructure.OrderTables(tables);
 
-			SqlWriterOleDb sqlWriter = new();
+			SqlWriter sqlWriter = GetWriter(toSqlite);
 			string schemaText = sqlWriter.GetTablesCreateStatements(tables);
 
 			if (string.IsNullOrWhiteSpace(schemaText))
