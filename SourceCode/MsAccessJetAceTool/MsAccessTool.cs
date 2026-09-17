@@ -6,16 +6,17 @@
 
 namespace MsAccessJetAceTool;
 
-using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Resources;
 using Common.Logging;
 using DigitalZenWorks.Database.ToolKit;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Events;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
 
 /// <summary>
 /// Microsoft Access tool.
@@ -100,11 +101,12 @@ internal static class MsAccessTool
 		int returnCode = -1;
 		string databaseFile = args[1];
 		string sqlFile = args[2];
+		bool toSqlite = args.Contains("--to-sqlite");
 
 		Log.Info("exporting");
 
 		bool successCode =
-			DataDefinitionOleDb.ExportSchema(databaseFile, sqlFile);
+			DataDefinitionOleDb.ExportSchema(databaseFile, sqlFile, toSqlite);
 
 		returnCode = CommandComplete(args[0], successCode);
 
