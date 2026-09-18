@@ -123,4 +123,7 @@
   <data name="USAGE2" xml:space="preserve">
     <value>Usage: MsAccessTool export &lt;ACCDB File&gt; &lt;SQL File&gt;</value>
   </data>
+  <data name="USAGE3" xml:space="preserve">
+    <value>  --to-sqlite    Export schema as SQLite 3.x-compatible DDL</value>
+</data>
 </root>

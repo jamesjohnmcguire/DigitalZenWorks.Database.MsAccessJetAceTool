@@ -179,8 +179,11 @@ internal static class MsAccessTool
 			"USAGE1", CultureInfo.InvariantCulture);
 		string usage2 = StringTable.GetString(
 			"USAGE2", CultureInfo.InvariantCulture);
+		string usage3 = StringTable.GetString(
+			"USAGE3", CultureInfo.InvariantCulture);
 
 		Console.WriteLine(usage1);
 		Console.WriteLine(usage2);
+		Console.WriteLine(usage3);
 	}
 }
