@@ -254,4 +254,27 @@ internal sealed class SqlWriterSqliteTests
 
 		Assert.That(sql, Does.Contain("\"metadata\" BLOB"));
 	}
+
+	/// <summary>
+	/// What: Memo columns are declared with TEXT affinity, not BLOB.
+	/// How: generates DDL for the Orders table's "notes" column and
+	/// checks the declaration text.
+	/// Why: distinguishes a correct mapping from an incorrect one that
+	/// might, e.g., leave Memo unhandled and falling through to the
+	/// base class's existing (empty-string) default case, or map it to
+	/// BLOB (a plausible naive choice, since Memo is a large binary/text type).
+	/// This is exactly the kind of judgment call a naive
+	/// one-affinity-fits-all implementation could get wrong while still
+	///  producing syntactically valid SQLite.
+	/// </summary>
+	[Test]
+	public void GetTablesCreateStatementsMemoColumnMapsToTextAffinity()
+	{
+		Table table = SchemaFixtures.GetOrdersTable();
+		SqlWriterSqlite writer = new();
+
+		string ddl = writer.GetTablesCreateStatements([table]);
+
+		Assert.That(ddl, Does.Contain("\"notes\" TEXT"));
+	}
 }

@@ -303,6 +303,10 @@ public static class SchemaFixtures
 			new("photo", ColumnType.Ole, 0, false, true, null, 6);
 		table.AddColumn(column);
 
+		column =
+			new("notes", ColumnType.Memo, 0, false, true, null, 7);
+		table.AddColumn(column);
+
 		table.ForeignKeys.Add(new ForeignKey(
 			"FK_Orders_0_0",
 			"productId",
