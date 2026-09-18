@@ -6,14 +6,13 @@
 
 namespace DigitalZenWorks.Database.ToolKit.Tests;
 
-using System;
-using System.Text;
-using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 
+/// <summary>
+/// DataDefinitionOleDbTests class.
+/// </summary>
 internal sealed class DataDefinitionOleDbTests
 {
-
 	/// <summary>
 	/// What: DataDefinitionOleDb.GetWriter returns the correct SqlWriter.
 	/// </summary>
