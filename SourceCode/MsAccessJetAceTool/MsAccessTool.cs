@@ -6,17 +6,17 @@
 
 namespace MsAccessJetAceTool;
 
-using Common.Logging;
-using DigitalZenWorks.Database.ToolKit;
-using Serilog;
-using Serilog.Configuration;
-using Serilog.Events;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using Common.Logging;
+using DigitalZenWorks.Database.ToolKit;
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Events;
 
 /// <summary>
 /// Microsoft Access tool.
