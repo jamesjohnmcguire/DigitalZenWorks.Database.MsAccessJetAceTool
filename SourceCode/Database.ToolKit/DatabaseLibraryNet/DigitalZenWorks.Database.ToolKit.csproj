@@ -53,13 +53,6 @@
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
 	</ItemGroup>
 
-	<!--ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<ProjectReference Include="../../UtilitiesNet/UtilitiesNetLibrary/DigitalZenWorks.Common.Utilities.csproj" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="DigitalZenWorks.Common.Utilities" Version="1.5.78" />
-	</ItemGroup-->
-
 	<ItemGroup>
 		<AdditionalFiles Include="../stylecop.json" />
 		<EmbeddedResource Include="Template.accdb">
