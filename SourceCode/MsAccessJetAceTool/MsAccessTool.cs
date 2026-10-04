@@ -43,6 +43,19 @@ internal static class MsAccessTool
 		return returnCode;
 	}
 
+	/// <summary>
+	/// Parses the supplied arguments and dispatches the 'import' or 'export'
+	/// command.
+	/// </summary>
+	/// <remarks>Performs a case-insensitive comparison of the command name.
+	/// Calls Usage() when arguments are missing or the command is unknown and
+	/// logs a warning for unknown commands.</remarks>
+	/// <param name="args">Array of command-line arguments where the first
+	/// element specifies the command ('import' or 'export') and remaining
+	/// elements are passed to the command. If null or fewer than three
+	/// elements, usage information is displayed.</param>
+	/// <returns>Exit code returned by the invoked command, or -1 when arguments
+	/// are invalid or the command is unrecognized.</returns>
 	internal static int ProcessCommand(string[] args)
 	{
 		int returnCode = -1;
