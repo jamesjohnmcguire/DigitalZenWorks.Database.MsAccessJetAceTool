@@ -46,7 +46,6 @@ internal static class MsAccessTool
 	internal static int ProcessCommand(string[] args)
 	{
 		int returnCode = -1;
-		bool successCode = false;
 
 		if (args == null || args.Length < 3)
 		{
