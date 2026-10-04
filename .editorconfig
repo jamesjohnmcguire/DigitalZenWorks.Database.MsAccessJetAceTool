@@ -11,6 +11,12 @@ trim_trailing_whitespace = true
 [*.{bat, cmd}]
 end_of_line = crlf
 
+[*.Access.Test.sql]
+end_of_line = crlf
+
+[*.Sqlite.Test.sql]
+end_of_line = lf
+
 [*.{cs, csproj, props, resx}]
 end_of_line = lf
 
