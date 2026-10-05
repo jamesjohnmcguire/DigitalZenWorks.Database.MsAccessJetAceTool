@@ -13,6 +13,9 @@ using DigitalZenWorks.Common.Utilities;
 using global::MsAccessJetAceTool;
 using NUnit.Framework;
 
+/// <summary>
+/// Program tests class.
+/// </summary>
 [TestFixture]
 internal sealed class ProgramTests
 {
@@ -21,6 +24,9 @@ internal sealed class ProgramTests
 	private string? sourceDatabaseFile;
 	private string? sourceSqlFile;
 
+	/// <summary>
+	/// Setup method for the test fixture.
+	/// </summary>
 	[SetUp]
 	public void Setup()
 	{
@@ -34,6 +40,9 @@ internal sealed class ProgramTests
 		sourceSqlFile = GetTestSqlFile();
 	}
 
+	/// <summary>
+	/// Tear down method for the test fixture.
+	/// </summary>
 	[TearDown]
 	public void TearDown()
 	{
@@ -53,12 +62,18 @@ internal sealed class ProgramTests
 		}
 	}
 
+	/// <summary>
+	/// Sanity check test to ensure that the testing framework is working.
+	/// </summary>
 	[Test]
 	public void SanityCheck()
 	{
 		Assert.Pass();
 	}
 
+	/// <summary>
+	/// Test that the export command creates a non-empty SQL file.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportCreatesNonEmptySqlFile()
@@ -80,6 +95,10 @@ internal sealed class ProgramTests
 		Assert.That(contents, Is.Not.Empty);
 	}
 
+	/// <summary>
+	/// Test that exporting a database and then importing it back produces a
+	/// valid database file.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportThenImportRoundTripProducesDatabase()
@@ -113,6 +132,10 @@ internal sealed class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	/// <summary>
+	/// Test that exporting a database and then importing it back using bare
+	/// file names produces a valid database file in the current directory.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportThenImportRoundTripWithBareFileNames()
@@ -141,6 +164,10 @@ internal sealed class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	/// <summary>
+	/// Test that exporting a database with bare file names uses the current
+	/// directory for the output SQL file.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ExportWithBareFileNamesUsesCurrentDirectory()
@@ -160,6 +187,9 @@ internal sealed class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	/// <summary>
+	/// Test that importing a SQL file creates a new database file.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ImportCreatesDatabaseFile()
@@ -178,6 +208,10 @@ internal sealed class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	/// <summary>
+	/// Test that importing a SQL file with bare file names uses the current
+	/// directory for the output database file.
+	/// </summary>
 	[SupportedOSPlatform("windows")]
 	[Test]
 	public void ImportWithBareFileNamesUsesCurrentDirectory()
@@ -196,6 +230,9 @@ internal sealed class ProgramTests
 		Assert.That(exists, Is.True);
 	}
 
+	/// <summary>
+	/// Test that no arguments returns a usage error code.
+	/// </summary>
 	[Test]
 	public void NoArgumentsReturnsUsageErrorCode()
 	{
@@ -206,6 +243,9 @@ internal sealed class ProgramTests
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
 
+	/// <summary>
+	/// Test that too few arguments returns a usage error code.
+	/// </summary>
 	[Test]
 	public void TooFewArgumentsReturnsUsageErrorCode()
 	{
@@ -216,6 +256,9 @@ internal sealed class ProgramTests
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
 
+	/// <summary>
+	/// Test that an unknown command returns a usage error code.
+	/// </summary>
 	[Test]
 	public void UnknownCommandReturnsUsageErrorCode()
 	{
