@@ -591,7 +591,7 @@ public class SqlWriter
 	/// <returns>A string representing the SQL type declaration for the
 	/// column. Returns an empty string if the column type is not
 	/// recognized.</returns>
-	protected static string GetColumnTypeText(Column column)
+	protected virtual string GetColumnTypeText(Column column)
 	{
 #if NET6_0_OR_GREATER
 		ArgumentNullException.ThrowIfNull(column);
