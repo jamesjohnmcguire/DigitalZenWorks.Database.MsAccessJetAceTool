@@ -6,20 +6,20 @@
 
 namespace DigitalZenWorks.MsAccessJetAceTool.Tests;
 
-using DigitalZenWorks.Common.Utilities;
-using global::MsAccessJetAceTool;
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Runtime.Versioning;
+using DigitalZenWorks.Common.Utilities;
+using global::MsAccessJetAceTool;
+using NUnit.Framework;
 
 [TestFixture]
 internal sealed class ProgramTests
 {
-	private string originalCurrentDirectory;
-	private string testDirectory;
-	private string sourceDatabaseFile;
-	private string sourceSqlFile;
+	private string? originalCurrentDirectory;
+	private string? testDirectory;
+	private string? sourceDatabaseFile;
+	private string? sourceSqlFile;
 
 	[SetUp]
 	public void Setup()
@@ -37,7 +37,7 @@ internal sealed class ProgramTests
 	[TearDown]
 	public void TearDown()
 	{
-		Directory.SetCurrentDirectory(originalCurrentDirectory);
+		Directory.SetCurrentDirectory(originalCurrentDirectory!);
 
 		try
 		{
@@ -64,10 +64,10 @@ internal sealed class ProgramTests
 	public void ExportCreatesNonEmptySqlFile()
 	{
 		string outputSqlFile =
-			Path.Combine(testDirectory, "exportOutput.sql");
+			Path.Combine(testDirectory!, "exportOutput.sql");
 		File.Delete(outputSqlFile);
 
-		string[] args = { "export", sourceDatabaseFile, outputSqlFile };
+		string[] args = { "export", sourceDatabaseFile!, outputSqlFile };
 
 		int returnCode = MsAccessTool.ProcessCommand(args);
 
@@ -85,18 +85,25 @@ internal sealed class ProgramTests
 	public void ExportThenImportRoundTripProducesDatabase()
 	{
 		string exportedSqlFile =
-			Path.Combine(testDirectory, "roundtripExport.sql");
+			Path.Combine(testDirectory!, "roundtripExport.sql");
 		string reimportedDatabaseFile =
-			Path.Combine(testDirectory, "roundtripImport.accdb");
+			Path.Combine(testDirectory!, "roundtripImport.accdb");
 
 		File.Delete(exportedSqlFile);
 		File.Delete(reimportedDatabaseFile);
 
-		string[] exportArgs = { "export", sourceDatabaseFile, exportedSqlFile };
+		string[] exportArgs =
+		{
+			"export", sourceDatabaseFile!, exportedSqlFile
+		};
+
 		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
-			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		{
+			"import", exportedSqlFile, reimportedDatabaseFile
+		};
+
 		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
@@ -110,7 +117,7 @@ internal sealed class ProgramTests
 	[Test]
 	public void ExportThenImportRoundTripWithBareFileNames()
 	{
-		Directory.SetCurrentDirectory(testDirectory);
+		Directory.SetCurrentDirectory(testDirectory!);
 
 		const string exportedSqlFile = "roundtripExport.sql";
 		const string reimportedDatabaseFile = "roundtripImport.accdb";
@@ -119,14 +126,17 @@ internal sealed class ProgramTests
 		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
-			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		{
+			"import", exportedSqlFile, reimportedDatabaseFile
+		};
+
 		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
 		Assert.That(importReturnCode, Is.EqualTo(0));
 
 		string expectedFile =
-			Path.Combine(testDirectory, reimportedDatabaseFile);
+			Path.Combine(testDirectory!, reimportedDatabaseFile);
 		bool exists = File.Exists(expectedFile);
 		Assert.That(exists, Is.True);
 	}
@@ -135,7 +145,7 @@ internal sealed class ProgramTests
 	[Test]
 	public void ExportWithBareFileNamesUsesCurrentDirectory()
 	{
-		Directory.SetCurrentDirectory(testDirectory);
+		Directory.SetCurrentDirectory(testDirectory!);
 
 		const string outputSqlFile = "exportOutput.sql";
 
@@ -145,7 +155,7 @@ internal sealed class ProgramTests
 
 		Assert.That(returnCode, Is.EqualTo(0));
 
-		string expectedFile = Path.Combine(testDirectory, outputSqlFile);
+		string expectedFile = Path.Combine(testDirectory!, outputSqlFile);
 		bool exists = File.Exists(expectedFile);
 		Assert.That(exists, Is.True);
 	}
@@ -155,10 +165,10 @@ internal sealed class ProgramTests
 	public void ImportCreatesDatabaseFile()
 	{
 		string outputDatabaseFile =
-			Path.Combine(testDirectory, "importOutput.accdb");
+			Path.Combine(testDirectory!, "importOutput.accdb");
 		File.Delete(outputDatabaseFile);
 
-		string[] args = { "import", sourceSqlFile, outputDatabaseFile };
+		string[] args = { "import", sourceSqlFile!, outputDatabaseFile };
 
 		int returnCode = MsAccessTool.ProcessCommand(args);
 
@@ -172,7 +182,7 @@ internal sealed class ProgramTests
 	[Test]
 	public void ImportWithBareFileNamesUsesCurrentDirectory()
 	{
-		Directory.SetCurrentDirectory(testDirectory);
+		Directory.SetCurrentDirectory(testDirectory!);
 
 		const string outputDatabaseFile = "importOutput.accdb";
 
@@ -181,7 +191,7 @@ internal sealed class ProgramTests
 		int returnCode = MsAccessTool.ProcessCommand(args);
 		Assert.That(returnCode, Is.EqualTo(0));
 
-		string expectedFile = Path.Combine(testDirectory, outputDatabaseFile);
+		string expectedFile = Path.Combine(testDirectory!, outputDatabaseFile);
 		bool exists = File.Exists(expectedFile);
 		Assert.That(exists, Is.True);
 	}
@@ -199,7 +209,7 @@ internal sealed class ProgramTests
 	[Test]
 	public void TooFewArgumentsReturnsUsageErrorCode()
 	{
-		string[] args = { "export", sourceDatabaseFile };
+		string[] args = { "export", sourceDatabaseFile! };
 
 		int returnCode = MsAccessTool.ProcessCommand(args);
 
@@ -232,7 +242,7 @@ internal sealed class ProgramTests
 
 	private string GetTestAccdbFile()
 	{
-		string databaseFile = Path.Combine(testDirectory, "test.accdb");
+		string databaseFile = Path.Combine(testDirectory!, "test.accdb");
 
 		const string resource = "MsAccessJetAceTool.Tests.test.accdb";
 
@@ -243,7 +253,7 @@ internal sealed class ProgramTests
 
 	private string GetTestSqlFile()
 	{
-		string sqlFile = Path.Combine(testDirectory, "test.sql");
+		string sqlFile = Path.Combine(testDirectory!, "test.sql");
 
 		const string resource = "MsAccessJetAceTool.Tests.test.sql";
 
