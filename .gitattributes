@@ -18,6 +18,7 @@
 *.ps1 text eol=crlf
 
 *.txt text eol=lf
+*.md text eol=lf
 
 *.Access.Test.sql text eol=crlf
 *.Sqlite.Test.sql text eol=lf
