@@ -27,7 +27,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Export schema test.
 	/// </summary>
 	[Test]
-	public void ExportSchema()
+	public void OleDbExportSchema()
 	{
 		string schemaFile = databaseFile + ".sql";
 
@@ -47,7 +47,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Get constaints test.
 	/// </summary>
 	[Test]
-	public void GetConstraints()
+	public void OleDbGetConstraints()
 	{
 		string tableName = "Sections";
 
@@ -97,7 +97,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Get relationships test.
 	/// </summary>
 	[Test]
-	public void GetRelationships()
+	public void OleDbGetRelationships()
 	{
 		const string dependentTableName = "Addresses";
 
@@ -123,7 +123,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Get schema test.
 	/// </summary>
 	[Test]
-	public void GetSchema()
+	public void OleDbGetSchema()
 	{
 		Collection<Table> tables =
 			DataDefinitionOleDb.GetSchema(databaseFile);
@@ -160,7 +160,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// GetTableColumns test.
 	/// </summary>
 	[Test]
-	public void GetTableColumns()
+	public void OleDbGetTableColumns()
 	{
 		const string tableName = "Addresses";
 
@@ -178,7 +178,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Import schema test.
 	/// </summary>
 	[Test]
-	public void ImportSchema()
+	public void OleDbImportSchema()
 	{
 		string sqlFile = GetTestSqlFile();
 
@@ -201,7 +201,7 @@ internal sealed class OleDbTests : BaseTestsSupport
 	/// Order table test.
 	/// </summary>
 	[Test]
-	public void OrderTables()
+	public void OleDbOrderTables()
 	{
 		Collection<Table> tables =
 			DataDefinitionOleDb.GetSchema(databaseFile);
