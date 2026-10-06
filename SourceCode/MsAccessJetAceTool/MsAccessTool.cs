@@ -45,6 +45,20 @@ internal static class MsAccessTool
 	}
 
 	/// <summary>
+	/// Parses the command line arguments to determine if the --to-sqlite flag
+	/// is present.
+	/// </summary>
+	/// <param name="args">The array of command line arguments.</param>
+	/// <returns>true if the --to-sqlite flag is present; otherwise, false.
+	/// </returns>
+	internal static bool ParseToSqliteFlag(string[] args)
+	{
+		bool containsToSqliteFlag = args.Contains("--to-sqlite");
+
+		return containsToSqliteFlag;
+	}
+
+	/// <summary>
 	/// Parses the supplied arguments and dispatches the 'import' or 'export'
 	/// command.
 	/// </summary>
@@ -108,7 +122,7 @@ internal static class MsAccessTool
 		int returnCode = -1;
 		string databaseFile = args[1];
 		string sqlFile = args[2];
-		bool toSqlite = args.Contains("--to-sqlite");
+		bool toSqlite = ParseToSqliteFlag(args);
 
 		Log.Info("exporting");
 
