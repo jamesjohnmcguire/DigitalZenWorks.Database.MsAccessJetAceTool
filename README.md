@@ -42,6 +42,12 @@ MsAccessJetAceTool <command> <input> <output>
 | `export` | `export <ACCDB file> <SQL file>` | Export an ACCDB file's schema to a SQL file |
 | `import` | `import <SQL file> <ACCDB file>` | Create/populate an ACCDB file from a SQL file |
 
+#### Options
+
+| Flag | Applies to | Description |
+| --- | --- | --- |
+| `--to-sqlite` | `export` | Export schema as SQLite 3.x-compatible DDL instead of the default format |
+
 ### Example
 
 ```
