@@ -286,6 +286,26 @@ internal sealed class ProgramTests
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
 
+	[Test]
+	public void ParseToSqliteFlagFlagPresentReturnsTrue()
+	{
+		string[] args = ["export", "test.accdb", "test.sql", "--to-sqlite"];
+
+		bool result = MsAccessTool.ParseToSqliteFlag(args);
+
+		Assert.That(result, Is.True);
+	}
+
+	[Test]
+	public void ParseToSqliteFlagFlagAbsentReturnsFalse()
+	{
+		string[] args = ["export", "test.accdb", "test.sql"];
+
+		bool result = MsAccessTool.ParseToSqliteFlag(args);
+
+		Assert.That(result, Is.False);
+	}
+
 	/// <summary>
 	/// Test that too few arguments returns a usage error code.
 	/// </summary>
