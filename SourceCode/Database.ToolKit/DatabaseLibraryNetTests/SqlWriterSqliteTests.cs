@@ -37,6 +37,50 @@ internal sealed class SqlWriterSqliteTests
 	}
 
 	/// <summary>
+	/// What: a column type with no reasonable SQLite equivalent
+	/// (SqlVariant) is represented as BLOB rather than producing an
+	/// empty or invalid type declaration.
+	/// How: builds a single-column table using ColumnType.SqlVariant
+	/// and checks the declaration text.
+	/// Why: this is the genuinely-ambiguous-type fallback case - a
+	/// SqlVariant column has no defensible single SQLite affinity by
+	/// design (it is SQL Server's "could be any type" catch-all), unlike
+	/// e.g. LookupWizard, which - despite looking similarly obscure - is
+	/// in practice always a foreign-key reference and is deliberately
+	/// mapped to INTEGER rather than treated as this fallback case.
+	/// Alignment: instruction.md requires "taking into consideration
+	/// edge case situations" and, more generally, that no column be left
+	/// unmapped when producing a SQLite-understandable variant; a truly
+	/// ambiguous type must still degrade to a safe, non-empty, valid
+	/// SQLite type rather than being silently dropped.
+	/// </summary>
+	[Test]
+	public void AmbiguousTypeFallsBackToBlobNotEmpty()
+	{
+		Table table = new("Attachments");
+
+		Column column =
+			new("id", ColumnType.AutoNumber, 0, false, false, null, 1);
+		column.Primary = true;
+
+		table.AddColumn(column);
+
+		column = new(
+			"metadata",
+			ColumnType.SqlVariant,
+			0,
+			false,
+			true,
+			null,
+			2);
+		table.AddColumn(column);
+
+		string sql = writer.GetTableCreateStatement(table);
+
+		Assert.That(sql, Does.Contain("\"metadata\" BLOB"));
+	}
+
+	/// <summary>
 	/// What: AutoNumber primary key columns are declared as
 	/// "INTEGER PRIMARY KEY AUTOINCREMENT", the specific declaration
 	/// SQLite requires to grant rowid-alias auto-increment behavior.
@@ -69,6 +113,43 @@ internal sealed class SqlWriterSqliteTests
 	}
 
 	/// <summary>
+	/// What: columns are emitted in ordinal Position order, not
+	/// Dictionary insertion/iteration order.
+	/// How: builds the Products table (whose fixture columns are added
+	/// in Position order already) and asserts the generated DDL lists
+	/// "makerId" before "sectionId" before "seriesId" before "label",
+	/// matching their assigned Position values, not just insertion
+	/// order into the underlying Dictionary&lt;string, Column&gt;.
+	/// Why: SqlWriter.GetOrdinalSortedColumns exists specifically
+	/// because Table.Columns has no ordering guarantee; an
+	/// implementation that iterates table.Columns.Values directly
+	/// instead of sorting by Position could produce technically valid
+	/// but incorrectly-ordered DDL.
+	/// Alignment: instruction.md's directive to "implement that
+	/// functionality" for --to-sqlite covers correctly reproducing the
+	/// schema's structure, not just each column's type in isolation -
+	/// column order is part of the schema this test protects.
+	/// </summary>
+	[Test]
+	public void ColumnsAreOrderedByPosition()
+	{
+		Table table = SchemaFixtures.GetProductsTable();
+
+		string sql = writer.GetTableCreateStatement(table);
+
+		int makerIdIndex = sql.IndexOf("\"makerId\"", StringComparison.Ordinal);
+		int sectionIdIndex =
+			sql.IndexOf("\"sectionId\"", StringComparison.Ordinal);
+		int seriesIdIndex =
+			sql.IndexOf("\"seriesId\"", StringComparison.Ordinal);
+		int labelIndex = sql.IndexOf("\"label\"", StringComparison.Ordinal);
+
+		Assert.That(makerIdIndex, Is.LessThan(sectionIdIndex));
+		Assert.That(sectionIdIndex, Is.LessThan(seriesIdIndex));
+		Assert.That(seriesIdIndex, Is.LessThan(labelIndex));
+	}
+
+	/// <summary>
 	/// What: Currency columns are declared as NUMERIC or DECIMAL, not
 	/// REAL.
 	/// How: generates DDL for the Orders table's "price" column and
@@ -94,6 +175,76 @@ internal sealed class SqlWriterSqliteTests
 			sql,
 			Does.Contain("\"price\" NUMERIC").Or.Contain("\"price\" DECIMAL"));
 		Assert.That(sql, Does.Not.Contain("\"price\" REAL"));
+	}
+
+	/// <summary>
+	/// What: the full fixture schema (all 8 tables, including foreign
+	/// keys) generates DDL that is valid, executable SQLite 3.x syntax.
+	/// How: generates a CREATE TABLE statement per table (in
+	/// dependency-safe order, matching the reference .sql file), runs
+	/// the concatenated script against a real in-memory SQLite
+	/// connection via Microsoft.Data.Sqlite, and asserts no exception is
+	/// thrown.
+	/// Why: this is the end-to-end, discriminating check that the
+	/// generated syntax is actually valid SQLite - not just plausible
+	/// text - covering identifier quoting, primary key/autoincrement
+	/// placement, and foreign key constraint syntax together. A naive
+	/// implementation that gets any one part wrong (e.g. malformed FK
+	/// syntax, an invalid type keyword) fails this test even if it
+	/// happens to pass the narrower per-column tests above.
+	/// Alignment: this is the most direct test of instruction.md's core
+	/// requirement - "produce a variant that Sqlite (version 3) can
+	/// understand" - by literally executing the generated DDL against a
+	/// real SQLite engine rather than only inspecting the text.
+	/// </summary>
+	[Test]
+	public void FullSchemaExecutesAgainstRealSqliteConnection()
+	{
+		StringBuilder script = new();
+
+		foreach (Table table in SchemaFixtures.GetFullSchema())
+		{
+			script.AppendLine(writer.GetTableCreateStatement(table));
+			script.AppendLine();
+		}
+
+		using SqliteConnection connection = new("Data Source=:memory:");
+		connection.Open();
+
+		using SqliteCommand command = connection.CreateCommand();
+#pragma warning disable CA2100
+		command.CommandText = script.ToString();
+#pragma warning restore CA2100
+
+		Action action = () => command.ExecuteNonQuery();
+		Assert.DoesNotThrow(action);
+	}
+
+	/// <summary>
+	/// What: Memo columns are declared with TEXT affinity, not BLOB.
+	/// How: generates DDL for the Orders table's "notes" column and
+	/// checks the declaration text.
+	/// Why: distinguishes a correct mapping from an incorrect one that
+	/// might, e.g., leave Memo unhandled and falling through to the
+	/// base class's existing (empty-string) default case, or map it to
+	/// BLOB (a plausible naive choice, since Memo is a large binary/text type).
+	/// This is exactly the kind of judgment call a naive
+	/// one-affinity-fits-all implementation could get wrong while still
+	///  producing syntactically valid SQLite.
+	/// Alignment: instruction.md's instruction to choose types by
+	/// "focusing on the meaning and function of the item" is exactly
+	/// what distinguishes Memo (long-form text) from a true binary type
+	/// - its function is textual, regardless of its typical storage size.
+	/// </summary>
+	[Test]
+	public void GetTablesCreateStatementsMemoColumnMapsToTextAffinity()
+	{
+		Table table = SchemaFixtures.GetOrdersTable();
+		SqlWriterSqlite writer = new();
+
+		string ddl = writer.GetTablesCreateStatements([table]);
+
+		Assert.That(ddl, Does.Contain("\"notes\" TEXT"));
 	}
 
 	/// <summary>
@@ -180,156 +331,5 @@ internal sealed class SqlWriterSqliteTests
 		Assert.That(
 			declaredType,
 			Is.EqualTo("INTEGER").Or.EqualTo("INT").Or.EqualTo("BOOLEAN"));
-	}
-
-	/// <summary>
-	/// What: columns are emitted in ordinal Position order, not
-	/// Dictionary insertion/iteration order.
-	/// How: builds the Products table (whose fixture columns are added
-	/// in Position order already) and asserts the generated DDL lists
-	/// "makerId" before "sectionId" before "seriesId" before "label",
-	/// matching their assigned Position values, not just insertion
-	/// order into the underlying Dictionary&lt;string, Column&gt;.
-	/// Why: SqlWriter.GetOrdinalSortedColumns exists specifically
-	/// because Table.Columns has no ordering guarantee; an
-	/// implementation that iterates table.Columns.Values directly
-	/// instead of sorting by Position could produce technically valid
-	/// but incorrectly-ordered DDL.
-	/// Alignment: instruction.md's directive to "implement that
-	/// functionality" for --to-sqlite covers correctly reproducing the
-	/// schema's structure, not just each column's type in isolation -
-	/// column order is part of the schema this test protects.
-	/// </summary>
-	[Test]
-	public void ColumnsAreOrderedByPosition()
-	{
-		Table table = SchemaFixtures.GetProductsTable();
-
-		string sql = writer.GetTableCreateStatement(table);
-
-		int makerIdIndex = sql.IndexOf("\"makerId\"", StringComparison.Ordinal);
-		int sectionIdIndex =
-			sql.IndexOf("\"sectionId\"", StringComparison.Ordinal);
-		int seriesIdIndex =
-			sql.IndexOf("\"seriesId\"", StringComparison.Ordinal);
-		int labelIndex = sql.IndexOf("\"label\"", StringComparison.Ordinal);
-
-		Assert.That(makerIdIndex, Is.LessThan(sectionIdIndex));
-		Assert.That(sectionIdIndex, Is.LessThan(seriesIdIndex));
-		Assert.That(seriesIdIndex, Is.LessThan(labelIndex));
-	}
-
-	/// <summary>
-	/// What: the full fixture schema (all 8 tables, including foreign
-	/// keys) generates DDL that is valid, executable SQLite 3.x syntax.
-	/// How: generates a CREATE TABLE statement per table (in
-	/// dependency-safe order, matching the reference .sql file), runs
-	/// the concatenated script against a real in-memory SQLite
-	/// connection via Microsoft.Data.Sqlite, and asserts no exception is
-	/// thrown.
-	/// Why: this is the end-to-end, discriminating check that the
-	/// generated syntax is actually valid SQLite - not just plausible
-	/// text - covering identifier quoting, primary key/autoincrement
-	/// placement, and foreign key constraint syntax together. A naive
-	/// implementation that gets any one part wrong (e.g. malformed FK
-	/// syntax, an invalid type keyword) fails this test even if it
-	/// happens to pass the narrower per-column tests above.
-	/// Alignment: this is the most direct test of instruction.md's core
-	/// requirement - "produce a variant that Sqlite (version 3) can
-	/// understand" - by literally executing the generated DDL against a
-	/// real SQLite engine rather than only inspecting the text.
-	/// </summary>
-	[Test]
-	public void FullSchemaExecutesAgainstRealSqliteConnection()
-	{
-		StringBuilder script = new();
-
-		foreach (Table table in SchemaFixtures.GetFullSchema())
-		{
-			script.AppendLine(writer.GetTableCreateStatement(table));
-			script.AppendLine();
-		}
-
-		using SqliteConnection connection = new("Data Source=:memory:");
-		connection.Open();
-
-		using SqliteCommand command = connection.CreateCommand();
-#pragma warning disable CA2100
-		command.CommandText = script.ToString();
-#pragma warning restore CA2100
-
-		Action action = () => command.ExecuteNonQuery();
-		Assert.DoesNotThrow(action);
-	}
-
-	/// <summary>
-	/// What: a column type with no reasonable SQLite equivalent
-	/// (SqlVariant) is represented as BLOB rather than producing an
-	/// empty or invalid type declaration.
-	/// How: builds a single-column table using ColumnType.SqlVariant
-	/// and checks the declaration text.
-	/// Why: this is the genuinely-ambiguous-type fallback case - a
-	/// SqlVariant column has no defensible single SQLite affinity by
-	/// design (it is SQL Server's "could be any type" catch-all), unlike
-	/// e.g. LookupWizard, which - despite looking similarly obscure - is
-	/// in practice always a foreign-key reference and is deliberately
-	/// mapped to INTEGER rather than treated as this fallback case.
-	/// Alignment: instruction.md requires "taking into consideration
-	/// edge case situations" and, more generally, that no column be left
-	/// unmapped when producing a SQLite-understandable variant; a truly
-	/// ambiguous type must still degrade to a safe, non-empty, valid
-	/// SQLite type rather than being silently dropped.
-	/// </summary>
-	[Test]
-	public void AmbiguousTypeFallsBackToBlobNotEmpty()
-	{
-		Table table = new("Attachments");
-
-		Column column =
-			new("id", ColumnType.AutoNumber, 0, false, false, null, 1);
-		column.Primary = true;
-
-		table.AddColumn(column);
-
-		column = new(
-			"metadata",
-			ColumnType.SqlVariant,
-			0,
-			false,
-			true,
-			null,
-			2);
-		table.AddColumn(column);
-
-		string sql = writer.GetTableCreateStatement(table);
-
-		Assert.That(sql, Does.Contain("\"metadata\" BLOB"));
-	}
-
-	/// <summary>
-	/// What: Memo columns are declared with TEXT affinity, not BLOB.
-	/// How: generates DDL for the Orders table's "notes" column and
-	/// checks the declaration text.
-	/// Why: distinguishes a correct mapping from an incorrect one that
-	/// might, e.g., leave Memo unhandled and falling through to the
-	/// base class's existing (empty-string) default case, or map it to
-	/// BLOB (a plausible naive choice, since Memo is a large binary/text type).
-	/// This is exactly the kind of judgment call a naive
-	/// one-affinity-fits-all implementation could get wrong while still
-	///  producing syntactically valid SQLite.
-	/// Alignment: instruction.md's instruction to choose types by
-	/// "focusing on the meaning and function of the item" is exactly
-	/// what distinguishes Memo (long-form text) from a true binary type
-	/// - its function is textual, regardless of its typical storage size.
-	/// </summary>
-	[Test]
-	public void GetTablesCreateStatementsMemoColumnMapsToTextAffinity()
-	{
-		Table table = SchemaFixtures.GetOrdersTable();
-		SqlWriterSqlite writer = new();
-
-		string ddl = writer.GetTablesCreateStatements([table]);
-
-		Assert.That(ddl, Does.Contain("\"notes\" TEXT"));
 	}
 }
