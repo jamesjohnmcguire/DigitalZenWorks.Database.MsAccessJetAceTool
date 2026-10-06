@@ -286,6 +286,10 @@ internal sealed class ProgramTests
 		Assert.That(returnCode, Is.EqualTo(-1));
 	}
 
+	/// <summary>
+	/// Tests that the ParseToSqliteFlag method returns true when the
+	/// --to-sqlite flag is present.
+	/// </summary>
 	[Test]
 	public void ParseToSqliteFlagFlagPresentReturnsTrue()
 	{
@@ -296,6 +300,10 @@ internal sealed class ProgramTests
 		Assert.That(result, Is.True);
 	}
 
+	/// <summary>
+	/// Tests that the ParseToSqliteFlag method returns false when the
+	/// --to-sqlite flag is absent.
+	/// </summary>
 	[Test]
 	public void ParseToSqliteFlagFlagAbsentReturnsFalse()
 	{
