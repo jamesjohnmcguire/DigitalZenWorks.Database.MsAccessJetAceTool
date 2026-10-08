@@ -7,9 +7,11 @@
 namespace DigitalZenWorks.MsAccessJetAceTool.Tests;
 
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.Versioning;
 using DigitalZenWorks.Common.Utilities;
+using DigitalZenWorks.Database.ToolKit;
 using global::MsAccessJetAceTool;
 using NUnit.Framework;
 
@@ -69,6 +71,47 @@ internal sealed class ProgramTests
 	public void SanityCheck()
 	{
 		Assert.Pass();
+	}
+
+	/// <summary>
+	/// Test that export continues to use Access DDL when no target option is
+	/// supplied.
+	/// </summary>
+	[NonParallelizable]
+	[Test]
+	public void DefaultExportUsesAccessDdl()
+	{
+		Func<string, Collection<Table>> originalLoader =
+			DataDefinitionOleDb.SchemaLoader;
+		string outputSqlFile =
+			Path.Combine(testDirectory!, "defaultExport.sql");
+
+		try
+		{
+			Table table = new("Orders");
+			Column id = new(
+				"id", ColumnType.AutoNumber, 0, false, false, null, 1);
+			id.Primary = true;
+			table.AddColumn(id);
+			table.AddColumn(new Column(
+				"notes", ColumnType.Memo, 0, false, true, null, 2));
+
+			Collection<Table> tables = [table];
+			DataDefinitionOleDb.SchemaLoader = _ => tables;
+
+			string[] args = { "export", "ignored.accdb", outputSqlFile };
+			int returnCode = MsAccessTool.ProcessCommand(args);
+			string ddl = File.ReadAllText(outputSqlFile);
+
+			Assert.That(returnCode, Is.EqualTo(0));
+			Assert.That(ddl, Does.Contain("CREATE TABLE [Orders]"));
+			Assert.That(ddl, Does.Contain("[notes] MEMO"));
+			Assert.That(ddl, Does.Contain(" IDENTITY"));
+		}
+		finally
+		{
+			DataDefinitionOleDb.SchemaLoader = originalLoader;
+		}
 	}
 
 	/// <summary>
