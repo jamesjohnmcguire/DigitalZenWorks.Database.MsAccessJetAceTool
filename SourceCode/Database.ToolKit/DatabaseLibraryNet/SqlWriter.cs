@@ -727,60 +727,6 @@ public class SqlWriter
 	}
 
 	/// <summary>
-	/// Generates the SQL definition string for the specified column,
-	/// including its name, type, constraints, and default value.
-	/// </summary>
-	/// <remarks>The generated SQL includes the column name, type, and
-	/// applicable constraints such as UNIQUE, NOT NULL, IDENTITY, and
-	/// DEFAULT. The output is intended for use in table creation scripts
-	/// and ends with a comma and newline.</remarks>
-	/// <param name="column">The column for which to generate the SQL
-	/// definition. Cannot be null.</param>
-	/// <returns>A string containing the SQL definition for the column,
-	/// formatted for inclusion in a CREATE TABLE statement.</returns>
-	protected virtual string GetCreateColumnSql(Column column)
-	{
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(column);
-#else
-		if (column == null)
-		{
-			string name = nameof(column);
-			throw new ArgumentNullException(name);
-		}
-#endif
-
-		string sql = "\t\"" + column.Name + "\"";
-
-		string columnType = GetColumnTypeText(column);
-		sql += columnType;
-
-		if (column.Unique)
-		{
-			sql += " UNIQUE";
-		}
-
-		if (!column.Nullable)
-		{
-			sql += " NOT NULL";
-		}
-
-		if (column.ColumnType == ColumnType.AutoNumber)
-		{
-			sql += " IDENTITY";
-		}
-
-		if (!string.IsNullOrWhiteSpace(column.DefaultValue))
-		{
-			sql += " DEFAULT " + column.DefaultValue;
-		}
-
-		sql += "," + DefaultLineEnding;
-
-		return sql;
-	}
-
-	/// <summary>
 	/// Generates the SQL statement for a foreign key constraint based on
 	/// the specified foreign key definition.
 	/// </summary>
