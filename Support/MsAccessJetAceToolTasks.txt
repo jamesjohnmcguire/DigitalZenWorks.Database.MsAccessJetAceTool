@@ -1,7 +1,3 @@
-Add DatabaseLibrary Updates
-Update Copyright Years
-Improve README	add note about accdb
-Specify accdb instead of or and mdb
 Fix Logging Location
 Should Infer command
 Create Bash Build Script
