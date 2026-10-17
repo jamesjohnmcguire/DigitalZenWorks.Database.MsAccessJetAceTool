@@ -100,7 +100,10 @@ internal sealed class ProgramTests
 		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
-			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		{
+			"import", exportedSqlFile, reimportedDatabaseFile
+		};
+
 		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
@@ -123,7 +126,10 @@ internal sealed class ProgramTests
 		int exportReturnCode = MsAccessTool.ProcessCommand(exportArgs);
 
 		string[] importArgs =
-			{ "import", exportedSqlFile, reimportedDatabaseFile };
+		{
+			"import", exportedSqlFile, reimportedDatabaseFile
+		};
+
 		int importReturnCode = MsAccessTool.ProcessCommand(importArgs);
 
 		Assert.That(exportReturnCode, Is.EqualTo(0));
