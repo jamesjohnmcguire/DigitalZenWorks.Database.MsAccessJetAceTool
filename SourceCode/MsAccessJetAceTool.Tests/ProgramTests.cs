@@ -6,12 +6,12 @@
 
 namespace DigitalZenWorks.MsAccessJetAceTool.Tests;
 
-using DigitalZenWorks.Common.Utilities;
-using global::MsAccessJetAceTool;
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Runtime.Versioning;
+using DigitalZenWorks.Common.Utilities;
+using global::MsAccessJetAceTool;
+using NUnit.Framework;
 
 [TestFixture]
 internal sealed class ProgramTests
