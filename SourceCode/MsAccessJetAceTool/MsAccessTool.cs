@@ -119,7 +119,6 @@ internal static class MsAccessTool
 
 	private static int Export(string[] args)
 	{
-		int returnCode = -1;
 		string databaseFile = args[1];
 		string sqlFile = args[2];
 		bool toSqlite = ParseToSqliteFlag(args);
@@ -129,7 +128,7 @@ internal static class MsAccessTool
 		bool successCode =
 			DataDefinitionOleDb.ExportSchema(databaseFile, sqlFile, toSqlite);
 
-		returnCode = CommandComplete(args[0], successCode);
+		int returnCode = CommandComplete(args[0], successCode);
 
 		return returnCode;
 	}
@@ -166,14 +165,15 @@ internal static class MsAccessTool
 
 	private static void LogInitialization()
 	{
-		string applicationDataDirectory = @"DigitalZenWorks\BackUpManager";
+		const string applicationDataDirectory =
+			@"DigitalZenWorks\BackUpManager";
 		string baseDataDirectory = Environment.GetFolderPath(
 			Environment.SpecialFolder.ApplicationData,
 			Environment.SpecialFolderOption.Create) + @"\" +
 			applicationDataDirectory;
 
 		string logFilePath = baseDataDirectory + "\\Backup.log";
-		string outputTemplate =
+		const string outputTemplate =
 			"[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
 			"{Message:lj}{NewLine}{Exception}";
 
