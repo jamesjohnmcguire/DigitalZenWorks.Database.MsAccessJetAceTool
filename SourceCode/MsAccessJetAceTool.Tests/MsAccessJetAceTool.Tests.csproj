@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<AssemblyOriginatorKeyFile>DatabaseLibraryNet.snk</AssemblyOriginatorKeyFile>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
+		<SignAssembly>true</SignAssembly>
 		<TargetFramework>net10.0-windows</TargetFramework>
 	</PropertyGroup>
 
@@ -37,7 +39,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="..\stylecop.json" />
+		<None Include="DatabaseLibraryNet.snk" />
+		<AdditionalFiles Include="../stylecop.json" />
 		<EmbeddedResource Include="test.accdb">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
