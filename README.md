@@ -25,7 +25,11 @@ MsAccessJetAceTool exports an Access database's schema to a plain SQL text file,
 
 ### Prerequisites
 
-You'll need the Microsoft Access Database Engine (ACE OLEDB provider) installed, matching your system architecture (x86/x64). This is available as a free redistributable from Microsoft and does not require a full Access/Office installation.
+The release requires 64-bit Windows and a 64-bit Microsoft ACE OLE DB provider (`Microsoft.ACE.OLEDB.12.0`). If you have a 64-bit version of Office installed, this requirement may already be met, but it does depend on the specifics of the installation.
+
+If the provider is not already available, install the [64-bit Microsoft 365 Access Runtime](https://support.microsoft.com/en-us/access/download-and-install-microsoft-365-access-runtime). The 64-bit executable cannot use a 32-bit provider. Microsoft Access, Office, and a separate .NET installation are not required.
+
+Note: A 32-bit version of this app could be available upon request.
 
 ### Download
 
