@@ -9,6 +9,8 @@ GOTO end
 :release
 
 CD Release
+DEL /Q *.xml *.accdb
+
 7z u MsAccessJetAceTool.zip .
 MOVE MsAccessJetAceTool.zip ..
 
