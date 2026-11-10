@@ -1,5 +1,11 @@
+Standardize Notes and Tasks Location Between Application and Library
 Fix Logging Location
 Should Infer command
 Create Bash Build Script
 Replace '7z u' to something more standard in Build Script
 Add and Use ReleaseNotes.txt in Build Script
+ForeignKey	Standardize Foreign Key Relationship Terminology	Across ForeignKey, Relationship, schema readers, dependency ordering, and every SQL writer. The current writer convention uses ParentColumn as the local column and ChildTable /  ChildColumn as the referenced table / column; migrate these together.
+ForeignKey	Strengthen ForeignKeys	Centralize null / blank member validation and prevent invalid mutation.   Define the policy for unnamed constraints and null collection entries.
+ForeignKey	Deprecate the shorter constructor, which leaves ChildTable unset and uses a different local / referenced column convention. Plan compatibility and eventual removal with the terminology overhaul.
+ForeignKey	Add model tests for missing / blank identifiers and mutation, legacy constructor migration, and descriptive validation errors before writing SQL or ordering dependencies.
+ForeignKey	Extend writer / schema-reader integration coverage for self references, composite keys, quoted identifiers, and Access-to-SQLite relationships. Keep type-mapping tests independent of unrelated relationship fixtures.
