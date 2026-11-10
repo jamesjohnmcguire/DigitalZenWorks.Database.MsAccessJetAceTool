@@ -119,16 +119,25 @@ internal static class MsAccessTool
 
 	private static int Export(string[] args)
 	{
+		int returnCode = -1;
+
 		string databaseFile = args[1];
 		string sqlFile = args[2];
 		bool toSqlite = ParseToSqliteFlag(args);
 
-		Log.Info("exporting");
+		if (toSqlite == true && args.Length < 4)
+		{
+			Usage();
+		}
+		else
+		{
+			Log.Info("exporting");
 
-		bool successCode =
-			DataDefinitionOleDb.ExportSchema(databaseFile, sqlFile, toSqlite);
+			bool successCode = DataDefinitionOleDb.ExportSchema(
+				databaseFile, sqlFile, toSqlite);
 
-		int returnCode = CommandComplete(args[0], successCode);
+			returnCode = CommandComplete(args[0], successCode);
+		}
 
 		return returnCode;
 	}
